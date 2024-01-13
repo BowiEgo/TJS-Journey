@@ -6,10 +6,21 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^18.4.4",
     "@types/three": "^0.160.0",
+    "commitlint": "^18.4.4",
+    "conventional-changelog-cli": "^4.1.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   },
@@ -17,5 +28,10 @@
     "gsap": "^3.5.1",
     "lil-gui": "^0.19.1",
     "three": "^0.160.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
