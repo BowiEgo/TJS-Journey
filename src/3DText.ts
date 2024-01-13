@@ -9,7 +9,7 @@ import { FontLoader, TextGeometry } from "three/examples/jsm/Addons.js";
 
 async function init3DText(scene: Scene) {
   const fontLoader = new FontLoader();
-  fontLoader.load("/static/fonts/helvetiker_regular.typeface.json", (font) => {
+  fontLoader.load("assets/fonts/helvetiker_regular.typeface.json", (font) => {
     const textGeometry = new TextGeometry("Hello Three.js", {
       font,
       size: 0.5,
@@ -36,7 +36,7 @@ async function init3DText(scene: Scene) {
     // Textures
     const textureLoader = new TextureLoader();
     const matcapTextture = textureLoader.load(
-      "/static/textures/matcaps/512/CB5E3B_FABC7A_EF965E_F4A46C-512px.png"
+      "assets/textures/matcaps/512/CB5E3B_FABC7A_EF965E_F4A46C-512px.png"
     );
 
     const material = new MeshMatcapMaterial({ matcap: matcapTextture });

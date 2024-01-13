@@ -23,25 +23,25 @@ const initTextures = () => {
   const cubeTextureLoader = new THREE.CubeTextureLoader(loadingManager);
 
   const doorColorTexture = textureLoader.load(
-    "/static/textures/door/Door_Wood_001_basecolor.jpg"
+    "assets/textures/door/Door_Wood_001_basecolor.jpg"
   );
   const doorAlphaTexture = textureLoader.load(
-    "/static/textures/door/Door_Wood_001_opacity.jpg"
+    "assets/textures/door/Door_Wood_001_opacity.jpg"
   );
   const doorHeightTexture = textureLoader.load(
-    "/static/textures/door/Door_Wood_001_height.png"
+    "assets/textures/door/Door_Wood_001_height.png"
   );
   const doorNormalTexture = textureLoader.load(
-    "/static/textures/door/Door_Wood_001_normal.jpg"
+    "assets/textures/door/Door_Wood_001_normal.jpg"
   );
   const doorAmbientOcclusionTexture = textureLoader.load(
-    "/static/textures/door/Door_Wood_001_ambientOcclusion.jpg"
+    "assets/textures/door/Door_Wood_001_ambientOcclusion.jpg"
   );
   const doorMetalnessTexture = textureLoader.load(
-    "/static/textures/door/Door_Wood_001_metallic.jpg"
+    "assets/textures/door/Door_Wood_001_metallic.jpg"
   );
   const doorRoughnessTexture = textureLoader.load(
-    "/static/textures/door/Door_Wood_001_roughness.jpg"
+    "assets/textures/door/Door_Wood_001_roughness.jpg"
   );
 
   doorColorTexture.colorSpace = THREE.SRGBColorSpace;
@@ -69,15 +69,15 @@ const initTextures = () => {
   //   texture.needsUpdate = true;
   // };
 
-  // image.src = "/static/textures/door/Door_Wood_001_basecolor.jpg";
+  // image.src = "assets/textures/door/Door_Wood_001_basecolor.jpg";
 
   const environmentMapTexture = cubeTextureLoader.load([
-    "static/textures/environmentMaps/0/px.png",
-    "static/textures/environmentMaps/0/nx.png",
-    "static/textures/environmentMaps/0/py.png",
-    "static/textures/environmentMaps/0/ny.png",
-    "static/textures/environmentMaps/0/pz.png",
-    "static/textures/environmentMaps/0/nz.png",
+    "assets/textures/environmentMaps/0/px.png",
+    "assets/textures/environmentMaps/0/nx.png",
+    "assets/textures/environmentMaps/0/py.png",
+    "assets/textures/environmentMaps/0/ny.png",
+    "assets/textures/environmentMaps/0/pz.png",
+    "assets/textures/environmentMaps/0/nz.png",
   ]);
 
   return {
