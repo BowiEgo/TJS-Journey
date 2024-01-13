@@ -4,14 +4,14 @@ import { initTextures } from "./textures";
 
 const initMaterial = (gui: GUI) => {
   const {
-    // doorColorTexture,
-    // doorAlphaTexture,
-    // doorHeightTexture,
-    // doorNormalTexture,
-    // doorAmbientOcclusionTexture,
-    // doorMetalnessTexture,
-    // doorRoughnessTexture,
-    environmentMapTexture,
+    // // doorColorTexture,
+    // // doorAlphaTexture,
+    // // doorHeightTexture,
+    // // doorNormalTexture,
+    // // doorAmbientOcclusionTexture,
+    // // doorMetalnessTexture,
+    // // doorRoughnessTexture,
+    // environmentMapTexture,
   } = initTextures();
   // const material = new THREE.MeshBasicMaterial();
   // const material = new THREE.MeshNormalMaterial();
@@ -42,9 +42,9 @@ const initMaterial = (gui: GUI) => {
   // material.alphaMap = doorAlphaTexture;
 
   const material = new THREE.MeshStandardMaterial();
-  material.metalness = 0.7;
-  material.roughness = 0.2;
-  material.envMap = environmentMapTexture;
+  // material.metalness = 0.7;
+  material.roughness = 0.4;
+  // material.envMap = environmentMapTexture;
 
   // Debug
   gui.add(material, "metalness").min(0).max(1).step(0.001);

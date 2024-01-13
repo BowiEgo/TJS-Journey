@@ -1,4 +1,10 @@
-import * as THREE from "three";
+import {
+  Camera,
+  PCFSoftShadowMap,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+} from "three";
 
 type Size = {
   width: number;
@@ -6,10 +12,10 @@ type Size = {
 };
 
 const initBasicScene = () => {
-  const scene = new THREE.Scene();
+  const scene = new Scene();
 
   // // Axes Helper
-  // const axesHelper = new THREE.AxesHelper();
+  // const axesHelper = new AxesHelper();
   // scene.add(axesHelper);
 
   /**
@@ -29,10 +35,13 @@ const initBasicScene = () => {
     ".webgl"
   ) as HTMLCanvasElement;
 
-  const renderer = new THREE.WebGLRenderer({
+  const renderer = new WebGLRenderer({
     canvas: canvas,
   });
-  const render = (camera: THREE.Camera) => {
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = PCFSoftShadowMap;
+
+  const render = (camera: Camera) => {
     renderer.setSize(size.width, size.height);
 
     renderer.render(scene, camera);
@@ -44,8 +53,8 @@ const initBasicScene = () => {
 const initResize = (
   size: Size,
   canvas: HTMLCanvasElement,
-  camera: THREE.PerspectiveCamera,
-  renderer: THREE.WebGLRenderer
+  camera: PerspectiveCamera,
+  renderer: WebGLRenderer
 ) => {
   window.addEventListener("resize", () => {
     // Update size

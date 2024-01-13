@@ -3,10 +3,11 @@ import { Cursor } from "./camera";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 interface Objects {
-  box: THREE.Mesh | null;
-  sphere: THREE.Mesh | null;
-  plane: THREE.Mesh | null;
-  torus: THREE.Mesh | null;
+  box?: THREE.Mesh | null;
+  plane?: THREE.Mesh | null;
+  sphere?: THREE.Mesh | null;
+  cube?: THREE.Mesh | null;
+  torus?: THREE.Mesh | null;
 }
 
 // let time = Date.now();
@@ -19,8 +20,9 @@ const tick = (
   controls: OrbitControls,
   render: Function
 ) => {
-  // const { box, sphere, plane, torus } = objects;
-  const { sphere, plane, torus } = objects;
+  // const { box, plane, sphere, cube, torus } = objects;
+  // const { sphere, plane, torus } = objects;
+  const { sphere, cube, torus } = objects;
   // // Clock
   const elapsedTime = clock.getElapsedTime();
   // Time
@@ -40,14 +42,21 @@ const tick = (
     sphere.rotation.x = 0.15 * elapsedTime;
   }
 
-  if (plane) {
-    plane.rotation.y = 0.1 * elapsedTime;
-    plane.rotation.x = 0.15 * elapsedTime;
+  if (cube) {
+    cube.rotation.y = 0.1 * elapsedTime;
+    cube.rotation.x = 0.15 * elapsedTime;
   }
 
   if (torus) {
     torus.rotation.y = 0.1 * elapsedTime;
     torus.rotation.x = 0.15 * elapsedTime;
+  }
+
+  // Bouncing Sphere
+  if (sphere) {
+    sphere.position.x = Math.cos(elapsedTime) * 1.5;
+    sphere.position.z = Math.sin(elapsedTime) * 1.5;
+    sphere.position.y = Math.abs(Math.sin(elapsedTime * 3));
   }
 
   // // Update camera

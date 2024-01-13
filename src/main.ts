@@ -11,13 +11,17 @@ import {
   // initBoxGeometry,
   // initBufferGeometry,
   // initGroup,
-  initMaterialGeometry,
-  initTextureGeometry,
+  // initMaterialGeometry,
+  initShadowGeometry,
+  // initTextureGeometry,
 } from "./geometry.ts";
 import { initDebugUI } from "./debugUI.ts";
 // import { initTextures } from "./textures.ts";
-import { initBasicLight } from "./lights.ts";
-import { init3DText } from "./3DText.ts";
+import {
+  // initBasicLight,
+  initShadowLight,
+} from "./lights.ts";
+// import { init3DText } from "./3DText.ts";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -30,9 +34,10 @@ async function init() {
   // const object = initGroup()
   // const object = initBoxGeometry();
   // const object = initBufferGeometry();
-  const box = initTextureGeometry();
+  // const box = initTextureGeometry();
+  const { plane, sphere } = initShadowGeometry(gui);
 
-  const { sphere, plane, torus } = initMaterialGeometry(gui);
+  // const { plane, sphere, cube, torus } = initMaterialGeometry(gui);
   const cursor = initCursor(size);
   const camera = initBasicCamera(aspectRatio, scene, plane);
 
@@ -41,18 +46,20 @@ async function init() {
   // const camera = initOrthographicCamera(aspectRatio, scene, object);
   const controls = initControls(camera, canvas);
   // scene.add(box);
-  // scene.add(sphere, plane, torus);
+  // scene.add(plane, sphere, cube, torus);
+  scene.add(plane, sphere);
 
   // Light
-  const { ambientLight, pointLight } = initBasicLight();
-  scene.add(ambientLight, pointLight);
+  // initBasicLight(scene, gui);
+  initShadowLight(scene, gui);
 
   // 3DText
-  await init3DText(scene);
+  // await init3DText(scene);
 
   render(camera);
   runAnimation(
-    { box: box, sphere: sphere, plane: plane, torus: torus },
+    // { box, plane, sphere, cube, torus },
+    { plane, sphere },
     camera,
     cursor,
     controls,

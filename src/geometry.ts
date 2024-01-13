@@ -145,6 +145,17 @@ const initTextureGeometry = () => {
 const initMaterialGeometry = (gui: GUI) => {
   const material = initMaterial(gui);
 
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(5, 5, 100, 100),
+    material
+  );
+  plane.geometry.setAttribute(
+    "uv2",
+    new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+  );
+  plane.rotation.x = -Math.PI / 2;
+  plane.position.y = -0.65;
+
   const sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 64, 64),
     material
@@ -155,13 +166,9 @@ const initMaterialGeometry = (gui: GUI) => {
     new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2)
   );
 
-  const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(1, 1, 100, 100),
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(0.75, 0.75, 0.75),
     material
-  );
-  plane.geometry.setAttribute(
-    "uv2",
-    new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
   );
 
   const torus = new THREE.Mesh(
@@ -175,9 +182,41 @@ const initMaterialGeometry = (gui: GUI) => {
   );
 
   return {
-    sphere,
     plane,
+    sphere,
+    cube,
     torus,
+  };
+};
+
+const initShadowGeometry = (gui: GUI) => {
+  const material = initMaterial(gui);
+
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(5, 5, 100, 100),
+    material
+  );
+  plane.geometry.setAttribute(
+    "uv2",
+    new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+  );
+  plane.rotation.x = -Math.PI / 2;
+  plane.position.y = -0.5;
+  plane.receiveShadow = true;
+
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(0.5, 64, 64),
+    material
+  );
+  sphere.geometry.setAttribute(
+    "uv2",
+    new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2)
+  );
+  sphere.castShadow = true;
+
+  return {
+    plane,
+    sphere,
   };
 };
 
@@ -187,4 +226,5 @@ export {
   initGroup,
   initTextureGeometry,
   initMaterialGeometry,
+  initShadowGeometry,
 };
