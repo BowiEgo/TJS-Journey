@@ -7,34 +7,28 @@ import {
   TextureLoader,
 } from "three";
 
-const initTextures = () => {
-  const loadingManager = new LoadingManager();
+const loadingManager = new LoadingManager();
 
-  loadingManager.onStart = () => {
-    // console.log("onStart");
-  };
-
-  loadingManager.onLoad = () => {
-    // console.log("onLoad");
-  };
-
-  loadingManager.onProgress = () => {
-    // console.log("onProgress");
-  };
-
-  loadingManager.onError = (err) => {
-    console.log("onError", err);
-  };
-
-  const textureLoader = new TextureLoader(loadingManager);
-  const cubeTextureLoader = new CubeTextureLoader(loadingManager);
-
-  return { textureLoader, cubeTextureLoader };
+loadingManager.onStart = () => {
+  // console.log("onStart");
 };
 
-const initDoorTextures = () => {
-  const { textureLoader } = initTextures();
+loadingManager.onLoad = () => {
+  // console.log("onLoad");
+};
 
+loadingManager.onProgress = () => {
+  // console.log("onProgress");
+};
+
+loadingManager.onError = (err) => {
+  console.log("onError", err);
+};
+
+const textureLoader = new TextureLoader(loadingManager);
+const cubeTextureLoader = new CubeTextureLoader(loadingManager);
+
+const initDoorTextures = () => {
   const doorColorTexture = textureLoader.load(
     "assets/textures/door/Door_Wood_001_basecolor.jpg"
   );
@@ -96,8 +90,6 @@ const initDoorTextures = () => {
 };
 
 const initBricksTexture = () => {
-  const { textureLoader } = initTextures();
-
   const bricksColorTexture = textureLoader.load(
     "assets/textures/bricks/Brick_Wall_019_basecolor.jpg"
   );
@@ -144,8 +136,6 @@ const initBricksTexture = () => {
 };
 
 const initGrassTexture = () => {
-  const { textureLoader } = initTextures();
-
   const grassColorTexture = textureLoader.load(
     "assets/textures/grass/Grass_005_BaseColor.jpg"
   );
@@ -194,8 +184,6 @@ const initGrassTexture = () => {
 };
 
 const initEnvironmentTexture = () => {
-  const { cubeTextureLoader } = initTextures();
-
   const environmentMapTexture = cubeTextureLoader.load([
     "assets/textures/environmentMaps/0/px.png",
     "assets/textures/environmentMaps/0/nx.png",
@@ -210,9 +198,18 @@ const initEnvironmentTexture = () => {
   };
 };
 
+const initParticlesTexture = () => {
+  const particleTexture = textureLoader.load(
+    "assets/textures/particles/snow-icon-31373.png"
+  );
+
+  return particleTexture;
+};
+
 export {
   initDoorTextures,
   initBricksTexture,
   initGrassTexture,
   initEnvironmentTexture,
+  initParticlesTexture,
 };

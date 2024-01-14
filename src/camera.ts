@@ -39,7 +39,7 @@ const initControls = (camera: THREE.Camera, canvas: HTMLCanvasElement) => {
 const initBasicCamera = (
   aspectRatio: number,
   scene: THREE.Scene,
-  object: THREE.Mesh | THREE.Group
+  object: THREE.Mesh | THREE.Group | THREE.Points
 ): THREE.PerspectiveCamera => {
   const camera = new THREE.PerspectiveCamera(75, aspectRatio);
   camera.position.x = 5;

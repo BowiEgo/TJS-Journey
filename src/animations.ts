@@ -1,4 +1,4 @@
-import { Camera, Clock, Mesh, PointLight } from "three";
+import { Camera, Clock, Mesh, PointLight, Points } from "three";
 import { Cursor } from "./camera";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
@@ -16,6 +16,11 @@ interface HountedHouseObjects {
   ghost3: PointLight;
 }
 
+interface PointsObjects {
+  points: Points;
+  count: number;
+}
+
 // let time = Date.now();
 const clock = new Clock();
 
@@ -24,16 +29,17 @@ const tick = (
   cursor: Cursor,
   controls: OrbitControls,
   render: Function,
-  animationFunc: Function
+  animationFunc: Function,
+  animation: boolean
 ) => {
-  animationFunc();
+  animation && animationFunc();
 
   // Update controls
   controls.update();
 
   render(camera);
   window.requestAnimationFrame(
-    tick.bind(null, camera, cursor, controls, render, animationFunc)
+    tick.bind(null, camera, cursor, controls, render, animationFunc, animation)
   );
 };
 
@@ -109,12 +115,29 @@ const hauntedHouseAnimation = ({
   ghost3.position.y = Math.sin(elapsedTime * 5) + Math.sin(elapsedTime * 2);
 };
 
+const particlesAnimation = ({ points, count }: PointsObjects) => {
+  const elapsedTime = clock.getElapsedTime();
+
+  // points.rotation.y = elapsedTime * 0.2;
+  // points.position.y = -elapsedTime * 0.2;
+  // You should avoid this technic because updating the whole attribute on each frame is bad for performances
+  for (let i = 0; i < count; i++) {
+    const i3 = i * 3;
+    const x = points.geometry.attributes.position.array[i3];
+    points.geometry.attributes.position.array[i3 + 1] = Math.sin(
+      elapsedTime + x
+    );
+  }
+  points.geometry.attributes.position.needsUpdate = true;
+};
+
 const runAnimation = (
-  objects: Objects | HountedHouseObjects,
+  objects: Objects | HountedHouseObjects | PointsObjects,
   camera: Camera,
   cursor: Cursor,
   controls: OrbitControls,
-  render: Function
+  render: Function,
+  animation = true
 ) => {
   // gsap.to(object.position, { duration: 1, delay: 1, x: 2 });
   // gsap.to(object.position, { duration: 1, delay: 2, x: 0 });
@@ -124,7 +147,8 @@ const runAnimation = (
     cursor,
     controls,
     render,
-    basicAnimation.bind(null, objects as Objects)
+    basicAnimation.bind(null, objects as Objects),
+    animation
   );
 
   if (objects.hasOwnProperty("ghost1")) {
@@ -133,7 +157,19 @@ const runAnimation = (
       cursor,
       controls,
       render,
-      hauntedHouseAnimation.bind(null, objects as HountedHouseObjects)
+      hauntedHouseAnimation.bind(null, objects as HountedHouseObjects),
+      animation
+    );
+  }
+
+  if (objects.hasOwnProperty("points")) {
+    tick(
+      camera,
+      cursor,
+      controls,
+      render,
+      particlesAnimation.bind(null, objects as PointsObjects),
+      animation
     );
   }
 };

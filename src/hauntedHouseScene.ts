@@ -76,6 +76,8 @@ async function initHauntedHouseScene() {
     controls,
     render
   );
+
+  return { scene, renderer, gui };
 }
 
 export { initHauntedHouseScene };
