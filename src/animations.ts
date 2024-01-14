@@ -1,25 +1,43 @@
-import * as THREE from "three";
+import { Camera, Clock, Mesh, PointLight } from "three";
 import { Cursor } from "./camera";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
 
 interface Objects {
-  box?: THREE.Mesh | null;
-  plane?: THREE.Mesh | null;
-  sphere?: THREE.Mesh | null;
-  cube?: THREE.Mesh | null;
-  torus?: THREE.Mesh | null;
+  box?: Mesh | null;
+  plane?: Mesh | null;
+  sphere?: Mesh | null;
+  cube?: Mesh | null;
+  torus?: Mesh | null;
+}
+
+interface HountedHouseObjects {
+  ghost1: PointLight;
+  ghost2: PointLight;
+  ghost3: PointLight;
 }
 
 // let time = Date.now();
-const clock = new THREE.Clock();
+const clock = new Clock();
 
 const tick = (
-  objects: Objects,
-  camera: THREE.Camera,
+  camera: Camera,
   cursor: Cursor,
   controls: OrbitControls,
-  render: Function
+  render: Function,
+  animationFunc: Function
 ) => {
+  animationFunc();
+
+  // Update controls
+  controls.update();
+
+  render(camera);
+  window.requestAnimationFrame(
+    tick.bind(null, camera, cursor, controls, render, animationFunc)
+  );
+};
+
+const basicAnimation = (objects: Objects) => {
   // const { box, plane, sphere, cube, torus } = objects;
   // const { sphere, plane, torus } = objects;
   const { sphere, cube, torus } = objects;
@@ -64,19 +82,36 @@ const tick = (
   // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
   // camera.position.y = cursor.y * 5;
   // camera.lookAt(object.position);
+};
 
-  // Update controls
-  controls.update();
+const hauntedHouseAnimation = ({
+  ghost1,
+  ghost2,
+  ghost3,
+}: HountedHouseObjects) => {
+  const elapsedTime = clock.getElapsedTime();
 
-  render(camera);
-  window.requestAnimationFrame(
-    tick.bind(null, objects, camera, cursor, controls, render)
-  );
+  // Ghosts
+  const ghost1Angle = elapsedTime * 0.5;
+  ghost1.position.x = Math.cos(ghost1Angle) * 4;
+  ghost1.position.z = Math.sin(ghost1Angle) * 4;
+  ghost1.position.y = Math.sin(elapsedTime) * 3;
+
+  const ghost2Angle = -elapsedTime * 0.32;
+  ghost2.position.x = Math.cos(ghost2Angle) * 5;
+  ghost2.position.z = Math.sin(ghost2Angle) * 5;
+  ghost2.position.y = Math.sin(elapsedTime * 4) + Math.sin(elapsedTime * 2.5);
+
+  const ghost3Angle = elapsedTime * 0.18;
+  ghost3.position.x =
+    Math.cos(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.32));
+  ghost3.position.z = Math.sin(ghost3Angle) * (7 + Math.sin(elapsedTime * 0.5));
+  ghost3.position.y = Math.sin(elapsedTime * 5) + Math.sin(elapsedTime * 2);
 };
 
 const runAnimation = (
-  objects: Objects,
-  camera: THREE.Camera,
+  objects: Objects | HountedHouseObjects,
+  camera: Camera,
   cursor: Cursor,
   controls: OrbitControls,
   render: Function
@@ -84,7 +119,23 @@ const runAnimation = (
   // gsap.to(object.position, { duration: 1, delay: 1, x: 2 });
   // gsap.to(object.position, { duration: 1, delay: 2, x: 0 });
 
-  tick(objects, camera, cursor, controls, render);
+  tick(
+    camera,
+    cursor,
+    controls,
+    render,
+    basicAnimation.bind(null, objects as Objects)
+  );
+
+  if (objects.hasOwnProperty("ghost1")) {
+    tick(
+      camera,
+      cursor,
+      controls,
+      render,
+      hauntedHouseAnimation.bind(null, objects as HountedHouseObjects)
+    );
+  }
 };
 
 export { runAnimation };

@@ -1,17 +1,37 @@
-import * as THREE from "three";
-import { initTextures } from "./textures";
-import { initMaterial } from "./materials";
+import {
+  BoxGeometry,
+  BufferAttribute,
+  BufferGeometry,
+  ConeGeometry,
+  Float32BufferAttribute,
+  Group,
+  Mesh,
+  MeshBasicMaterial,
+  PlaneGeometry,
+  SphereGeometry,
+  TorusGeometry,
+} from "three";
+import {
+  initBushMaterial,
+  initDoorMaterial,
+  initGrassFloorMaterial,
+  initGraveMaterial,
+  initMaterial,
+  initRoofMaterial,
+  initWallsMaterial,
+} from "./materials";
 import GUI from "lil-gui";
 import gsap from "gsap";
+import { initDoorTextures } from "./textures";
 
 const initBoxGeometry = (gui: GUI) => {
-  const geometry = new THREE.BoxGeometry(1, 1, 1, 4, 4, 4);
+  const geometry = new BoxGeometry(1, 1, 1, 4, 4, 4);
 
-  const material = new THREE.MeshBasicMaterial({
+  const material = new MeshBasicMaterial({
     color: 0xff0000,
   });
 
-  const mesh = new THREE.Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
 
   // // Position
   // // mesh.position.x = 0.7;
@@ -69,9 +89,9 @@ const initBufferGeometry = () => {
   //   0,1,0,
   //   1,0,0
   // ]);
-  // const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
+  // const positionsAttribute = new BufferAttribute(positionsArray, 3);
 
-  const geometry = new THREE.BufferGeometry();
+  const geometry = new BufferGeometry();
   // geometry.setAttribute("position", positionsAttribute);
 
   const count = 5000;
@@ -81,40 +101,40 @@ const initBufferGeometry = () => {
     positionsArray[i] = (Math.random() - 0.5) * 4;
   }
 
-  const positionsAttribute = new THREE.BufferAttribute(positionsArray, 3);
+  const positionsAttribute = new BufferAttribute(positionsArray, 3);
   geometry.setAttribute("position", positionsAttribute);
 
-  const material = new THREE.MeshBasicMaterial({
+  const material = new MeshBasicMaterial({
     color: 0xff0000,
     wireframe: true,
   });
-  const mesh = new THREE.Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
 
   return mesh;
 };
 
 const initGroup = () => {
-  const group = new THREE.Group();
+  const group = new Group();
   group.position.y = 1;
   group.scale.y = 2;
   group.rotation.y = 1;
 
-  const cube1 = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 })
+  const cube1 = new Mesh(
+    new BoxGeometry(1, 1, 1),
+    new MeshBasicMaterial({ color: 0xff0000 })
   );
   group.add(cube1);
 
-  const cube2 = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+  const cube2 = new Mesh(
+    new BoxGeometry(1, 1, 1),
+    new MeshBasicMaterial({ color: 0x00ff00 })
   );
   cube2.position.x = -2;
   group.add(cube2);
 
-  const cube3 = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: 0x0000ff })
+  const cube3 = new Mesh(
+    new BoxGeometry(1, 1, 1),
+    new MeshBasicMaterial({ color: 0x0000ff })
   );
   cube3.position.x = 2;
   group.add(cube3);
@@ -131,13 +151,13 @@ const initTextureGeometry = () => {
     // doorAmbientOcclusionTexture,
     // doorMetalnessTexture,
     // doorRoughnessTexture,
-  } = initTextures();
+  } = initDoorTextures();
 
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshBasicMaterial({
+  const geometry = new BoxGeometry(1, 1, 1);
+  const material = new MeshBasicMaterial({
     map: doorColorTexture,
   });
-  const mesh = new THREE.Mesh(geometry, material);
+  const mesh = new Mesh(geometry, material);
 
   return mesh;
 };
@@ -145,40 +165,30 @@ const initTextureGeometry = () => {
 const initMaterialGeometry = (gui: GUI) => {
   const material = initMaterial(gui);
 
-  const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(5, 5, 100, 100),
-    material
-  );
+  const plane = new Mesh(new PlaneGeometry(5, 5, 100, 100), material);
+  // When apply textures and add subdivisions to the geometry,
+  // don't foget the uv2 attribute to support the aoMap
   plane.geometry.setAttribute(
     "uv2",
-    new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+    new BufferAttribute(plane.geometry.attributes.uv.array, 2)
   );
   plane.rotation.x = -Math.PI / 2;
   plane.position.y = -0.65;
 
-  const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 64, 64),
-    material
-  );
+  const sphere = new Mesh(new SphereGeometry(0.5, 64, 64), material);
   sphere.position.x = -1.5;
   sphere.geometry.setAttribute(
     "uv2",
-    new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2)
+    new BufferAttribute(sphere.geometry.attributes.uv.array, 2)
   );
 
-  const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(0.75, 0.75, 0.75),
-    material
-  );
+  const cube = new Mesh(new BoxGeometry(0.75, 0.75, 0.75), material);
 
-  const torus = new THREE.Mesh(
-    new THREE.TorusGeometry(0.3, 0.2, 64, 128),
-    material
-  );
+  const torus = new Mesh(new TorusGeometry(0.3, 0.2, 64, 128), material);
   torus.position.x = 1.5;
   torus.geometry.setAttribute(
     "uv2",
-    new THREE.BufferAttribute(torus.geometry.attributes.uv.array, 2)
+    new BufferAttribute(torus.geometry.attributes.uv.array, 2)
   );
 
   return {
@@ -192,25 +202,19 @@ const initMaterialGeometry = (gui: GUI) => {
 const initShadowGeometry = (gui: GUI) => {
   const material = initMaterial(gui);
 
-  const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(5, 5, 100, 100),
-    material
-  );
+  const plane = new Mesh(new PlaneGeometry(5, 5, 100, 100), material);
   plane.geometry.setAttribute(
     "uv2",
-    new THREE.BufferAttribute(plane.geometry.attributes.uv.array, 2)
+    new BufferAttribute(plane.geometry.attributes.uv.array, 2)
   );
   plane.rotation.x = -Math.PI / 2;
   plane.position.y = -0.5;
   plane.receiveShadow = true;
 
-  const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.5, 64, 64),
-    material
-  );
+  const sphere = new Mesh(new SphereGeometry(0.5, 64, 64), material);
   sphere.geometry.setAttribute(
     "uv2",
-    new THREE.BufferAttribute(sphere.geometry.attributes.uv.array, 2)
+    new BufferAttribute(sphere.geometry.attributes.uv.array, 2)
   );
   sphere.castShadow = true;
 
@@ -220,6 +224,102 @@ const initShadowGeometry = (gui: GUI) => {
   };
 };
 
+const initGrassFloor = () => {
+  const material = initGrassFloorMaterial();
+
+  const grassFloor = new Mesh(new PlaneGeometry(20, 20), material);
+  grassFloor.geometry.setAttribute(
+    "uv2",
+    new BufferAttribute(grassFloor.geometry.attributes.uv.array, 2)
+  );
+  grassFloor.rotation.x = -Math.PI / 2;
+  grassFloor.position.y = 0;
+  // grassFloor.receiveShadow = true;
+
+  return grassFloor;
+};
+
+const initHouse = () => {
+  const house = new Group();
+
+  // Walls
+  const walls = new Mesh(new BoxGeometry(4, 2.5, 4), initWallsMaterial());
+  walls.geometry.setAttribute(
+    "uv2",
+    new Float32BufferAttribute(walls.geometry.attributes.uv.array, 2)
+  );
+  walls.position.y = 1.25;
+
+  // Roof
+  const roof = new Mesh(new ConeGeometry(3.5, 1, 4), initRoofMaterial());
+  roof.rotation.y = Math.PI * 0.25;
+  roof.position.y = 2.5 + 0.5;
+
+  // Door
+  const door = new Mesh(
+    new PlaneGeometry(2.2, 2.2, 100, 100),
+    initDoorMaterial()
+  );
+  door.geometry.setAttribute(
+    "uv2",
+    new Float32BufferAttribute(door.geometry.attributes.uv.array, 2)
+  );
+  door.position.y = 1;
+  door.position.z = 2 + 0.01;
+
+  // Bushes
+  const bushGeometry = new SphereGeometry(1, 16, 16);
+  const bushMaterial = initBushMaterial();
+
+  const bush1 = new Mesh(bushGeometry, bushMaterial);
+  bush1.scale.set(0.5, 0.5, 0.5);
+  bush1.position.set(0.8, 0.2, 2.2);
+
+  const bush2 = new Mesh(bushGeometry, bushMaterial);
+  bush2.scale.set(0.25, 0.25, 0.25);
+  bush2.position.set(1.4, 0.1, 2.1);
+
+  const bush3 = new Mesh(bushGeometry, bushMaterial);
+  bush3.scale.set(0.4, 0.4, 0.4);
+  bush3.position.set(-0.8, 0.1, 2.2);
+
+  const bush4 = new Mesh(bushGeometry, bushMaterial);
+  bush4.scale.set(0.15, 0.15, 0.15);
+  bush4.position.set(-1, 0.05, 2.6);
+
+  house.add(walls);
+  house.add(roof);
+  house.add(door);
+  house.add(bush1, bush2, bush3, bush4);
+
+  return { house, walls, roof, door, bushes: { bush1, bush2, bush3, bush4 } };
+};
+
+const initGraves = () => {
+  const graves = new Group();
+  let gravesArray = [];
+
+  const graveGeometry = new BoxGeometry(0.6, 0.8, 0.2);
+  const graveMaterial = initGraveMaterial();
+
+  for (let i = 0; i < 50; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 3 + Math.random() * 6;
+    const x = Math.cos(angle) * radius;
+    const z = Math.sin(angle) * radius;
+
+    const grave = new Mesh(graveGeometry, graveMaterial);
+    grave.position.set(x, 0.3, z);
+    grave.rotation.y = (Math.random() - 0.5) * 0.4;
+    grave.rotation.z = (Math.random() - 0.5) * 0.4;
+
+    graves.add(grave);
+    gravesArray.push(grave);
+  }
+
+  return { graves, gravesArray };
+};
+
 export {
   initBoxGeometry,
   initBufferGeometry,
@@ -227,4 +327,7 @@ export {
   initTextureGeometry,
   initMaterialGeometry,
   initShadowGeometry,
+  initGrassFloor,
+  initHouse,
+  initGraves,
 };

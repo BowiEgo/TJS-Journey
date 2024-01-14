@@ -1,6 +1,11 @@
 import * as THREE from "three";
 import GUI from "lil-gui";
-import { initTextures } from "./textures";
+import {
+  initBricksTexture,
+  initDoorTextures,
+  initEnvironmentTexture,
+  initGrassTexture,
+} from "./textures";
 
 const initMaterial = (gui: GUI) => {
   const {
@@ -11,8 +16,10 @@ const initMaterial = (gui: GUI) => {
     // // doorAmbientOcclusionTexture,
     // // doorMetalnessTexture,
     // // doorRoughnessTexture,
+  } = initDoorTextures();
+  const {
     // environmentMapTexture,
-  } = initTextures();
+  } = initEnvironmentTexture();
   // const material = new THREE.MeshBasicMaterial();
   // const material = new THREE.MeshNormalMaterial();
   // const material = new THREE.MeshMatcapMaterial();
@@ -49,8 +56,8 @@ const initMaterial = (gui: GUI) => {
   // Debug
   gui.add(material, "metalness").min(0).max(1).step(0.001);
   gui.add(material, "roughness").min(0).max(1).step(0.001);
-  gui.add(material, "aoMapIntensity").min(0).max(10).step(0.001);
-  gui.add(material, "displacementScale").min(0).max(1).step(0.001);
+  // gui.add(material, "aoMapIntensity").min(0).max(10).step(0.001);
+  // gui.add(material, "displacementScale").min(0).max(1).step(0.001);
 
   // const {
   //   doorColorTexture,
@@ -73,4 +80,102 @@ const initMaterial = (gui: GUI) => {
   return material;
 };
 
-export { initMaterial };
+const initGrassFloorMaterial = () => {
+  const {
+    grassColorTexture,
+    grassHeightTexture,
+    grassNormalTexture,
+    grassAmbientOcclusionTexture,
+    grassRoughnessTexture,
+  } = initGrassTexture();
+
+  const material = new THREE.MeshStandardMaterial({
+    map: grassColorTexture,
+    transparent: true,
+    aoMap: grassAmbientOcclusionTexture,
+    displacementMap: grassHeightTexture,
+    displacementScale: 0.001,
+    normalMap: grassNormalTexture,
+    roughnessMap: grassRoughnessTexture,
+  });
+
+  return material;
+};
+
+const initWallsMaterial = () => {
+  const {
+    bricksColorTexture,
+    bricksHeightTexture,
+    bricksNormalTexture,
+    bricksAmbientOcclusionTexture,
+    bricksRoughnessTexture,
+  } = initBricksTexture();
+
+  const material = new THREE.MeshStandardMaterial({
+    map: bricksColorTexture,
+    transparent: true,
+    aoMap: bricksAmbientOcclusionTexture,
+    displacementMap: bricksHeightTexture,
+    displacementScale: 0.001,
+    normalMap: bricksNormalTexture,
+    roughnessMap: bricksRoughnessTexture,
+  });
+
+  return material;
+};
+
+const initRoofMaterial = () => {
+  const material = new THREE.MeshStandardMaterial({ color: "#b35f45" });
+
+  return material;
+};
+
+const initDoorMaterial = () => {
+  const {
+    doorColorTexture,
+    doorAlphaTexture,
+    doorHeightTexture,
+    doorNormalTexture,
+    doorAmbientOcclusionTexture,
+    doorMetalnessTexture,
+    doorRoughnessTexture,
+  } = initDoorTextures();
+
+  const material = new THREE.MeshStandardMaterial({
+    metalness: 0,
+    roughness: 1,
+    map: doorColorTexture,
+    transparent: true,
+    alphaMap: doorAlphaTexture,
+    aoMap: doorAmbientOcclusionTexture,
+    displacementMap: doorHeightTexture,
+    displacementScale: 0.1,
+    normalMap: doorNormalTexture,
+    metalnessMap: doorMetalnessTexture,
+    roughnessMap: doorRoughnessTexture,
+  });
+
+  return material;
+};
+
+const initBushMaterial = () => {
+  const material = new THREE.MeshStandardMaterial({ color: "#89c854" });
+
+  return material;
+};
+
+const initGraveMaterial = () => {
+  const material = new THREE.MeshStandardMaterial({ color: "#b2b6b1" });
+
+  return material;
+};
+
+export {
+  initMaterial,
+  initGrassFloorMaterial,
+  initWallsMaterial,
+  initRoofMaterial,
+  initDoorMaterial,
+  initBushMaterial,
+  initGraveMaterial,
+};

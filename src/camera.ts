@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import { Size } from "./basicScene";
+import { Size } from "./scene";
 
 type Cursor = {
   x: number;
@@ -39,10 +39,12 @@ const initControls = (camera: THREE.Camera, canvas: HTMLCanvasElement) => {
 const initBasicCamera = (
   aspectRatio: number,
   scene: THREE.Scene,
-  object: THREE.Mesh
+  object: THREE.Mesh | THREE.Group
 ): THREE.PerspectiveCamera => {
   const camera = new THREE.PerspectiveCamera(75, aspectRatio);
-  camera.position.z = 3;
+  camera.position.x = 5;
+  camera.position.y = 5;
+  camera.position.z = 10;
   camera.lookAt(object.position);
   scene.add(camera);
 

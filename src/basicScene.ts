@@ -1,102 +1,47 @@
-import {
-  Camera,
-  PCFSoftShadowMap,
-  PerspectiveCamera,
-  Scene,
-  WebGLRenderer,
-} from "three";
+import { initDebugUI } from "./debugUI";
+import { initShadowGeometry } from "./geometry";
+import { initBasicCamera, initControls, initCursor } from "./camera";
+import { initShadowLight } from "./lights";
+import { runAnimation } from "./animations";
+import { initResize, initScene } from "./scene";
 
-type Size = {
-  width: number;
-  height: number;
-};
+async function initBasicScene() {
+  const gui = initDebugUI();
+  const { size, aspectRatio, scene, canvas, render, renderer } = initScene();
+  // const object = initGroup()
+  // const object = initBoxGeometry();
+  // const object = initBufferGeometry();
+  // const box = initTextureGeometry();
+  const { plane, sphere } = initShadowGeometry(gui);
 
-const initBasicScene = () => {
-  const scene = new Scene();
+  // const { plane, sphere, cube, torus } = initMaterialGeometry(gui);
+  const cursor = initCursor(size);
+  const camera = initBasicCamera(aspectRatio, scene, plane);
 
-  // // Axes Helper
-  // const axesHelper = new AxesHelper();
-  // scene.add(axesHelper);
+  initResize(size, canvas, camera, renderer);
 
-  /**
-   * Size
-   */
-  const size: Size = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-  };
+  // const camera = initOrthographicCamera(aspectRatio, scene, object);
+  const controls = initControls(camera, canvas);
+  // scene.add(box);
+  // scene.add(plane, sphere, cube, torus);
+  scene.add(plane, sphere);
 
-  const aspectRatio = size.width / size.height;
+  // Light
+  // initBasicLight(scene, gui);
+  initShadowLight(scene, gui);
 
-  /**
-   * Renderer
-   */
-  const canvas: HTMLCanvasElement = document.querySelector(
-    ".webgl"
-  ) as HTMLCanvasElement;
+  // 3DText
+  // await init3DText(scene);
 
-  const renderer = new WebGLRenderer({
-    canvas: canvas,
-  });
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = PCFSoftShadowMap;
+  render(camera);
+  runAnimation(
+    // { box, plane, sphere, cube, torus },
+    { plane, sphere },
+    camera,
+    cursor,
+    controls,
+    render
+  );
+}
 
-  const render = (camera: Camera) => {
-    renderer.setSize(size.width, size.height);
-
-    renderer.render(scene, camera);
-  };
-
-  return { size, aspectRatio, scene, canvas, render, renderer };
-};
-
-const initResize = (
-  size: Size,
-  canvas: HTMLCanvasElement,
-  camera: PerspectiveCamera,
-  renderer: WebGLRenderer
-) => {
-  window.addEventListener("resize", () => {
-    // Update size
-    size.width = window.innerWidth;
-    size.height = window.innerHeight;
-
-    // Update camera
-    camera.aspect = size.width / size.height;
-    camera.updateProjectionMatrix();
-
-    // Update renderer
-    renderer.setSize(size.width, size.height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  });
-
-  window.addEventListener("dblclick", () => {
-    // Prefix for Safari and Firefox
-    const fullscreenElement =
-      document.fullscreenElement ||
-      (document as any).webkitFullscreenElement ||
-      (document as any).mozFullscreenElement;
-
-    if (!fullscreenElement) {
-      if (canvas.requestFullscreen) {
-        canvas.requestFullscreen();
-      } else if ((canvas as any).webkitRequestFullScreen) {
-        (canvas as any).webkitRequestFullScreen();
-      } else if ((canvas as any).mozRequestFullScreen) {
-        (canvas as any).mozRequestFullScreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if ((document as any).webkitExitFullscreen) {
-        (document as any).webkitExitFullscreen();
-      } else if ((document as any).mozExitFullscreen) {
-        (document as any).mozExitFullscreen();
-      }
-    }
-  });
-};
-
-export { initBasicScene, initResize };
-
-export type { Size };
+export { initBasicScene };
