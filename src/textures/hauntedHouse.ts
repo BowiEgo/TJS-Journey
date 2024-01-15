@@ -1,32 +1,5 @@
-import {
-  CubeTextureLoader,
-  LoadingManager,
-  NearestFilter,
-  RepeatWrapping,
-  SRGBColorSpace,
-  TextureLoader,
-} from "three";
-
-const loadingManager = new LoadingManager();
-
-loadingManager.onStart = () => {
-  // console.log("onStart");
-};
-
-loadingManager.onLoad = () => {
-  // console.log("onLoad");
-};
-
-loadingManager.onProgress = () => {
-  // console.log("onProgress");
-};
-
-loadingManager.onError = (err) => {
-  console.log("onError", err);
-};
-
-const textureLoader = new TextureLoader(loadingManager);
-const cubeTextureLoader = new CubeTextureLoader(loadingManager);
+import { NearestFilter, RepeatWrapping, SRGBColorSpace } from "three";
+import { cubeTextureLoader, textureLoader } from ".";
 
 const initDoorTextures = () => {
   const doorColorTexture = textureLoader.load(
@@ -198,18 +171,9 @@ const initEnvironmentTexture = () => {
   };
 };
 
-const initParticlesTexture = () => {
-  const particleTexture = textureLoader.load(
-    "assets/textures/particles/snow-icon-31373.png"
-  );
-
-  return particleTexture;
-};
-
 export {
   initDoorTextures,
   initBricksTexture,
   initGrassTexture,
   initEnvironmentTexture,
-  initParticlesTexture,
 };

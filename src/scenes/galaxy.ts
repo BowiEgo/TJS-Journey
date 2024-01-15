@@ -7,10 +7,10 @@ import {
   PointsMaterial,
   Scene,
 } from "three";
-import { runAnimation } from "./animations";
-import { initBasicCamera, initControls, initCursor } from "./camera";
-import { initDebugUI } from "./debugUI";
-import { initResize, initScene } from "./scene";
+import { initDebugUI } from "../debugUI";
+import { initBasicCamera, initControls, initCursor } from "../cameras";
+import { initResize, initScene } from ".";
+import { runAnimation } from "../animations";
 
 const parameters = {
   count: 100000,
@@ -185,4 +185,4 @@ const generateGalaxy = (scene: Scene) => {
   return points;
 };
 
-export { initGalaxyScene };
+export default initGalaxyScene;

@@ -1,5 +1,5 @@
 import { BufferAttribute, BufferGeometry, Points } from "three";
-import { initParticlesMaterial } from "./materials";
+import { initParticlesMaterial } from "../materials";
 
 const initParticles = () => {
   // Geometry

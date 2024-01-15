@@ -1,10 +1,10 @@
-import { initResize, initScene } from "./scene";
-import { runAnimation } from "./animations";
-import { initBasicCamera, initControls, initCursor } from "./camera";
-import { initDebugUI } from "./debugUI";
-import { initGrassFloor, initGraves, initHouse } from "./geometry";
-import { initHauntedHouseLight } from "./lights";
 import { Fog, PCFSoftShadowMap } from "three";
+import { initDebugUI } from "../debugUI";
+import { initResize, initScene } from ".";
+import { initGrassFloor, initGraves, initHouse } from "../objects";
+import { initBasicCamera, initControls, initCursor } from "../cameras";
+import { runAnimation } from "../animations";
+import { initHauntedHouseLight } from "../lights";
 
 async function initHauntedHouseScene() {
   const gui = initDebugUI();
@@ -95,4 +95,4 @@ async function initHauntedHouseScene() {
   return { scene, renderer, gui, dispose };
 }
 
-export { initHauntedHouseScene };
+export default initHauntedHouseScene;

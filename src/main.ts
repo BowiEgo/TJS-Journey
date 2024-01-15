@@ -1,13 +1,14 @@
 import "./style.css";
+import { Scene, WebGLRenderer } from "three";
+import GUI from "lil-gui";
 import {
   initBasicScene,
   initBouncingBallScene,
+  initGalaxyScene,
+  initHauntedHouseScene,
   initParticleScene,
-} from "./basicScene.ts";
-import { initHauntedHouseScene } from "./hauntedHouseScene.ts";
-import { Scene, WebGLRenderer } from "three";
-import GUI from "lil-gui";
-import { initGalaxyScene } from "./galaxyScene.ts";
+  initPortfolioScene,
+} from "./scenes";
 
 interface SceneManager {
   scene: Scene | null;
@@ -24,6 +25,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <option value="hauntedHouseScene">HauntedHouseScene</option>
     <option value="particleScene">ParticleScene</option>
     <option value="galaxyScene">GalaxyScene</option>
+    <option value="portfoliScene">PortfolioScene</option>
   </select>
 `;
 
@@ -41,11 +43,6 @@ function dispose() {
   sceneManager.renderer && sceneManager.renderer.dispose();
   sceneManager.gui && sceneManager.gui.destroy();
 }
-
-initGalaxyScene().then((val) => {
-  sceneManager = val;
-  select.value = "galaxyScene";
-});
 
 select.onchange = async function (evt) {
   const target = evt.target as any;
@@ -70,9 +67,18 @@ select.onchange = async function (evt) {
       dispose();
       sceneManager = await initGalaxyScene();
       break;
+    case "portfoliScene":
+      dispose();
+      sceneManager = await initPortfolioScene();
+      break;
     default:
       dispose();
       sceneManager = await initBasicScene();
       break;
   }
 };
+
+initGalaxyScene().then((val) => {
+  sceneManager = val;
+  select.value = "galaxyScene";
+});

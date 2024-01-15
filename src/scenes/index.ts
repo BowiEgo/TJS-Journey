@@ -5,13 +5,25 @@ import {
   Scene,
   WebGLRenderer,
 } from "three";
+import initBasicScene from "./basic";
+import initBouncingBallScene from "./bouncingBall";
+import initHauntedHouseScene from "./hauntedHouse";
+import initParticleScene from "./particle";
+import initGalaxyScene from "./galaxy";
+import initPortfolioScene from "./portfolio";
 
 type Size = {
   width: number;
   height: number;
 };
 
-const initScene = () => {
+interface SceneOptions {
+  rendererOpts: {
+    alpha: boolean;
+  };
+}
+
+const initScene = (opts?: SceneOptions) => {
   const scene = new Scene();
 
   // // Axes Helper
@@ -37,6 +49,7 @@ const initScene = () => {
 
   const renderer = new WebGLRenderer({
     canvas: canvas,
+    ...opts?.rendererOpts,
   });
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = PCFSoftShadowMap;
@@ -97,6 +110,15 @@ const initResize = (
   });
 };
 
-export { initScene, initResize };
+export {
+  initScene,
+  initResize,
+  initBasicScene,
+  initBouncingBallScene,
+  initHauntedHouseScene,
+  initParticleScene,
+  initGalaxyScene,
+  initPortfolioScene,
+};
 
 export type { Size };
