@@ -7,16 +7,21 @@ import { Size } from "../scenes";
 type Cursor = {
   x: number;
   y: number;
+  dispose: Function;
 };
 
 /**
  * Cursor
  */
 const initCursor = (size: Size) => {
-  const cursor = {
+  let cursor = {
     x: 0,
     y: 0,
+    dispose: () => {
+      window.addEventListener("mousemove", () => {});
+    },
   };
+
   window.addEventListener("mousemove", (event) => {
     cursor.x = event.clientX / size.width - 0.5;
     cursor.y = -(event.clientY / size.height - 0.5);

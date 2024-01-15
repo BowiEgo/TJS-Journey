@@ -1,5 +1,6 @@
 import { initResize, initScene } from ".";
 import { runAnimation } from "../animations";
+import basicAnimation from "../animations/basic";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
 import { initDebugUI } from "../debugUI";
 import { initShadowLight } from "../lights";
@@ -37,13 +38,13 @@ async function initBasicScene() {
 
   render(camera);
   runAnimation(
-    // { box, plane, sphere, cube, torus },
-    // { plane, sphere },
-    { cube },
     camera,
     cursor,
     controls,
     render,
+    // basicAnimation.bind({ box, plane, sphere, cube, torus }),
+    // basicAnimation.bind({ plane, sphere }),
+    basicAnimation.bind({ cube }),
     false
   );
 
@@ -53,7 +54,7 @@ async function initBasicScene() {
     scene.remove.apply(scene, scene.children);
   };
 
-  return { scene, renderer, gui, dispose };
+  return { scene, renderer, gui, cursor, dispose };
 }
 
 export default initBasicScene;

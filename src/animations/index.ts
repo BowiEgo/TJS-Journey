@@ -1,8 +1,5 @@
 import { Camera, Mesh, PointLight, Points } from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import basicAnimation from "./basic";
-import hauntedHouseAnimation from "./hauntedHouse";
-import particlesAnimation from "./particles";
 import { Cursor } from "../cameras";
 
 interface Objects {
@@ -43,48 +40,19 @@ const tick = (
   );
 };
 
-const runAnimation = (
-  objects: Objects | HauntedHouseObjects | PointsObjects,
+function runAnimation(
   camera: Camera,
   cursor: Cursor,
   controls: OrbitControls | null,
   render: Function,
+  animationFunc: Function,
   animation = true
-) => {
+) {
   // gsap.to(object.position, { duration: 1, delay: 1, x: 2 });
   // gsap.to(object.position, { duration: 1, delay: 2, x: 0 });
 
-  tick(
-    camera,
-    cursor,
-    controls,
-    render,
-    basicAnimation.bind(null, objects as Objects),
-    animation
-  );
-
-  if (objects.hasOwnProperty("ghost1")) {
-    tick(
-      camera,
-      cursor,
-      controls,
-      render,
-      hauntedHouseAnimation.bind(null, objects as HauntedHouseObjects),
-      animation
-    );
-  }
-
-  if (objects.hasOwnProperty("points")) {
-    tick(
-      camera,
-      cursor,
-      controls,
-      render,
-      particlesAnimation.bind(null, objects as PointsObjects),
-      animation
-    );
-  }
-};
+  tick(camera, cursor, controls, render, animationFunc, animation);
+}
 
 export { runAnimation };
 

@@ -1,5 +1,6 @@
 import { initResize, initScene } from ".";
 import { runAnimation } from "../animations";
+import basicAnimation from "../animations/basic";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
 import { initDebugUI } from "../debugUI";
 import { initShadowLight } from "../lights";
@@ -21,7 +22,13 @@ const initBouncingBallScene = () => {
   initShadowLight(scene, gui);
 
   render(camera);
-  runAnimation({ plane, sphere }, camera, cursor, controls, render);
+  runAnimation(
+    camera,
+    cursor,
+    controls,
+    render,
+    basicAnimation.bind(null, { plane, sphere })
+  );
 
   const dispose = () => {
     plane.geometry.dispose();
@@ -31,7 +38,7 @@ const initBouncingBallScene = () => {
     scene.remove.apply(scene, scene.children);
   };
 
-  return { scene, renderer, gui, dispose };
+  return { scene, renderer, gui, cursor, dispose };
 };
 
 export default initBouncingBallScene;

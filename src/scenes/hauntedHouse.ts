@@ -5,6 +5,7 @@ import { initGrassFloor, initGraves, initHouse } from "../objects";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
 import { runAnimation } from "../animations";
 import { initHauntedHouseLight } from "../lights";
+import hauntedHouseAnimation from "../animations/hauntedHouse";
 
 async function initHauntedHouseScene() {
   const gui = initDebugUI();
@@ -69,12 +70,12 @@ async function initHauntedHouseScene() {
   scene.add(grassFloor, house, graves);
   render(camera);
   runAnimation(
-    // { box, plane, sphere, cube, torus },
-    ghosts,
     camera,
     cursor,
     controls,
-    render
+    render,
+    // hauntedHouseAnimation.bind(null, { box, plane, sphere, cube, torus })
+    hauntedHouseAnimation.bind(null, ghosts)
   );
 
   const dispose = () => {
@@ -92,7 +93,7 @@ async function initHauntedHouseScene() {
     scene.remove.apply(scene, scene.children);
   };
 
-  return { scene, renderer, gui, dispose };
+  return { scene, renderer, gui, cursor, dispose };
 }
 
 export default initHauntedHouseScene;

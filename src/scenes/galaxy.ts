@@ -107,9 +107,9 @@ async function initGalaxyScene() {
   const controls = initControls(camera, canvas);
 
   render(camera);
-  runAnimation({}, camera, cursor, controls, render, false);
+  runAnimation(camera, cursor, controls, render, () => {}, false);
 
-  return { scene, renderer, gui, dispose: dispose.bind(null, scene) };
+  return { scene, renderer, gui, cursor, dispose: dispose.bind(null, scene) };
 }
 
 const generateGalaxy = (scene: Scene) => {

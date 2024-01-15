@@ -1,5 +1,6 @@
 import { initResize, initScene } from ".";
 import { runAnimation } from "../animations";
+import particlesAnimation from "../animations/particles";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
 import { initDebugUI } from "../debugUI";
 import { initParticles } from "../particles";
@@ -23,7 +24,13 @@ const initParticleScene = () => {
   // scene.add(box);
 
   render(camera);
-  runAnimation({ points, count }, camera, cursor, controls, render);
+  runAnimation(
+    camera,
+    cursor,
+    controls,
+    render,
+    particlesAnimation.bind(null, { points, count })
+  );
 
   const dispose = () => {
     points.geometry.dispose();
@@ -31,7 +38,7 @@ const initParticleScene = () => {
     scene.remove.apply(scene, scene.children);
   };
 
-  return { scene, renderer, gui, dispose };
+  return { scene, renderer, gui, cursor, dispose };
 };
 
 export default initParticleScene;

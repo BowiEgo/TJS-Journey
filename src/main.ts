@@ -9,11 +9,13 @@ import {
   initParticleScene,
   initPortfolioScene,
 } from "./scenes";
+import { Cursor } from "./cameras";
 
 interface SceneManager {
   scene: Scene | null;
   renderer: WebGLRenderer | null;
   gui: GUI | null;
+  cursor: Cursor | null;
   dispose: Function | null;
 }
 
@@ -35,6 +37,7 @@ let sceneManager: SceneManager = {
   scene: null,
   renderer: null,
   gui: null,
+  cursor: null,
   dispose: null,
 };
 
@@ -42,6 +45,7 @@ function dispose() {
   sceneManager.dispose?.call(sceneManager.scene);
   sceneManager.renderer && sceneManager.renderer.dispose();
   sceneManager.gui && sceneManager.gui.destroy();
+  sceneManager.cursor && sceneManager.cursor.dispose();
 }
 
 select.onchange = async function (evt) {
@@ -78,7 +82,7 @@ select.onchange = async function (evt) {
   }
 };
 
-initGalaxyScene().then((val) => {
+initPortfolioScene().then((val) => {
   sceneManager = val;
-  select.value = "galaxyScene";
+  select.value = "portfoliScene";
 });
