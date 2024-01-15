@@ -17,7 +17,7 @@ async function initHauntedHouseScene() {
 
   // Objects
   const grassFloor = initGrassFloor();
-  const { house, walls, bushes } = initHouse();
+  const { house, roof, walls, bushes } = initHouse();
   const { graves, gravesArray } = initGraves();
   // Cursor
   const cursor = initCursor(size);
@@ -77,7 +77,22 @@ async function initHauntedHouseScene() {
     render
   );
 
-  return { scene, renderer, gui };
+  const dispose = () => {
+    grassFloor.geometry.dispose();
+    grassFloor.material.dispose();
+    walls.geometry.dispose();
+    walls.material.dispose();
+    roof.geometry.dispose();
+    roof.material.dispose();
+    gravesArray.forEach((child) => {
+      child.geometry.dispose();
+      child.material.dispose();
+    });
+
+    scene.remove.apply(scene, scene.children);
+  };
+
+  return { scene, renderer, gui, dispose };
 }
 
 export { initHauntedHouseScene };

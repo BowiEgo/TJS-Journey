@@ -2,19 +2,18 @@ import "./style.css";
 import {
   initBasicScene,
   initBouncingBallScene,
-  // initBasicScene,
   initParticleScene,
-  // initBouncingBallScene
 } from "./basicScene.ts";
 import { initHauntedHouseScene } from "./hauntedHouseScene.ts";
 import { Scene, WebGLRenderer } from "three";
 import GUI from "lil-gui";
-// import { initHauntedHouseScene } from "./hauntedHouseScene.ts";
+import { initGalaxyScene } from "./galaxyScene.ts";
 
 interface SceneManager {
   scene: Scene | null;
   renderer: WebGLRenderer | null;
   gui: GUI | null;
+  dispose: Function | null;
 }
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -24,32 +23,28 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <option value="boucingBall">BoucingBall</option>
     <option value="hauntedHouseScene">HauntedHouseScene</option>
     <option value="particleScene">ParticleScene</option>
+    <option value="galaxyScene">GalaxyScene</option>
   </select>
 `;
 
-const select = document.querySelector<HTMLDivElement>(
-  ".select"
-) as HTMLDivElement;
+const select = document.querySelector(".select") as HTMLSelectElement;
 
 let sceneManager: SceneManager = {
   scene: null,
   renderer: null,
   gui: null,
+  dispose: null,
 };
 
 function dispose() {
-  sceneManager.scene &&
-    sceneManager.scene.remove.apply(
-      sceneManager.scene,
-      sceneManager.scene.children
-    );
-
+  sceneManager.dispose?.call(sceneManager.scene);
   sceneManager.renderer && sceneManager.renderer.dispose();
   sceneManager.gui && sceneManager.gui.destroy();
 }
 
-initBasicScene().then((val) => {
+initGalaxyScene().then((val) => {
   sceneManager = val;
+  select.value = "galaxyScene";
 });
 
 select.onchange = async function (evt) {
@@ -70,6 +65,10 @@ select.onchange = async function (evt) {
     case "particleScene":
       dispose();
       sceneManager = initParticleScene();
+      break;
+    case "galaxyScene":
+      dispose();
+      sceneManager = await initGalaxyScene();
       break;
     default:
       dispose();

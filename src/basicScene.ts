@@ -53,7 +53,13 @@ async function initBasicScene() {
     false
   );
 
-  return { scene, renderer, gui };
+  const dispose = () => {
+    cube.geometry.dispose();
+    cube.material.dispose();
+    scene.remove.apply(scene, scene.children);
+  };
+
+  return { scene, renderer, gui, dispose };
 }
 
 const initBouncingBallScene = () => {
@@ -74,7 +80,15 @@ const initBouncingBallScene = () => {
   render(camera);
   runAnimation({ plane, sphere }, camera, cursor, controls, render);
 
-  return { scene, renderer, gui };
+  const dispose = () => {
+    plane.geometry.dispose();
+    plane.material.dispose();
+    sphere.geometry.dispose();
+    sphere.material.dispose();
+    scene.remove.apply(scene, scene.children);
+  };
+
+  return { scene, renderer, gui, dispose };
 };
 
 const initParticleScene = () => {
@@ -98,7 +112,13 @@ const initParticleScene = () => {
   render(camera);
   runAnimation({ points, count }, camera, cursor, controls, render);
 
-  return { scene, renderer, gui };
+  const dispose = () => {
+    points.geometry.dispose();
+    points.material.dispose();
+    scene.remove.apply(scene, scene.children);
+  };
+
+  return { scene, renderer, gui, dispose };
 };
 
 export { initBasicScene, initBouncingBallScene, initParticleScene };
