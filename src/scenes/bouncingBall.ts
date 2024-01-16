@@ -1,5 +1,5 @@
 import { initResize, initScene } from ".";
-import { runAnimation } from "../animations";
+import { runAnimation, stopAnimation } from "../animations";
 import basicAnimation from "../animations/basic";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
 import { initDebugUI } from "../debugUI";
@@ -31,6 +31,8 @@ const initBouncingBallScene = () => {
   );
 
   const dispose = () => {
+    stopAnimation();
+
     plane.geometry.dispose();
     plane.material.dispose();
     sphere.geometry.dispose();

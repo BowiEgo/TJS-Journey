@@ -1,5 +1,5 @@
 import { initResize, initScene } from ".";
-import { runAnimation } from "../animations";
+import { runAnimation, stopAnimation } from "../animations";
 import basicAnimation from "../animations/basic";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
 import { initDebugUI } from "../debugUI";
@@ -49,6 +49,8 @@ async function initBasicScene() {
   );
 
   const dispose = () => {
+    stopAnimation();
+
     cube.geometry.dispose();
     cube.material.dispose();
     scene.remove.apply(scene, scene.children);

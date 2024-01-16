@@ -1,5 +1,5 @@
 import { initResize, initScene } from ".";
-import { runAnimation } from "../animations";
+import { runAnimation, stopAnimation } from "../animations";
 import particlesAnimation from "../animations/particles";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
 import { initDebugUI } from "../debugUI";
@@ -33,6 +33,8 @@ const initParticleScene = () => {
   );
 
   const dispose = () => {
+    stopAnimation();
+
     points.geometry.dispose();
     points.material.dispose();
     scene.remove.apply(scene, scene.children);

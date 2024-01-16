@@ -3,7 +3,7 @@ import { initDebugUI } from "../debugUI";
 import { initResize, initScene } from ".";
 import { initGrassFloor, initGraves, initHouse } from "../objects";
 import { initBasicCamera, initControls, initCursor } from "../cameras";
-import { runAnimation } from "../animations";
+import { runAnimation, stopAnimation } from "../animations";
 import { initHauntedHouseLight } from "../lights";
 import hauntedHouseAnimation from "../animations/hauntedHouse";
 
@@ -79,6 +79,8 @@ async function initHauntedHouseScene() {
   );
 
   const dispose = () => {
+    stopAnimation();
+
     grassFloor.geometry.dispose();
     grassFloor.material.dispose();
     walls.geometry.dispose();

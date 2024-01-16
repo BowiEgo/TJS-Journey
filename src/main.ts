@@ -21,7 +21,7 @@ interface SceneManager {
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <canvas class="webgl"></canvas>
-  <select name="SelectScene" class="select">
+  <select title="scene" name="SelectScene" class="select">
     <option value="basicScene" selected>BasicScene</option>
     <option value="boucingBall">BoucingBall</option>
     <option value="hauntedHouseScene">HauntedHouseScene</option>

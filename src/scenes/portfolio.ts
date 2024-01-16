@@ -1,4 +1,6 @@
 import {
+  BufferAttribute,
+  BufferGeometry,
   ConeGeometry,
   DirectionalLight,
   Group,
@@ -6,6 +8,8 @@ import {
   MeshToonMaterial,
   NearestFilter,
   PerspectiveCamera,
+  Points,
+  PointsMaterial,
   Scene,
   TorusGeometry,
   TorusKnotGeometry,
@@ -13,9 +17,9 @@ import {
 import { initDebugUI } from "../debugUI";
 import { initResize, initScene } from ".";
 import { initCursor } from "../cameras";
-import { runAnimation } from "../animations";
+import { runAnimation, stopAnimation } from "../animations";
 import { textureLoader } from "../textures";
-import portfolioAnimation from "../animations/portfolio";
+import { initScroll, portfolioAnimation } from "../animations/portfolio";
 
 const parameters = {
   materialColor: "#ffeded",
@@ -42,6 +46,8 @@ const destroy = () => {
   document.getElementsByTagName("body")[0].style.overflow = "hidden";
 
   document.querySelector<HTMLDivElement>("#app")?.removeChild(page);
+
+  window.addEventListener("scroll", () => {});
 };
 
 async function initPortfolioScene() {
@@ -85,6 +91,35 @@ async function initPortfolioScene() {
 
   const sectionMeshes = [mesh1, mesh2, mesh3];
 
+  /**
+   * Particles
+   */
+  // Geometry
+  const particlesCount = 200;
+  const positions = new Float32Array(particlesCount * 3);
+
+  for (let i = 0; i < particlesCount; i++) {
+    positions[i * 3 + 0] = (Math.random() - 0.5) * 10;
+    positions[i * 3 + 1] =
+      objectsDistance * 0.5 -
+      Math.random() * objectsDistance * sectionMeshes.length;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+  }
+
+  const particlesGeometry = new BufferGeometry();
+  particlesGeometry.setAttribute("position", new BufferAttribute(positions, 3));
+
+  // Material
+  const particlesMaterial = new PointsMaterial({
+    color: parameters.materialColor,
+    sizeAttenuation: true,
+    size: 0.03,
+  });
+
+  // Points
+  const particles = new Points(particlesGeometry, particlesMaterial);
+  scene.add(particles);
+
   // Lights
   const directionalLight = new DirectionalLight("#ffffff", 1);
   directionalLight.position.set(1, 1, 0);
@@ -92,6 +127,9 @@ async function initPortfolioScene() {
 
   // Cursor
   const cursor = initCursor(size);
+
+  // Scroll
+  initScroll(size, sectionMeshes);
 
   /**
    * Camera
@@ -111,6 +149,7 @@ async function initPortfolioScene() {
   const gui = initDebugUI();
   gui.addColor(parameters, "materialColor").onChange(() => {
     material.color.set(parameters.materialColor);
+    particlesMaterial.color.set(parameters.materialColor);
   });
 
   render(camera);
@@ -131,6 +170,8 @@ async function initPortfolioScene() {
   );
 
   const dispose = (scene: Scene) => {
+    stopAnimation();
+
     sectionMeshes.forEach((mesh) => {
       mesh.geometry.dispose();
       mesh.material.dispose();

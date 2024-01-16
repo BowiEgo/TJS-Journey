@@ -21,6 +21,8 @@ interface PointsObjects {
   count: number;
 }
 
+let requestID: number;
+
 const tick = (
   camera: Camera,
   cursor: Cursor,
@@ -35,7 +37,7 @@ const tick = (
   controls?.update();
 
   render(camera);
-  window.requestAnimationFrame(
+  requestID = window.requestAnimationFrame(
     tick.bind(null, camera, cursor, controls, render, animationFunc, animation)
   );
 };
@@ -54,6 +56,10 @@ function runAnimation(
   tick(camera, cursor, controls, render, animationFunc, animation);
 }
 
-export { runAnimation };
+function stopAnimation() {
+  requestID && window.cancelAnimationFrame(requestID);
+}
+
+export { runAnimation, stopAnimation };
 
 export type { Objects, HauntedHouseObjects, PointsObjects };
