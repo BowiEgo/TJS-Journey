@@ -2,7 +2,7 @@ import GUI from "lil-gui";
 import { BufferAttribute, Mesh, PlaneGeometry, SphereGeometry } from "three";
 import { initBasicMaterial } from "../materials";
 
-const initShadowObjects = (gui: GUI) => {
+const initShadowObjects = (gui?: GUI) => {
   const material = initBasicMaterial(gui);
 
   const plane = new Mesh(new PlaneGeometry(5, 5, 100, 100), material);

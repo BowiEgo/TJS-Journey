@@ -9,7 +9,7 @@ import {
 } from "three";
 import { initBasicMaterial } from "../materials";
 
-const initMaterialObjects = (gui: GUI) => {
+const initMaterialObjects = (gui?: GUI) => {
   const material = initBasicMaterial(gui);
 
   const plane = new Mesh(new PlaneGeometry(5, 5, 100, 100), material);

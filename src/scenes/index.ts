@@ -83,6 +83,7 @@ const initResize = (
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   });
 
+  return;
   window.addEventListener("dblclick", () => {
     // Prefix for Safari and Firefox
     const fullscreenElement =

@@ -5,7 +5,7 @@ import {
   initEnvironmentTexture,
 } from "../textures/hauntedHouse";
 
-const initBasicMaterial = (gui: GUI) => {
+const initBasicMaterial = (gui?: GUI) => {
   const {
     // // doorColorTexture,
     // // doorAlphaTexture,
@@ -52,10 +52,10 @@ const initBasicMaterial = (gui: GUI) => {
   // material.envMap = environmentMapTexture;
 
   // Debug
-  gui.add(material, "metalness").min(0).max(1).step(0.001);
-  gui.add(material, "roughness").min(0).max(1).step(0.001);
-  // gui.add(material, "aoMapIntensity").min(0).max(10).step(0.001);
-  // gui.add(material, "displacementScale").min(0).max(1).step(0.001);
+  gui?.add(material, "metalness").min(0).max(1).step(0.001);
+  gui?.add(material, "roughness").min(0).max(1).step(0.001);
+  // gui?.add(material, "aoMapIntensity").min(0).max(10).step(0.001);
+  // gui?.add(material, "displacementScale").min(0).max(1).step(0.001);
 
   // const {
   //   doorColorTexture,
