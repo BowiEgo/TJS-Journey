@@ -6,28 +6,7 @@ import { initDebugUI } from "../debugUI";
 import { initBasicLight } from "../lights";
 import { NOOP } from "../utils";
 import { runAnimation, stopAnimation } from "../animations";
-import { GLTFLoader } from "three/examples/jsm/Addons.js";
-
-/**
- * Models
- */
-
-const gltfLoader = new GLTFLoader();
-
-async function loadModels(url: string) {
-  return await new Promise((resolve) => {
-    gltfLoader.load(
-      url,
-      (gltf) => {
-        resolve(gltf);
-      },
-      () => {},
-      (err) => {
-        console.error(err);
-      }
-    );
-  });
-}
+import { loadModels } from "../models";
 
 async function initModelsScene() {
   /**

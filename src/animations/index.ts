@@ -25,7 +25,7 @@ let requestID: number;
 
 const tick = (
   camera: Camera,
-  cursor: Cursor,
+  cursor: Cursor | null,
   controls: OrbitControls | null,
   render: Function,
   animationFunc: Function,
@@ -44,7 +44,7 @@ const tick = (
 
 function runAnimation(
   camera: Camera,
-  cursor: Cursor,
+  cursor: Cursor | null,
   controls: OrbitControls | null,
   render: Function,
   animationFunc: Function,
