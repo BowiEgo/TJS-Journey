@@ -36,7 +36,7 @@ async function init3DText(scene: Scene) {
     // Textures
     const textureLoader = new TextureLoader();
     const matcapTextture = textureLoader.load(
-      "assets/textures/matcaps/512/7877EE_D87FC5_75D9C7_1C78C0-512px.png"
+      "/textures/matcaps/512/7877EE_D87FC5_75D9C7_1C78C0-512px.png"
     );
 
     const material = new MeshMatcapMaterial({ matcap: matcapTextture });

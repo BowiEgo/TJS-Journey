@@ -1,27 +1,29 @@
 import { NearestFilter, RepeatWrapping, SRGBColorSpace } from "three";
 import { cubeTextureLoader, textureLoader } from ".";
 
+const urlPrefix = "assets/textures";
+
 const initDoorTextures = () => {
   const doorColorTexture = textureLoader.load(
-    "assets/textures/door/Door_Wood_001_basecolor.jpg"
+    `${urlPrefix}/door/Door_Wood_001_basecolor.jpg`
   );
   const doorAlphaTexture = textureLoader.load(
-    "assets/textures/door/Door_Wood_001_opacity.jpg"
+    `${urlPrefix}/door/Door_Wood_001_opacity.jpg`
   );
   const doorHeightTexture = textureLoader.load(
-    "assets/textures/door/Door_Wood_001_height.png"
+    `${urlPrefix}/door/Door_Wood_001_height.png`
   );
   const doorNormalTexture = textureLoader.load(
-    "assets/textures/door/Door_Wood_001_normal.jpg"
+    `${urlPrefix}/door/Door_Wood_001_normal.jpg`
   );
   const doorAmbientOcclusionTexture = textureLoader.load(
-    "assets/textures/door/Door_Wood_001_ambientOcclusion.jpg"
+    `${urlPrefix}/door/Door_Wood_001_ambientOcclusion.jpg`
   );
   const doorMetalnessTexture = textureLoader.load(
-    "assets/textures/door/Door_Wood_001_metallic.jpg"
+    `${urlPrefix}/door/Door_Wood_001_metallic.jpg`
   );
   const doorRoughnessTexture = textureLoader.load(
-    "assets/textures/door/Door_Wood_001_roughness.jpg"
+    `${urlPrefix}/door/Door_Wood_001_roughness.jpg`
   );
 
   doorColorTexture.colorSpace = SRGBColorSpace;
@@ -64,21 +66,21 @@ const initDoorTextures = () => {
 
 const initBricksTexture = () => {
   const bricksColorTexture = textureLoader.load(
-    "assets/textures/bricks/Brick_Wall_019_basecolor.jpg"
+    `${urlPrefix}/bricks/Brick_Wall_019_basecolor.jpg`
   );
 
   const bricksHeightTexture = textureLoader.load(
-    "assets/textures/bricks/Brick_Wall_019_height.png"
+    `${urlPrefix}/bricks/Brick_Wall_019_height.png`
   );
   const bricksNormalTexture = textureLoader.load(
-    "assets/textures/bricks/Brick_Wall_019_normal.jpg"
+    `${urlPrefix}/bricks/Brick_Wall_019_normal.jpg`
   );
   const bricksAmbientOcclusionTexture = textureLoader.load(
-    "assets/textures/bricks/Brick_Wall_019_ambientOcclusion.jpg"
+    `${urlPrefix}/bricks/Brick_Wall_019_ambientOcclusion.jpg`
   );
 
   const bricksRoughnessTexture = textureLoader.load(
-    "assets/textures/bricks/Brick_Wall_019_roughness.jpg"
+    `${urlPrefix}/bricks/Brick_Wall_019_roughness.jpg`
   );
 
   bricksColorTexture.repeat.set(2, 2);
@@ -110,23 +112,23 @@ const initBricksTexture = () => {
 
 const initGrassTexture = () => {
   const grassColorTexture = textureLoader.load(
-    "assets/textures/grass/Grass_005_BaseColor.jpg"
+    `${urlPrefix}/grass/Grass_005_BaseColor.jpg`
   );
 
   const grassHeightTexture = textureLoader.load(
-    "assets/textures/grass/Grass_005_Height.png"
+    `${urlPrefix}/grass/Grass_005_Height.png `
   );
 
   const grassNormalTexture = textureLoader.load(
-    "assets/textures/grass/Grass_005_Normal.jpg"
+    `${urlPrefix}/grass/Grass_005_Normal.jpg `
   );
 
   const grassAmbientOcclusionTexture = textureLoader.load(
-    "assets/textures/grass/Grass_005_AmbientOcclusion.jpg"
+    `${urlPrefix}/grass/Grass_005_AmbientOcclusion.jpg `
   );
 
   const grassRoughnessTexture = textureLoader.load(
-    "assets/textures/grass/Grass_005_Roughness.jpg"
+    `${urlPrefix}/grass/Grass_005_Roughness.jpg`
   );
 
   grassColorTexture.repeat.set(8, 8);
@@ -158,12 +160,12 @@ const initGrassTexture = () => {
 
 const initEnvironmentTexture = () => {
   const environmentMapTexture = cubeTextureLoader.load([
-    "assets/textures/environmentMaps/0/px.png",
-    "assets/textures/environmentMaps/0/nx.png",
-    "assets/textures/environmentMaps/0/py.png",
-    "assets/textures/environmentMaps/0/ny.png",
-    "assets/textures/environmentMaps/0/pz.png",
-    "assets/textures/environmentMaps/0/nz.png",
+    `${urlPrefix}/environmentMaps/0/px.png`,
+    `${urlPrefix}/environmentMaps/0/nx.png`,
+    `${urlPrefix}/environmentMaps/0/py.png`,
+    `${urlPrefix}/environmentMaps/0/ny.png`,
+    `${urlPrefix}/environmentMaps/0/pz.png`,
+    `${urlPrefix}/environmentMaps/0/nz.png`,
   ]);
 
   return {

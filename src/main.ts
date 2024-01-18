@@ -11,6 +11,7 @@ import {
 } from "./scenes";
 import { Cursor } from "./cameras";
 import initPhysicScene from "./scenes/physics";
+import initModelsScene from "./scenes/models";
 
 interface SceneManager {
   scene: Scene | null;
@@ -30,6 +31,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <option value="galaxyScene">GalaxyScene</option>
     <option value="portfoliScene">PortfolioScene</option>
     <option value="phyiscScene">PhyiscScene</option>
+    <option value="modelsScene">ModelsScene</option>
   </select>
 `;
 
@@ -81,6 +83,10 @@ select.onchange = async function (evt) {
       dispose();
       sceneManager = await initPhysicScene();
       break;
+    case "modelsScene":
+      dispose();
+      sceneManager = await initModelsScene();
+      break;
     default:
       dispose();
       sceneManager = await initBasicScene();
@@ -88,7 +94,7 @@ select.onchange = async function (evt) {
   }
 };
 
-initPhysicScene().then((val) => {
+initModelsScene().then((val) => {
   sceneManager = val;
-  select.value = "phyiscScene";
+  select.value = "modelsScene";
 });

@@ -3,7 +3,6 @@ import {
   Mesh,
   MeshStandardMaterial,
   PerspectiveCamera,
-  PlaneGeometry,
   Scene,
   SphereGeometry,
   Vector3,
@@ -24,16 +23,16 @@ import { runAnimation, stopAnimation } from "../animations";
 import { initControls, initCursor } from "../cameras";
 import { initDebugUI } from "../debugUI";
 import { initBasicLight } from "../lights";
-import { initBasicMaterial } from "../materials";
 import { initEnvironmentTexture } from "../textures/hauntedHouse";
 import physicsAnimation from "../animations/physics";
+import createPlane from "../objects/plane";
+import { NOOP } from "../utils";
 
 export type ObjectToUpdate = {
   mesh: Mesh;
   body: Body;
 };
 
-const NOOP = () => {};
 const { environmentMapTexture } = initEnvironmentTexture();
 const defaultMaterial = new Material("default");
 const objectsToUpdate: ObjectToUpdate[] = [];
@@ -121,19 +120,6 @@ const initPhysics = () => {
   world.addBody(floorBody);
 
   return { world };
-};
-
-const createPlane = () => {
-  const material = initBasicMaterial();
-
-  const plane = new Mesh(new PlaneGeometry(10, 10, 100, 100), material);
-
-  plane.rotation.x = -Math.PI / 2;
-  plane.receiveShadow = true;
-
-  return {
-    plane,
-  };
 };
 
 const createSphere = (
