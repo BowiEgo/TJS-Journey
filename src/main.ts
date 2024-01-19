@@ -13,6 +13,7 @@ import { Cursor } from "./cameras";
 import initPhysicScene from "./scenes/physics";
 import initModelsScene from "./scenes/models";
 import initRaycasterScene from "./scenes/raycaster";
+import initBlenderModelsScene from "./scenes/blenderModels";
 
 interface SceneManager {
   scene: Scene | null;
@@ -34,6 +35,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <option value="phyiscScene">PhyiscScene</option>
     <option value="modelsScene">ModelsScene</option>
     <option value="raycasterScene">RaycasterScene</option>
+    <option value="blenderModelsScene">BlenderModelsScene</option>
   </select>
 `;
 
@@ -93,6 +95,10 @@ select.onchange = async function (evt) {
       dispose();
       sceneManager = await initRaycasterScene();
       break;
+    case "blenderModelsScene":
+      dispose();
+      sceneManager = await initBlenderModelsScene();
+      break;
     default:
       dispose();
       sceneManager = await initBasicScene();
@@ -100,7 +106,7 @@ select.onchange = async function (evt) {
   }
 };
 
-initRaycasterScene().then((val) => {
+initBlenderModelsScene().then((val) => {
   sceneManager = val;
-  select.value = "raycasterScene";
+  select.value = "blenderModelsScene";
 });
