@@ -3,7 +3,7 @@ import { Group, Mesh, PerspectiveCamera, Points, Scene } from "three";
 /**
  * BasicCamera
  */
-const initBasicCamera = (
+const createBasicCamera = (
   aspectRatio: number,
   scene: Scene,
   object: Mesh | Group | Points
@@ -19,4 +19,4 @@ const initBasicCamera = (
   return camera;
 };
 
-export default initBasicCamera;
+export default createBasicCamera;

@@ -1,25 +1,25 @@
 import { PerspectiveCamera, Scene } from "three";
-import { initResize, initScene } from ".";
-import { initControls, initCursor } from "../cameras";
+import { createResize, createScene } from ".";
+import { createControls, createCursor } from "../cameras";
 import createPlane from "../objects/plane";
-import { initDebugUI } from "../debugUI";
-import { initBasicLight } from "../lights";
+import { createDebugUI } from "../debugUI";
+import { createBasicLight } from "../lights";
 import { NOOP } from "../utils";
 import { runAnimation, stopAnimation } from "../animations";
 import { loadModels } from "../models";
 
-async function initModelsScene() {
+async function createModelsScene() {
   /**
    * Scene
    */
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene({
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene({
     rendererOpts: { alpha: true },
   });
 
   /**
    * Cursor
    */
-  const cursor = initCursor(size);
+  const cursor = createCursor(size);
 
   /**
    * Camera
@@ -30,14 +30,14 @@ async function initModelsScene() {
   camera.position.y = 3;
   camera.position.z = 5;
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
-  const controls = initControls(camera, canvas);
+  const controls = createControls(camera, canvas);
 
   /**
    * Lights
    */
-  const { directionLight } = initBasicLight(scene);
+  const { directionLight } = createBasicLight(scene);
   directionLight.shadow.camera.near = 0.1;
   directionLight.shadow.camera.far = 20;
   directionLight.castShadow = true;
@@ -49,7 +49,7 @@ async function initModelsScene() {
   /**
    * Objects
    */
-  // const { plane, sphere } = initObjects();
+  // const { plane, sphere } = createObjects();
   const { plane } = createPlane();
 
   scene.add(plane);
@@ -67,7 +67,7 @@ async function initModelsScene() {
   /**
    * Debug
    */
-  const gui = initDebugUI();
+  const gui = createDebugUI();
   const debugObject = { createSphere: NOOP, createBox: NOOP, reset: NOOP };
 
   /**
@@ -100,4 +100,4 @@ async function initModelsScene() {
   return { scene, renderer, gui, cursor, dispose: dispose.bind(null, scene) };
 }
 
-export default initModelsScene;
+export default createModelsScene;

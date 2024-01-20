@@ -1,11 +1,11 @@
 import GUI from "lil-gui";
 import { MeshStandardMaterial } from "three";
 import {
-  initDoorTextures,
-  initEnvironmentTexture,
+  createDoorTextures,
+  createEnvironmentTexture,
 } from "../textures/hauntedHouse";
 
-const initBasicMaterial = (gui?: GUI) => {
+const createBasicMaterial = (gui?: GUI) => {
   const {
     // // doorColorTexture,
     // // doorAlphaTexture,
@@ -14,10 +14,10 @@ const initBasicMaterial = (gui?: GUI) => {
     // // doorAmbientOcclusionTexture,
     // // doorMetalnessTexture,
     // // doorRoughnessTexture,
-  } = initDoorTextures();
+  } = createDoorTextures();
   const {
     // environmentMapTexture,
-  } = initEnvironmentTexture();
+  } = createEnvironmentTexture();
   // const material = new MeshBasicMaterial();
   // const material = new MeshNormalMaterial();
   // const material = new MeshMatcapMaterial();
@@ -65,7 +65,7 @@ const initBasicMaterial = (gui?: GUI) => {
   //   doorAmbientOcclusionTexture,
   //   doorMetalnessTexture,
   //   doorRoughnessTexture,
-  // } = initTextures();
+  // } = createTextures();
   // material.map = doorColorTexture;
   // material.color = new Color(0xff00ff);
   // material.wireframe = true;
@@ -78,4 +78,4 @@ const initBasicMaterial = (gui?: GUI) => {
   return material;
 };
 
-export default initBasicMaterial;
+export default createBasicMaterial;

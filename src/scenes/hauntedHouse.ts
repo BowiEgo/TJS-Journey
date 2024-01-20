@@ -1,15 +1,15 @@
 import { Fog, PCFSoftShadowMap } from "three";
-import { initDebugUI } from "../debugUI";
-import { initResize, initScene } from ".";
-import { initGrassFloor, initGraves, initHouse } from "../objects";
-import { initBasicCamera, initControls, initCursor } from "../cameras";
+import { createDebugUI } from "../debugUI";
+import { createResize, createScene } from ".";
+import { createGrassFloor, createGraves, createHouse } from "../objects";
+import { createBasicCamera, createControls, createCursor } from "../cameras";
 import { runAnimation, stopAnimation } from "../animations";
-import { initHauntedHouseLight } from "../lights";
+import { createHauntedHouseLight } from "../lights";
 import hauntedHouseAnimation from "../animations/hauntedHouse";
 
-async function initHauntedHouseScene() {
-  const gui = initDebugUI();
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene();
+async function createHauntedHouseScene() {
+  const gui = createDebugUI();
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene();
 
   // Fog
   const fog = new Fog("#262837", 1, 15);
@@ -17,19 +17,19 @@ async function initHauntedHouseScene() {
   renderer.setClearColor("#262837");
 
   // Objects
-  const grassFloor = initGrassFloor();
-  const { house, roof, walls, bushes } = initHouse();
-  const { graves, gravesArray } = initGraves();
+  const grassFloor = createGrassFloor();
+  const { house, roof, walls, bushes } = createHouse();
+  const { graves, gravesArray } = createGraves();
   // Cursor
-  const cursor = initCursor(size);
+  const cursor = createCursor(size);
   // Camera
-  const camera = initBasicCamera(aspectRatio, scene, house);
+  const camera = createBasicCamera(aspectRatio, scene, house);
   // Resize
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
   // Camera Controls
-  const controls = initControls(camera, canvas);
+  const controls = createControls(camera, canvas);
   // Light
-  const { moonLight, doorLight, ghosts } = initHauntedHouseLight(scene, gui);
+  const { moonLight, doorLight, ghosts } = createHauntedHouseLight(scene, gui);
   // Shadow
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = PCFSoftShadowMap;
@@ -98,4 +98,4 @@ async function initHauntedHouseScene() {
   return { scene, renderer, gui, cursor, dispose };
 }
 
-export default initHauntedHouseScene;
+export default createHauntedHouseScene;

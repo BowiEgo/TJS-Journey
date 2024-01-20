@@ -8,17 +8,17 @@ import {
   SphereGeometry,
 } from "three";
 import {
-  initBushMaterial,
-  initDoorMaterial,
-  initRoofMaterial,
-  initWallsMaterial,
+  createBushMaterial,
+  createDoorMaterial,
+  createRoofMaterial,
+  createWallsMaterial,
 } from "../materials";
 
-const initHouse = () => {
+const createHouse = () => {
   const house = new Group();
 
   // Walls
-  const walls = new Mesh(new BoxGeometry(4, 2.5, 4), initWallsMaterial());
+  const walls = new Mesh(new BoxGeometry(4, 2.5, 4), createWallsMaterial());
   walls.geometry.setAttribute(
     "uv2",
     new Float32BufferAttribute(walls.geometry.attributes.uv.array, 2)
@@ -26,14 +26,14 @@ const initHouse = () => {
   walls.position.y = 1.25;
 
   // Roof
-  const roof = new Mesh(new ConeGeometry(3.5, 1, 4), initRoofMaterial());
+  const roof = new Mesh(new ConeGeometry(3.5, 1, 4), createRoofMaterial());
   roof.rotation.y = Math.PI * 0.25;
   roof.position.y = 2.5 + 0.5;
 
   // Door
   const door = new Mesh(
     new PlaneGeometry(2.2, 2.2, 100, 100),
-    initDoorMaterial()
+    createDoorMaterial()
   );
   door.geometry.setAttribute(
     "uv2",
@@ -44,7 +44,7 @@ const initHouse = () => {
 
   // Bushes
   const bushGeometry = new SphereGeometry(1, 16, 16);
-  const bushMaterial = initBushMaterial();
+  const bushMaterial = createBushMaterial();
 
   const bush1 = new Mesh(bushGeometry, bushMaterial);
   bush1.scale.set(0.5, 0.5, 0.5);
@@ -70,4 +70,4 @@ const initHouse = () => {
   return { house, walls, roof, door, bushes: { bush1, bush2, bush3, bush4 } };
 };
 
-export default initHouse;
+export default createHouse;

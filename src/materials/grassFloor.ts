@@ -1,14 +1,14 @@
 import { MeshStandardMaterial } from "three";
-import { initGrassTexture } from "../textures/hauntedHouse";
+import { createGrassTexture } from "../textures/hauntedHouse";
 
-const initGrassFloorMaterial = () => {
+const createGrassFloorMaterial = () => {
   const {
     grassColorTexture,
     grassHeightTexture,
     grassNormalTexture,
     grassAmbientOcclusionTexture,
     grassRoughnessTexture,
-  } = initGrassTexture();
+  } = createGrassTexture();
 
   const material = new MeshStandardMaterial({
     map: grassColorTexture,
@@ -23,4 +23,4 @@ const initGrassFloorMaterial = () => {
   return material;
 };
 
-export default initGrassFloorMaterial;
+export default createGrassFloorMaterial;

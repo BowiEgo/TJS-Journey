@@ -1,25 +1,25 @@
-import { initResize, initScene } from ".";
+import { createResize, createScene } from ".";
 import { runAnimation, stopAnimation } from "../animations";
 import particlesAnimation from "../animations/particles";
-import { initBasicCamera, initControls, initCursor } from "../cameras";
-import { initDebugUI } from "../debugUI";
-import { initParticles } from "../particles";
+import { createBasicCamera, createControls, createCursor } from "../cameras";
+import { createDebugUI } from "../debugUI";
+import { createParticles } from "../particles";
 
-const initParticleScene = () => {
-  const gui = initDebugUI();
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene();
-  const { points, count } = initParticles();
-  // const box = initBoxGeometry(gui);
+const createParticleScene = () => {
+  const gui = createDebugUI();
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene();
+  const { points, count } = createParticles();
+  // const box = createBoxGeometry(gui);
 
-  const cursor = initCursor(size);
-  const camera = initBasicCamera(aspectRatio, scene, points);
+  const cursor = createCursor(size);
+  const camera = createBasicCamera(aspectRatio, scene, points);
   camera.position.x = 0;
   camera.position.y = 0;
   camera.position.z = 3;
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
-  const controls = initControls(camera, canvas);
+  const controls = createControls(camera, canvas);
   scene.add(points);
   // scene.add(box);
 
@@ -43,4 +43,4 @@ const initParticleScene = () => {
   return { scene, renderer, gui, cursor, dispose };
 };
 
-export default initParticleScene;
+export default createParticleScene;

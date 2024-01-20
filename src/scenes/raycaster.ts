@@ -11,10 +11,10 @@ import {
   SphereGeometry,
   Vector2,
 } from "three";
-import { initResize, initScene } from ".";
-import { initControls } from "../cameras";
-import { initDebugUI } from "../debugUI";
-import { initBasicLight } from "../lights";
+import { createResize, createScene } from ".";
+import { createControls } from "../cameras";
+import { createDebugUI } from "../debugUI";
+import { createBasicLight } from "../lights";
 import { runAnimation, stopAnimation } from "../animations";
 import raycasterAnimation from "../animations/raycasterAnimation";
 import { loadModels } from "../models";
@@ -94,11 +94,11 @@ function handleIntersect(
   }
 }
 
-async function initRaycasterScene() {
+async function createRaycasterScene() {
   /**
    * Scene
    */
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene({
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene({
     rendererOpts: { alpha: true },
   });
 
@@ -137,14 +137,14 @@ async function initRaycasterScene() {
   camera.position.y = 0;
   camera.position.z = 8;
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
-  const controls = initControls(camera, canvas);
+  const controls = createControls(camera, canvas);
 
   /**
    * Lights
    */
-  const { directionLight } = initBasicLight(scene);
+  const { directionLight } = createBasicLight(scene);
   directionLight.shadow.camera.near = 0.1;
   directionLight.shadow.camera.far = 20;
   directionLight.castShadow = true;
@@ -156,7 +156,7 @@ async function initRaycasterScene() {
   /**
    * Objects
    */
-  // const { plane, sphere } = initObjects();
+  // const { plane, sphere } = createObjects();
   const { object1, object2, object3 } = createObjects();
 
   scene.add(object1, object2, object3);
@@ -189,7 +189,7 @@ async function initRaycasterScene() {
   /**
    * Debug
    */
-  const gui = initDebugUI();
+  const gui = createDebugUI();
 
   /**
    * Render
@@ -231,4 +231,4 @@ async function initRaycasterScene() {
   return { scene, renderer, gui, mouse, dispose: dispose.bind(null, scene) };
 }
 
-export default initRaycasterScene;
+export default createRaycasterScene;

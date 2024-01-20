@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import initBasicCamera from "./basic";
-import initOrthographicCamera from "./orthographic";
+import createBasicCamera from "./basic";
+import createOrthographicCamera from "./orthographic";
 import { Size } from "../scenes";
 
 type Cursor = {
@@ -13,7 +13,7 @@ type Cursor = {
 /**
  * Cursor
  */
-const initCursor = (size: Size) => {
+const createCursor = (size: Size) => {
   let cursor = {
     x: 0,
     y: 0,
@@ -33,13 +33,18 @@ const initCursor = (size: Size) => {
 /**
  * Controls
  */
-const initControls = (camera: THREE.Camera, canvas: HTMLCanvasElement) => {
+const createControls = (camera: THREE.Camera, canvas: HTMLCanvasElement) => {
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
 
   return controls;
 };
 
-export { initCursor, initControls, initBasicCamera, initOrthographicCamera };
+export {
+  createCursor,
+  createControls,
+  createBasicCamera,
+  createOrthographicCamera,
+};
 
 export type { Cursor };

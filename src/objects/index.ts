@@ -1,23 +1,23 @@
-import initCubeObject from "./cube";
-import initBoxObject from "./box";
-import initBufferObject from "./bufferObject";
-import initGroup from "./group";
-import initTextureObject from "./textureObjects";
-import initMaterialObject from "./materialObjects";
-import initShadowObjects from "./shadowObjects";
-import initGrassFloor from "./grassFloor";
-import initHouse from "./house";
-import initGraves from "./graves";
+import createCubeObject from "./cube";
+import createBoxObject from "./box";
+import createBufferObject from "./bufferObject";
+import createGroup from "./group";
+import createTextureObject from "./textureObjects";
+import createMaterialObject from "./materialObjects";
+import createShadowObjects from "./shadowObjects";
+import createGrassFloor from "./grassFloor";
+import createHouse from "./house";
+import createGraves from "./graves";
 
 export {
-  initCubeObject,
-  initBoxObject,
-  initBufferObject,
-  initGroup,
-  initTextureObject,
-  initMaterialObject,
-  initShadowObjects,
-  initGrassFloor,
-  initHouse,
-  initGraves,
+  createCubeObject,
+  createBoxObject,
+  createBufferObject,
+  createGroup,
+  createTextureObject,
+  createMaterialObject,
+  createShadowObjects,
+  createGrassFloor,
+  createHouse,
+  createGraves,
 };

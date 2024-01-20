@@ -1,6 +1,6 @@
 import { AmbientLight, Color, DirectionalLight, Scene } from "three";
 
-const initBasicLight = (scene: Scene) => {
+const createBasicLight = (scene: Scene) => {
   const ambientLight = new AmbientLight();
   ambientLight.color = new Color(0xffffff);
   ambientLight.intensity = 0.5;
@@ -25,4 +25,4 @@ const initBasicLight = (scene: Scene) => {
   return { ambientLight, directionLight };
 };
 
-export default initBasicLight;
+export default createBasicLight;

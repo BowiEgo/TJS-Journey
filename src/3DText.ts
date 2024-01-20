@@ -7,7 +7,7 @@ import {
 } from "three";
 import { FontLoader, TextGeometry } from "three/examples/jsm/Addons.js";
 
-async function init3DText(scene: Scene) {
+async function create3DText(scene: Scene) {
   const fontLoader = new FontLoader();
   fontLoader.load("assets/fonts/helvetiker_regular.typeface.json", (font) => {
     const textGeometry = new TextGeometry("Hello Three.js", {
@@ -65,4 +65,4 @@ async function init3DText(scene: Scene) {
   });
 }
 
-export { init3DText };
+export { create3DText };

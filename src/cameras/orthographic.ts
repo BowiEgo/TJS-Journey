@@ -3,7 +3,7 @@ import { Mesh, OrthographicCamera, Scene } from "three";
 /**
  * OrthographicCamera
  */
-const initOrthographicCamera = (
+const createOrthographicCamera = (
   aspectRatio: number,
   scene: Scene,
   object: Mesh
@@ -25,4 +25,4 @@ const initOrthographicCamera = (
   return camera;
 };
 
-export default initOrthographicCamera;
+export default createOrthographicCamera;

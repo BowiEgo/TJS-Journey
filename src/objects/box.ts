@@ -2,7 +2,7 @@ import gsap from "gsap";
 import GUI from "lil-gui";
 import { BoxGeometry, Mesh, MeshBasicMaterial } from "three";
 
-const initBoxObject = (gui: GUI) => {
+const createBoxObject = (gui: GUI) => {
   const geometry = new BoxGeometry(1, 1, 1, 4, 4, 4);
 
   const material = new MeshBasicMaterial({
@@ -59,4 +59,4 @@ const initBoxObject = (gui: GUI) => {
   return mesh;
 };
 
-export default initBoxObject;
+export default createBoxObject;

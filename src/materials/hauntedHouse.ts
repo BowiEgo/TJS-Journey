@@ -1,18 +1,18 @@
 import { MeshStandardMaterial } from "three";
 import {
-  initBricksTexture,
-  initDoorTextures,
-  initGrassTexture,
+  createBricksTexture,
+  createDoorTextures,
+  createGrassTexture,
 } from "../textures/hauntedHouse";
 
-const initGrassFloorMaterial = () => {
+const createGrassFloorMaterial = () => {
   const {
     grassColorTexture,
     grassHeightTexture,
     grassNormalTexture,
     grassAmbientOcclusionTexture,
     grassRoughnessTexture,
-  } = initGrassTexture();
+  } = createGrassTexture();
 
   const material = new MeshStandardMaterial({
     map: grassColorTexture,
@@ -27,14 +27,14 @@ const initGrassFloorMaterial = () => {
   return material;
 };
 
-const initWallsMaterial = () => {
+const createWallsMaterial = () => {
   const {
     bricksColorTexture,
     bricksHeightTexture,
     bricksNormalTexture,
     bricksAmbientOcclusionTexture,
     bricksRoughnessTexture,
-  } = initBricksTexture();
+  } = createBricksTexture();
 
   const material = new MeshStandardMaterial({
     map: bricksColorTexture,
@@ -49,13 +49,13 @@ const initWallsMaterial = () => {
   return material;
 };
 
-const initRoofMaterial = () => {
+const createRoofMaterial = () => {
   const material = new MeshStandardMaterial({ color: "#b35f45" });
 
   return material;
 };
 
-const initDoorMaterial = () => {
+const createDoorMaterial = () => {
   const {
     doorColorTexture,
     doorAlphaTexture,
@@ -64,7 +64,7 @@ const initDoorMaterial = () => {
     doorAmbientOcclusionTexture,
     doorMetalnessTexture,
     doorRoughnessTexture,
-  } = initDoorTextures();
+  } = createDoorTextures();
 
   const material = new MeshStandardMaterial({
     metalness: 0,
@@ -83,23 +83,23 @@ const initDoorMaterial = () => {
   return material;
 };
 
-const initBushMaterial = () => {
+const createBushMaterial = () => {
   const material = new MeshStandardMaterial({ color: "#89c854" });
 
   return material;
 };
 
-const initGraveMaterial = () => {
+const createGraveMaterial = () => {
   const material = new MeshStandardMaterial({ color: "#b2b6b1" });
 
   return material;
 };
 
 export {
-  initGrassFloorMaterial,
-  initWallsMaterial,
-  initRoofMaterial,
-  initDoorMaterial,
-  initBushMaterial,
-  initGraveMaterial,
+  createGrassFloorMaterial,
+  createWallsMaterial,
+  createRoofMaterial,
+  createDoorMaterial,
+  createBushMaterial,
+  createGraveMaterial,
 };

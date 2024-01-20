@@ -16,7 +16,7 @@ import {
 } from "three";
 import { RectAreaLightHelper } from "three/examples/jsm/Addons.js";
 
-const initAdjustableLight = (scene: Scene, gui: GUI) => {
+const createAdjustableLight = (scene: Scene, gui: GUI) => {
   const ambientLight = new AmbientLight();
   ambientLight.color = new Color(0xffffff);
   ambientLight.intensity = 0.5;
@@ -71,4 +71,4 @@ const initAdjustableLight = (scene: Scene, gui: GUI) => {
   scene.add(rectAreaLightHelper);
 };
 
-export default initAdjustableLight;
+export default createAdjustableLight;

@@ -18,12 +18,12 @@ import {
   Vec3,
   World,
 } from "cannon-es";
-import { initResize, initScene } from ".";
+import { createResize, createScene } from ".";
 import { runAnimation, stopAnimation } from "../animations";
-import { initControls, initCursor } from "../cameras";
-import { initDebugUI } from "../debugUI";
-import { initBasicLight } from "../lights";
-import { initEnvironmentTexture } from "../textures/hauntedHouse";
+import { createControls, createCursor } from "../cameras";
+import { createDebugUI } from "../debugUI";
+import { createBasicLight } from "../lights";
+import { createEnvironmentTexture } from "../textures/hauntedHouse";
 import physicsAnimation from "../animations/physics";
 import createPlane from "../objects/plane";
 import { NOOP } from "../utils";
@@ -33,7 +33,7 @@ export type ObjectToUpdate = {
   body: Body;
 };
 
-const { environmentMapTexture } = initEnvironmentTexture();
+const { environmentMapTexture } = createEnvironmentTexture();
 const defaultMaterial = new Material("default");
 const objectsToUpdate: ObjectToUpdate[] = [];
 const sphereGeometry = new SphereGeometry(1, 20, 20);
@@ -63,7 +63,7 @@ const playHitSound = (collision: any) => {
   }
 };
 
-const initPhysics = () => {
+const createPhysics = () => {
   // World
   const world = new World();
   world.broadphase = new SAPBroadphase(world);
@@ -209,18 +209,18 @@ const createBox = (
   };
 };
 
-async function initPhysicScene() {
+async function createPhysicScene() {
   /**
    * Scene
    */
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene({
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene({
     rendererOpts: { alpha: true },
   });
 
   /**
    * Cursor
    */
-  const cursor = initCursor(size);
+  const cursor = createCursor(size);
 
   /**
    * Camera
@@ -231,14 +231,14 @@ async function initPhysicScene() {
   camera.position.y = 3;
   camera.position.z = 12;
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
-  const controls = initControls(camera, canvas);
+  const controls = createControls(camera, canvas);
 
   /**
    * Lights
    */
-  const { directionLight } = initBasicLight(scene);
+  const { directionLight } = createBasicLight(scene);
   directionLight.shadow.camera.near = 0.1;
   directionLight.shadow.camera.far = 20;
   directionLight.castShadow = true;
@@ -246,12 +246,12 @@ async function initPhysicScene() {
   /**
    * Physics
    */
-  const { world } = initPhysics();
+  const { world } = createPhysics();
 
   /**
    * Objects
    */
-  // const { plane, sphere } = initObjects();
+  // const { plane, sphere } = createObjects();
   const { plane } = createPlane();
 
   // Save in objects to update in animation
@@ -260,7 +260,7 @@ async function initPhysicScene() {
   /**
    * Debug
    */
-  const gui = initDebugUI();
+  const gui = createDebugUI();
   const debugObject = { createSphere: NOOP, createBox: NOOP, reset: NOOP };
   debugObject.createSphere = () => {
     createSphere(scene, world, {
@@ -332,4 +332,4 @@ async function initPhysicScene() {
   return { scene, renderer, gui, cursor, dispose: dispose.bind(null, scene) };
 }
 
-export default initPhysicScene;
+export default createPhysicScene;

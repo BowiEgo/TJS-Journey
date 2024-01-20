@@ -1,7 +1,7 @@
 import { AdditiveBlending, PointsMaterial } from "three";
-import initParticlesTexture from "../textures/particles";
+import createParticlesTexture from "../textures/particles";
 
-const initParticlesMaterial = () => {
+const createParticlesMaterial = () => {
   // Change the size property to control all particles size and the sizeAttenuation to specify if
   // distant particles should be smaller than close particles
   const material = new PointsMaterial({
@@ -10,7 +10,7 @@ const initParticlesMaterial = () => {
   });
   // material.color = new Color("#ff88cc");
   material.transparent = true;
-  material.alphaMap = initParticlesTexture();
+  material.alphaMap = createParticlesTexture();
 
   // The alphaTest is a value between 0 and 1 that enables the WebGL to know when not to render the pixel according to that pixel's transparency.
   // By default, the value is 0 meaning that the pixel will be rendered anyway
@@ -39,4 +39,4 @@ const initParticlesMaterial = () => {
   return material;
 };
 
-export default initParticlesMaterial;
+export default createParticlesMaterial;

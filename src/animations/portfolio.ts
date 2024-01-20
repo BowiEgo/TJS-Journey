@@ -9,7 +9,7 @@ let previousTime = 0;
 let scrollY = window.scrollY;
 let currentSection = 0;
 
-const initScroll = (size: Size, sectionsMeshes: Mesh[]) => {
+const createScroll = (size: Size, sectionsMeshes: Mesh[]) => {
   window.addEventListener("scroll", () => {
     scrollY = window.scrollY;
 
@@ -64,4 +64,4 @@ const portfolioAnimation = (
   }
 };
 
-export { portfolioAnimation, initScroll };
+export { portfolioAnimation, createScroll };

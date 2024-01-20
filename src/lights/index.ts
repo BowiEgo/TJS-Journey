@@ -1,11 +1,11 @@
-import initBasicLight from "./basic";
-import initAdjustableLight from "./adjustableLight";
-import initShadowLight from "./shadowLight";
-import initHauntedHouseLight from "./hauntedHouse";
+import createBasicLight from "./basic";
+import createAdjustableLight from "./adjustableLight";
+import createShadowLight from "./shadowLight";
+import createHauntedHouseLight from "./hauntedHouse";
 
 export {
-  initBasicLight,
-  initAdjustableLight,
-  initShadowLight,
-  initHauntedHouseLight,
+  createBasicLight,
+  createAdjustableLight,
+  createShadowLight,
+  createHauntedHouseLight,
 };

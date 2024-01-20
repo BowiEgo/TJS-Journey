@@ -1,9 +1,9 @@
 import GUI from "lil-gui";
 
-const initDebugUI = () => {
+const createDebugUI = () => {
   const gui = new GUI();
 
   return gui;
 };
 
-export { initDebugUI };
+export { createDebugUI };

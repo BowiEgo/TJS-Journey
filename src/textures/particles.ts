@@ -1,6 +1,6 @@
 import { textureLoader } from ".";
 
-const initParticlesTexture = () => {
+const createParticlesTexture = () => {
   const particleTexture = textureLoader.load(
     "/textures/particles/snow-icon-31373.png"
   );
@@ -8,4 +8,4 @@ const initParticlesTexture = () => {
   return particleTexture;
 };
 
-export default initParticlesTexture;
+export default createParticlesTexture;

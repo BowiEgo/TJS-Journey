@@ -1,6 +1,6 @@
 import { BoxGeometry, Group, Mesh, MeshBasicMaterial } from "three";
 
-const initGroup = () => {
+const createGroup = () => {
   const group = new Group();
   group.position.y = 1;
   group.scale.y = 2;
@@ -29,4 +29,4 @@ const initGroup = () => {
   return group;
 };
 
-export default initGroup;
+export default createGroup;

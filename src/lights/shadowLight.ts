@@ -9,7 +9,7 @@ import {
   SpotLight,
 } from "three";
 
-const initShadowLight = (scene: Scene, gui: GUI) => {
+const createShadowLight = (scene: Scene, gui: GUI) => {
   // Ambient Light
   const ambientLight = new AmbientLight();
   ambientLight.color = new Color(0xffffff);
@@ -110,4 +110,4 @@ const initShadowLight = (scene: Scene, gui: GUI) => {
   scene.add(pointLightCameraHelper);
 };
 
-export default initShadowLight;
+export default createShadowLight;

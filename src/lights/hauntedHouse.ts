@@ -1,7 +1,7 @@
 import GUI from "lil-gui";
 import { AmbientLight, DirectionalLight, PointLight, Scene } from "three";
 
-const initHauntedHouseLight = (scene: Scene, gui: GUI) => {
+const createHauntedHouseLight = (scene: Scene, gui: GUI) => {
   // Ambient light
   const ambientLight = new AmbientLight("#b9d5ff", 0.12);
 
@@ -43,4 +43,4 @@ const initHauntedHouseLight = (scene: Scene, gui: GUI) => {
   return { moonLight, doorLight, ghosts: { ghost1, ghost2, ghost3 } };
 };
 
-export default initHauntedHouseLight;
+export default createHauntedHouseLight;

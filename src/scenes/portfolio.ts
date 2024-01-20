@@ -14,12 +14,12 @@ import {
   TorusGeometry,
   TorusKnotGeometry,
 } from "three";
-import { initDebugUI } from "../debugUI";
-import { initResize, initScene } from ".";
-import { initCursor } from "../cameras";
+import { createDebugUI } from "../debugUI";
+import { createResize, createScene } from ".";
+import { createCursor } from "../cameras";
 import { runAnimation, stopAnimation } from "../animations";
 import { textureLoader } from "../textures";
-import { initScroll, portfolioAnimation } from "../animations/portfolio";
+import { createScroll, portfolioAnimation } from "../animations/portfolio";
 
 const parameters = {
   materialColor: "#ffeded",
@@ -27,7 +27,7 @@ const parameters = {
 
 let page: HTMLElement;
 
-const initHTMLStyles = () => {
+const createHTMLStyles = () => {
   document.getElementsByTagName("html")[0].style.overflow = "auto";
   document.getElementsByTagName("body")[0].style.overflow = "auto";
 
@@ -50,12 +50,12 @@ const destroy = () => {
   window.addEventListener("scroll", () => {});
 };
 
-async function initPortfolioScene() {
+async function createPortfolioScene() {
   // HTML
-  initHTMLStyles();
+  createHTMLStyles();
 
   // Scene
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene({
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene({
     rendererOpts: { alpha: true },
   });
   // renderer.setClearAlpha(0)
@@ -126,10 +126,10 @@ async function initPortfolioScene() {
   scene.add(directionalLight);
 
   // Cursor
-  const cursor = initCursor(size);
+  const cursor = createCursor(size);
 
   // Scroll
-  initScroll(size, sectionMeshes);
+  createScroll(size, sectionMeshes);
 
   /**
    * Camera
@@ -143,10 +143,10 @@ async function initPortfolioScene() {
   camera.position.z = 6;
   cameraGroup.add(camera);
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
   // Debug
-  const gui = initDebugUI();
+  const gui = createDebugUI();
   gui.addColor(parameters, "materialColor").onChange(() => {
     material.color.set(parameters.materialColor);
     particlesMaterial.color.set(parameters.materialColor);
@@ -184,4 +184,4 @@ async function initPortfolioScene() {
   return { scene, renderer, gui, cursor, dispose: dispose.bind(null, scene) };
 }
 
-export default initPortfolioScene;
+export default createPortfolioScene;

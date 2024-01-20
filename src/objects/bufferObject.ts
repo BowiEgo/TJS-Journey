@@ -5,7 +5,7 @@ import {
   MeshBasicMaterial,
 } from "three";
 
-const initBufferObject = () => {
+const createBufferObject = () => {
   // // prettier-ignore
   // const positionsArray = new Float32Array([
   //   0,0,0,
@@ -36,4 +36,4 @@ const initBufferObject = () => {
   return mesh;
 };
 
-export default initBufferObject;
+export default createBufferObject;

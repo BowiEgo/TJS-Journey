@@ -3,7 +3,7 @@ import { cubeTextureLoader, textureLoader } from ".";
 
 const urlPrefix = "assets/textures";
 
-const initDoorTextures = () => {
+const createDoorTextures = () => {
   const doorColorTexture = textureLoader.load(
     `${urlPrefix}/door/Door_Wood_001_basecolor.jpg`
   );
@@ -64,7 +64,7 @@ const initDoorTextures = () => {
   };
 };
 
-const initBricksTexture = () => {
+const createBricksTexture = () => {
   const bricksColorTexture = textureLoader.load(
     `${urlPrefix}/bricks/Brick_Wall_019_basecolor.jpg`
   );
@@ -110,7 +110,7 @@ const initBricksTexture = () => {
   };
 };
 
-const initGrassTexture = () => {
+const createGrassTexture = () => {
   const grassColorTexture = textureLoader.load(
     `${urlPrefix}/grass/Grass_005_BaseColor.jpg`
   );
@@ -158,7 +158,7 @@ const initGrassTexture = () => {
   };
 };
 
-const initEnvironmentTexture = () => {
+const createEnvironmentTexture = () => {
   const environmentMapTexture = cubeTextureLoader.load([
     `${urlPrefix}/environmentMaps/0/px.png`,
     `${urlPrefix}/environmentMaps/0/nx.png`,
@@ -174,8 +174,8 @@ const initEnvironmentTexture = () => {
 };
 
 export {
-  initDoorTextures,
-  initBricksTexture,
-  initGrassTexture,
-  initEnvironmentTexture,
+  createDoorTextures,
+  createBricksTexture,
+  createGrassTexture,
+  createEnvironmentTexture,
 };

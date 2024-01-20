@@ -7,9 +7,9 @@ import {
   PointsMaterial,
   Scene,
 } from "three";
-import { initDebugUI } from "../debugUI";
-import { initBasicCamera, initControls, initCursor } from "../cameras";
-import { initResize, initScene } from ".";
+import { createDebugUI } from "../debugUI";
+import { createBasicCamera, createControls, createCursor } from "../cameras";
+import { createResize, createScene } from ".";
 import { runAnimation } from "../animations";
 
 const parameters = {
@@ -23,7 +23,7 @@ const parameters = {
   insideColor: "#ff6030",
   outsideColor: "#1b3984",
 };
-const gui = initDebugUI();
+const gui = createDebugUI();
 
 let geometry: BufferGeometry | null,
   material: PointsMaterial | null,
@@ -37,8 +37,8 @@ const dispose = (scene: Scene) => {
   }
 };
 
-async function initGalaxyScene() {
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene();
+async function createGalaxyScene() {
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene();
 
   points = generateGalaxy(scene) as Points;
 
@@ -96,15 +96,15 @@ async function initGalaxyScene() {
     .addColor(parameters, "outsideColor")
     .onFinishChange(generateGalaxy.bind(null, scene));
 
-  const cursor = initCursor(size);
-  const camera = initBasicCamera(aspectRatio, scene, points);
+  const cursor = createCursor(size);
+  const camera = createBasicCamera(aspectRatio, scene, points);
   camera.position.x = 2;
   camera.position.y = 2;
   camera.position.z = 2;
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
-  const controls = initControls(camera, canvas);
+  const controls = createControls(camera, canvas);
 
   render(camera);
   runAnimation(camera, cursor, controls, render, () => {}, false);
@@ -185,4 +185,4 @@ const generateGalaxy = (scene: Scene) => {
   return points;
 };
 
-export default initGalaxyScene;
+export default createGalaxyScene;

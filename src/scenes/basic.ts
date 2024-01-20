@@ -1,40 +1,40 @@
-import { initResize, initScene } from ".";
+import { createResize, createScene } from ".";
 import { runAnimation, stopAnimation } from "../animations";
 import basicAnimation from "../animations/basic";
-import { initBasicCamera, initControls, initCursor } from "../cameras";
-import { initDebugUI } from "../debugUI";
-import { initShadowLight } from "../lights";
-import { initMaterialObject } from "../objects";
+import { createBasicCamera, createControls, createCursor } from "../cameras";
+import { createDebugUI } from "../debugUI";
+import { createShadowLight } from "../lights";
+import { createMaterialObject } from "../objects";
 
-async function initBasicScene() {
-  const gui = initDebugUI();
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene();
-  // const object = initGroup()
-  // const object = initBoxGeometry();
-  // const object = initBufferGeometry();
-  // const box = initTextureGeometry();
-  // const { plane, sphere } = initShadowGeometry(gui);
-  const { cube } = initMaterialObject(gui);
+async function createBasicScene() {
+  const gui = createDebugUI();
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene();
+  // const object = createGroup()
+  // const object = createBoxGeometry();
+  // const object = createBufferGeometry();
+  // const box = createTextureGeometry();
+  // const { plane, sphere } = createShadowGeometry(gui);
+  const { cube } = createMaterialObject(gui);
 
-  // const { plane, sphere, cube, torus } = initMaterialGeometry(gui);
-  const cursor = initCursor(size);
-  const camera = initBasicCamera(aspectRatio, scene, cube);
+  // const { plane, sphere, cube, torus } = createMaterialGeometry(gui);
+  const cursor = createCursor(size);
+  const camera = createBasicCamera(aspectRatio, scene, cube);
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
-  // const camera = initOrthographicCamera(aspectRatio, scene, object);
-  const controls = initControls(camera, canvas);
+  // const camera = createOrthographicCamera(aspectRatio, scene, object);
+  const controls = createControls(camera, canvas);
   // scene.add(box);
   // scene.add(plane, sphere, cube, torus);
   // scene.add(plane, sphere);
   scene.add(cube);
 
   // Light
-  // initBasicLight(scene, gui);
-  initShadowLight(scene, gui);
+  // createBasicLight(scene, gui);
+  createShadowLight(scene, gui);
 
   // 3DText
-  // await init3DText(scene);
+  // await create3DText(scene);
 
   render(camera);
   runAnimation(
@@ -59,4 +59,4 @@ async function initBasicScene() {
   return { scene, renderer, gui, cursor, dispose };
 }
 
-export default initBasicScene;
+export default createBasicScene;

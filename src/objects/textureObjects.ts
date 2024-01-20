@@ -1,7 +1,7 @@
 import { BoxGeometry, Mesh, MeshBasicMaterial } from "three";
-import { initDoorTextures } from "../textures/hauntedHouse";
+import { createDoorTextures } from "../textures/hauntedHouse";
 
-const initTextureObject = () => {
+const createTextureObject = () => {
   const {
     doorColorTexture,
     // doorAlphaTexture,
@@ -10,7 +10,7 @@ const initTextureObject = () => {
     // doorAmbientOcclusionTexture,
     // doorMetalnessTexture,
     // doorRoughnessTexture,
-  } = initDoorTextures();
+  } = createDoorTextures();
 
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new MeshBasicMaterial({
@@ -21,4 +21,4 @@ const initTextureObject = () => {
   return mesh;
 };
 
-export default initTextureObject;
+export default createTextureObject;

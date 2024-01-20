@@ -1,21 +1,21 @@
-import initBasicMaterial from "./basicMaterial";
-import initGrassFloorMaterial from "./grassFloor";
-import initWallsMaterial from "./wall";
-import initRoofMaterial from "./roof";
+import createBasicMaterial from "./basicMaterial";
+import createGrassFloorMaterial from "./grassFloor";
+import createWallsMaterial from "./wall";
+import createRoofMaterial from "./roof";
 import {
-  initDoorMaterial,
-  initBushMaterial,
-  initGraveMaterial,
+  createDoorMaterial,
+  createBushMaterial,
+  createGraveMaterial,
 } from "./hauntedHouse";
-import initParticlesMaterial from "./particles";
+import createParticlesMaterial from "./particles";
 
 export {
-  initBasicMaterial,
-  initGrassFloorMaterial,
-  initWallsMaterial,
-  initRoofMaterial,
-  initDoorMaterial,
-  initBushMaterial,
-  initGraveMaterial,
-  initParticlesMaterial,
+  createBasicMaterial,
+  createGrassFloorMaterial,
+  createWallsMaterial,
+  createRoofMaterial,
+  createDoorMaterial,
+  createBushMaterial,
+  createGraveMaterial,
+  createParticlesMaterial,
 };

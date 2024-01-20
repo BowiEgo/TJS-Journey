@@ -1,8 +1,8 @@
 import { Mesh, PlaneGeometry } from "three";
-import { initBasicMaterial } from "../materials";
+import { createBasicMaterial } from "../materials";
 
 const createPlane = () => {
-  const material = initBasicMaterial();
+  const material = createBasicMaterial();
 
   const plane = new Mesh(new PlaneGeometry(10, 10, 100, 100), material);
 

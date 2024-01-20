@@ -1,7 +1,7 @@
 import { BufferAttribute, BufferGeometry, Points } from "three";
-import { initParticlesMaterial } from "../materials";
+import { createParticlesMaterial } from "../materials";
 
-const initParticles = () => {
+const createParticles = () => {
   // Geometry
   const particlesGeometry = new BufferGeometry();
   const count = 2000;
@@ -18,7 +18,7 @@ const initParticles = () => {
   particlesGeometry.setAttribute("color", new BufferAttribute(colors, 3));
 
   // Material
-  const particlesMaterial = initParticlesMaterial();
+  const particlesMaterial = createParticlesMaterial();
 
   // Points
   const particles = new Points(particlesGeometry, particlesMaterial);
@@ -26,4 +26,4 @@ const initParticles = () => {
   return { points: particles, count };
 };
 
-export { initParticles };
+export { createParticles };

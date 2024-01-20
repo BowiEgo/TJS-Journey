@@ -7,10 +7,10 @@ import {
   SphereGeometry,
   TorusGeometry,
 } from "three";
-import { initBasicMaterial } from "../materials";
+import { createBasicMaterial } from "../materials";
 
-const initMaterialObjects = (gui?: GUI) => {
-  const material = initBasicMaterial(gui);
+const createMaterialObjects = (gui?: GUI) => {
+  const material = createBasicMaterial(gui);
 
   const plane = new Mesh(new PlaneGeometry(5, 5, 100, 100), material);
   // When apply textures and add subdivisions to the geometry,
@@ -46,4 +46,4 @@ const initMaterialObjects = (gui?: GUI) => {
   };
 };
 
-export default initMaterialObjects;
+export default createMaterialObjects;

@@ -5,12 +5,12 @@ import {
   Scene,
   WebGLRenderer,
 } from "three";
-import initBasicScene from "./basic";
-import initBouncingBallScene from "./bouncingBall";
-import initHauntedHouseScene from "./hauntedHouse";
-import initParticleScene from "./particle";
-import initGalaxyScene from "./galaxy";
-import initPortfolioScene from "./portfolio";
+import createBasicScene from "./basic";
+import createBouncingBallScene from "./bouncingBall";
+import createHauntedHouseScene from "./hauntedHouse";
+import createParticleScene from "./particle";
+import createGalaxyScene from "./galaxy";
+import createPortfolioScene from "./portfolio";
 
 type Size = {
   width: number;
@@ -23,7 +23,7 @@ interface SceneOptions {
   };
 }
 
-const initScene = (opts?: SceneOptions) => {
+const createScene = (opts?: SceneOptions) => {
   const scene = new Scene();
 
   // // Axes Helper
@@ -63,7 +63,7 @@ const initScene = (opts?: SceneOptions) => {
   return { size, aspectRatio, scene, canvas, render, renderer };
 };
 
-const initResize = (
+const createResize = (
   size: Size,
   canvas: HTMLCanvasElement,
   camera: PerspectiveCamera,
@@ -112,14 +112,14 @@ const initResize = (
 };
 
 export {
-  initScene,
-  initResize,
-  initBasicScene,
-  initBouncingBallScene,
-  initHauntedHouseScene,
-  initParticleScene,
-  initGalaxyScene,
-  initPortfolioScene,
+  createScene,
+  createResize,
+  createBasicScene,
+  createBouncingBallScene,
+  createHauntedHouseScene,
+  createParticleScene,
+  createGalaxyScene,
+  createPortfolioScene,
 };
 
 export type { Size };

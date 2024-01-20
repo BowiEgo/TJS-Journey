@@ -1,12 +1,12 @@
 import { BoxGeometry, Group, Mesh } from "three";
-import { initGraveMaterial } from "../materials";
+import { createGraveMaterial } from "../materials";
 
-const initGraves = () => {
+const createGraves = () => {
   const graves = new Group();
   let gravesArray = [];
 
   const graveGeometry = new BoxGeometry(0.6, 0.8, 0.2);
-  const graveMaterial = initGraveMaterial();
+  const graveMaterial = createGraveMaterial();
 
   for (let i = 0; i < 50; i++) {
     const angle = Math.random() * Math.PI * 2;
@@ -26,4 +26,4 @@ const initGraves = () => {
   return { graves, gravesArray };
 };
 
-export default initGraves;
+export default createGraves;

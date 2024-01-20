@@ -2,18 +2,18 @@ import "./style.css";
 import { Scene, WebGLRenderer } from "three";
 import GUI from "lil-gui";
 import {
-  initBasicScene,
-  initBouncingBallScene,
-  initGalaxyScene,
-  initHauntedHouseScene,
-  initParticleScene,
-  initPortfolioScene,
+  createBasicScene,
+  createBouncingBallScene,
+  createGalaxyScene,
+  createHauntedHouseScene,
+  createParticleScene,
+  createPortfolioScene,
 } from "./scenes";
 import { Cursor } from "./cameras";
-import initPhysicScene from "./scenes/physics";
-import initModelsScene from "./scenes/models";
-import initRaycasterScene from "./scenes/raycaster";
-import initBlenderModelsScene from "./scenes/blenderModels";
+import createPhysicScene from "./scenes/physics";
+import createModelsScene from "./scenes/models";
+import createRaycasterScene from "./scenes/raycaster";
+import createBlenderModelsScene from "./scenes/blenderModels";
 
 interface SceneManager {
   scene: Scene | null;
@@ -61,52 +61,52 @@ select.onchange = async function (evt) {
   switch (target.value) {
     case "basicScene":
       dispose();
-      sceneManager = await initBasicScene();
+      sceneManager = await createBasicScene();
       break;
     case "boucingBall":
       dispose();
-      sceneManager = initBouncingBallScene();
+      sceneManager = createBouncingBallScene();
       break;
     case "hauntedHouseScene":
       dispose();
-      sceneManager = await initHauntedHouseScene();
+      sceneManager = await createHauntedHouseScene();
       break;
     case "particleScene":
       dispose();
-      sceneManager = initParticleScene();
+      sceneManager = createParticleScene();
       break;
     case "galaxyScene":
       dispose();
-      sceneManager = await initGalaxyScene();
+      sceneManager = await createGalaxyScene();
       break;
     case "portfoliScene":
       dispose();
-      sceneManager = await initPortfolioScene();
+      sceneManager = await createPortfolioScene();
       break;
     case "phyiscScene":
       dispose();
-      sceneManager = await initPhysicScene();
+      sceneManager = await createPhysicScene();
       break;
     case "modelsScene":
       dispose();
-      sceneManager = await initModelsScene();
+      sceneManager = await createModelsScene();
       break;
     case "raycasterScene":
       dispose();
-      sceneManager = await initRaycasterScene();
+      sceneManager = await createRaycasterScene();
       break;
     case "blenderModelsScene":
       dispose();
-      sceneManager = await initBlenderModelsScene();
+      sceneManager = await createBlenderModelsScene();
       break;
     default:
       dispose();
-      sceneManager = await initBasicScene();
+      sceneManager = await createBasicScene();
       break;
   }
 };
 
-initBlenderModelsScene().then((val) => {
+createBlenderModelsScene().then((val) => {
   sceneManager = val;
   select.value = "blenderModelsScene";
 });

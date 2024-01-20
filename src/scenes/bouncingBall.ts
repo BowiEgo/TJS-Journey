@@ -1,25 +1,25 @@
-import { initResize, initScene } from ".";
+import { createResize, createScene } from ".";
 import { runAnimation, stopAnimation } from "../animations";
 import basicAnimation from "../animations/basic";
-import { initBasicCamera, initControls, initCursor } from "../cameras";
-import { initDebugUI } from "../debugUI";
-import { initShadowLight } from "../lights";
-import { initShadowObjects } from "../objects";
+import { createBasicCamera, createControls, createCursor } from "../cameras";
+import { createDebugUI } from "../debugUI";
+import { createShadowLight } from "../lights";
+import { createShadowObjects } from "../objects";
 
-const initBouncingBallScene = () => {
-  const gui = initDebugUI();
-  const { size, aspectRatio, scene, canvas, render, renderer } = initScene();
-  const { plane, sphere } = initShadowObjects(gui);
+const createBouncingBallScene = () => {
+  const gui = createDebugUI();
+  const { size, aspectRatio, scene, canvas, render, renderer } = createScene();
+  const { plane, sphere } = createShadowObjects(gui);
 
-  const cursor = initCursor(size);
-  const camera = initBasicCamera(aspectRatio, scene, plane);
+  const cursor = createCursor(size);
+  const camera = createBasicCamera(aspectRatio, scene, plane);
 
-  initResize(size, canvas, camera, renderer);
+  createResize(size, canvas, camera, renderer);
 
-  const controls = initControls(camera, canvas);
+  const controls = createControls(camera, canvas);
   scene.add(plane, sphere);
 
-  initShadowLight(scene, gui);
+  createShadowLight(scene, gui);
 
   render(camera);
   runAnimation(
@@ -43,4 +43,4 @@ const initBouncingBallScene = () => {
   return { scene, renderer, gui, cursor, dispose };
 };
 
-export default initBouncingBallScene;
+export default createBouncingBallScene;

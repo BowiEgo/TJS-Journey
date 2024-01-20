@@ -1,8 +1,8 @@
 import { BufferAttribute, Mesh, PlaneGeometry } from "three";
-import { initGrassFloorMaterial } from "../materials";
+import { createGrassFloorMaterial } from "../materials";
 
-const initGrassFloor = () => {
-  const material = initGrassFloorMaterial();
+const createGrassFloor = () => {
+  const material = createGrassFloorMaterial();
 
   const grassFloor = new Mesh(new PlaneGeometry(20, 20), material);
   grassFloor.geometry.setAttribute(
@@ -16,4 +16,4 @@ const initGrassFloor = () => {
   return grassFloor;
 };
 
-export default initGrassFloor;
+export default createGrassFloor;
