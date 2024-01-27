@@ -1,30 +1,19 @@
-import "./style.css";
-import { Scene, WebGLRenderer } from "three";
-import GUI from "lil-gui";
-import {
-  createBasicScene,
-  createBouncingBallScene,
-  createGalaxyScene,
-  createHauntedHouseScene,
-  createParticleScene,
-  createPortfolioScene,
-} from "./scenes";
-import { Cursor } from "./cameras";
-import createPhysicScene from "./scenes/physics";
-import createModelsScene from "./scenes/models";
-import createRaycasterScene from "./scenes/raycaster";
-import createBlenderModelsScene from "./scenes/blenderModels";
-import createRealisticRenderScene from "./scenes/realisticRender";
+import './style.css'
+import { createCore } from './core'
+import FoxStage from './stages/fox'
+import BouncingBallStage from './stages/bouncingBall'
+import BasicStage from './stages/basic'
+import HauntedHouseStage from './stages/hauntedHouse'
+import ParticleStage from './stages/particle'
+import GalaxyStage from './stages/galaxy'
+import PortfolioStage from './stages/portfolio'
+import PhysicStage from './stages/physic'
+import ModelsStage from './stages/models'
+import RaycasterStage from './stages/raycaster'
+import BlenderModelsStage from './stages/blenderModels'
+import RealisticRenderStage from './stages/realisticRender'
 
-interface SceneManager {
-  scene: Scene | null;
-  renderer: WebGLRenderer | null;
-  gui: GUI | null;
-  cursor?: Cursor | null;
-  dispose: Function | null;
-}
-
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
   <select title="scene" name="SelectScene" class="select">
     <option value="basicScene" selected>BasicScene</option>
@@ -38,81 +27,70 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <option value="raycasterScene">RaycasterScene</option>
     <option value="blenderModelsScene">BlenderModelsScene</option>
     <option value="realisticRenderScene">realisticRenderScene</option>
+    <option value="foxScene">foxScene</option>
   </select>
-`;
+`
 
-const select = document.querySelector(".select") as HTMLSelectElement;
-
-let sceneManager: SceneManager = {
-  scene: null,
-  renderer: null,
-  gui: null,
-  cursor: null,
-  dispose: null,
-};
-
-function dispose() {
-  sceneManager.dispose?.call(sceneManager.scene);
-  sceneManager.renderer && sceneManager.renderer.dispose();
-  sceneManager.gui && sceneManager.gui.destroy();
-  sceneManager.cursor && sceneManager.cursor.dispose();
-}
+const select = document.querySelector('.select') as HTMLSelectElement
 
 select.onchange = async function (evt) {
-  const target = evt.target as any;
+  const target = evt.target as any
   switch (target.value) {
-    case "basicScene":
-      dispose();
-      sceneManager = await createBasicScene();
-      break;
-    case "boucingBall":
-      dispose();
-      sceneManager = createBouncingBallScene();
-      break;
-    case "hauntedHouseScene":
-      dispose();
-      sceneManager = await createHauntedHouseScene();
-      break;
-    case "particleScene":
-      dispose();
-      sceneManager = createParticleScene();
-      break;
-    case "galaxyScene":
-      dispose();
-      sceneManager = await createGalaxyScene();
-      break;
-    case "portfoliScene":
-      dispose();
-      sceneManager = await createPortfolioScene();
-      break;
-    case "phyiscScene":
-      dispose();
-      sceneManager = await createPhysicScene();
-      break;
-    case "modelsScene":
-      dispose();
-      sceneManager = await createModelsScene();
-      break;
-    case "raycasterScene":
-      dispose();
-      sceneManager = await createRaycasterScene();
-      break;
-    case "blenderModelsScene":
-      dispose();
-      sceneManager = await createBlenderModelsScene();
-      break;
-    case "realisticRenderScene":
-      dispose();
-      sceneManager = await createRealisticRenderScene();
-      break;
+    case 'basicScene':
+      window.core.destroyStage()
+      window.core.createStage(new BasicStage())
+      break
+    case 'boucingBall':
+      window.core.destroyStage()
+      window.core.createStage(new BouncingBallStage())
+      break
+    case 'hauntedHouseScene':
+      window.core.destroyStage()
+      window.core.createStage(new HauntedHouseStage())
+      break
+    case 'particleScene':
+      window.core.destroyStage()
+      window.core.createStage(new ParticleStage())
+      break
+    case 'galaxyScene':
+      window.core.destroyStage()
+      window.core.createStage(new GalaxyStage())
+      break
+    case 'portfoliScene':
+      window.core.destroyStage()
+      window.core.createStage(new PortfolioStage())
+      break
+    case 'phyiscScene':
+      window.core.destroyStage()
+      window.core.createStage(new PhysicStage())
+      break
+    case 'modelsScene':
+      window.core.destroyStage()
+      window.core.createStage(new ModelsStage())
+      break
+    case 'raycasterScene':
+      window.core.destroyStage()
+      window.core.createStage(new RaycasterStage())
+      break
+    case 'blenderModelsScene':
+      window.core.destroyStage()
+      window.core.createStage(new BlenderModelsStage())
+      break
+    case 'realisticRenderScene':
+      window.core.destroyStage()
+      window.core.createStage(new RealisticRenderStage())
+      break
+    case 'foxScene':
+      window.core.destroyStage()
+      window.core.createStage(new FoxStage())
+      break
     default:
-      dispose();
-      sceneManager = await createBasicScene();
-      break;
+      window.core.destroyStage()
+      window.core.createStage(new FoxStage())
+      break
   }
-};
+}
 
-createRealisticRenderScene().then((val) => {
-  sceneManager = val;
-  select.value = "realisticRenderScene";
-});
+window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
+window.core.createStage(new RealisticRenderStage())
+select.value = 'realisticRenderScene'
