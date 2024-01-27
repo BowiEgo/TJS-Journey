@@ -15,19 +15,19 @@ import RealisticRenderStage from './stages/realisticRender'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
-  <select title="scene" name="SelectScene" class="select">
-    <option value="basicScene" selected>BasicScene</option>
+  <select title="stage" name="SelectStage" class="select">
+    <option value="basic" selected>Basic</option>
     <option value="boucingBall">BoucingBall</option>
-    <option value="hauntedHouseScene">HauntedHouseScene</option>
-    <option value="particleScene">ParticleScene</option>
-    <option value="galaxyScene">GalaxyScene</option>
-    <option value="portfoliScene">PortfolioScene</option>
-    <option value="phyiscScene">PhyiscScene</option>
-    <option value="modelsScene">ModelsScene</option>
-    <option value="raycasterScene">RaycasterScene</option>
-    <option value="blenderModelsScene">BlenderModelsScene</option>
-    <option value="realisticRenderScene">realisticRenderScene</option>
-    <option value="foxScene">foxScene</option>
+    <option value="hauntedHouse">HauntedHouse</option>
+    <option value="particle">Particle</option>
+    <option value="galaxy">Galaxy</option>
+    <option value="portfoli">Portfolio</option>
+    <option value="phyisc">Phyisc</option>
+    <option value="models">Models</option>
+    <option value="raycaster">Raycaster</option>
+    <option value="blenderModels">BlenderModels</option>
+    <option value="realisticRender">realisticRender</option>
+    <option value="fox">fox</option>
   </select>
 `
 
@@ -36,7 +36,7 @@ const select = document.querySelector('.select') as HTMLSelectElement
 select.onchange = async function (evt) {
   const target = evt.target as any
   switch (target.value) {
-    case 'basicScene':
+    case 'basic':
       window.core.destroyStage()
       window.core.createStage(new BasicStage())
       break
@@ -44,43 +44,43 @@ select.onchange = async function (evt) {
       window.core.destroyStage()
       window.core.createStage(new BouncingBallStage())
       break
-    case 'hauntedHouseScene':
+    case 'hauntedHouse':
       window.core.destroyStage()
       window.core.createStage(new HauntedHouseStage())
       break
-    case 'particleScene':
+    case 'particle':
       window.core.destroyStage()
       window.core.createStage(new ParticleStage())
       break
-    case 'galaxyScene':
+    case 'galaxy':
       window.core.destroyStage()
       window.core.createStage(new GalaxyStage())
       break
-    case 'portfoliScene':
+    case 'portfoli':
       window.core.destroyStage()
       window.core.createStage(new PortfolioStage())
       break
-    case 'phyiscScene':
+    case 'phyisc':
       window.core.destroyStage()
       window.core.createStage(new PhysicStage())
       break
-    case 'modelsScene':
+    case 'models':
       window.core.destroyStage()
       window.core.createStage(new ModelsStage())
       break
-    case 'raycasterScene':
+    case 'raycaster':
       window.core.destroyStage()
       window.core.createStage(new RaycasterStage())
       break
-    case 'blenderModelsScene':
+    case 'blenderModels':
       window.core.destroyStage()
       window.core.createStage(new BlenderModelsStage())
       break
-    case 'realisticRenderScene':
+    case 'realisticRender':
       window.core.destroyStage()
       window.core.createStage(new RealisticRenderStage())
       break
-    case 'foxScene':
+    case 'fox':
       window.core.destroyStage()
       window.core.createStage(new FoxStage())
       break
@@ -92,5 +92,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new RealisticRenderStage())
-select.value = 'realisticRenderScene'
+window.core.createStage(new FoxStage())
+select.value = 'fox'
