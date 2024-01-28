@@ -1,11 +1,16 @@
-// prettier-ignore
+import glsl from 'vite-plugin-glsl'
+
 export default {
-  base: "./",
+  base: './',
+  server: {
+    host: true,
+  },
   build: {
     rollupOptions: {
       output: {
-        assetFileNames: "[hash].[name].[ext]",
+        assetFileNames: '[hash].[name].[ext]',
       },
     },
   },
-};
+  plugins: [glsl()],
+}

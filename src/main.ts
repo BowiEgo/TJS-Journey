@@ -12,6 +12,7 @@ import ModelsStage from './stages/models'
 import RaycasterStage from './stages/raycaster'
 import BlenderModelsStage from './stages/blenderModels'
 import RealisticRenderStage from './stages/realisticRender'
+import ShaderStage from './stages/shader'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -26,8 +27,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <option value="models">Models</option>
     <option value="raycaster">Raycaster</option>
     <option value="blenderModels">BlenderModels</option>
-    <option value="realisticRender">realisticRender</option>
-    <option value="fox">fox</option>
+    <option value="realisticRender">RealisticRender</option>
+    <option value="fox">Fox</option>
+    <option value="shader">Shader</option>
   </select>
 `
 
@@ -84,13 +86,17 @@ select.onchange = async function (evt) {
       window.core.destroyStage()
       window.core.createStage(new FoxStage())
       break
+    case 'shader':
+      window.core.destroyStage()
+      window.core.createStage(new ShaderStage())
+      break
     default:
       window.core.destroyStage()
-      window.core.createStage(new FoxStage())
+      window.core.createStage(new ShaderStage())
       break
   }
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new FoxStage())
-select.value = 'fox'
+window.core.createStage(new ShaderStage())
+select.value = 'shader'
