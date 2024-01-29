@@ -14,6 +14,7 @@ import BlenderModelsStage from './stages/blenderModels'
 import RealisticRenderStage from './stages/realisticRender'
 import ShaderStage from './stages/shader'
 import ShaderPatternsStage from './stages/shaderPatterns'
+import RagingSeaStage from './stages/ragingSea'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -32,6 +33,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <option value="fox">Fox</option>
     <option value="shader">Shader</option>
     <option value="shaderPatterns">ShaderPatterns</option>
+    <option value="ragingSea">RagingSea</option>
   </select>
 `
 
@@ -96,6 +98,10 @@ select.onchange = async function (evt) {
       window.core.destroyStage()
       window.core.createStage(new ShaderPatternsStage())
       break
+    case 'ragingSea':
+      window.core.destroyStage()
+      window.core.createStage(new RagingSeaStage())
+      break
     default:
       window.core.destroyStage()
       window.core.createStage(new ShaderStage())
@@ -104,5 +110,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new ShaderPatternsStage())
-select.value = 'shaderPatterns'
+window.core.createStage(new RagingSeaStage())
+select.value = 'ragingSea'
