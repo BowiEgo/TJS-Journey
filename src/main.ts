@@ -13,6 +13,7 @@ import RaycasterStage from './stages/raycaster'
 import BlenderModelsStage from './stages/blenderModels'
 import RealisticRenderStage from './stages/realisticRender'
 import ShaderStage from './stages/shader'
+import ShaderPatternsStage from './stages/shaderPatterns'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -30,6 +31,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <option value="realisticRender">RealisticRender</option>
     <option value="fox">Fox</option>
     <option value="shader">Shader</option>
+    <option value="shaderPatterns">ShaderPatterns</option>
   </select>
 `
 
@@ -90,6 +92,10 @@ select.onchange = async function (evt) {
       window.core.destroyStage()
       window.core.createStage(new ShaderStage())
       break
+    case 'shaderPatterns':
+      window.core.destroyStage()
+      window.core.createStage(new ShaderPatternsStage())
+      break
     default:
       window.core.destroyStage()
       window.core.createStage(new ShaderStage())
@@ -98,5 +104,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new ShaderStage())
-select.value = 'shader'
+window.core.createStage(new ShaderPatternsStage())
+select.value = 'shaderPatterns'
