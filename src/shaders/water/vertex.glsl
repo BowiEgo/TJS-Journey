@@ -126,5 +126,4 @@ void main() {
 
   // varying
   vElevation = elevation;
-
 }

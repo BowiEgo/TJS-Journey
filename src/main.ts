@@ -15,6 +15,7 @@ import RealisticRenderStage from './stages/realisticRender'
 import ShaderStage from './stages/shader'
 import ShaderPatternsStage from './stages/shaderPatterns'
 import RagingSeaStage from './stages/ragingSea'
+import AnimatedGalaxyStage from './stages/animatedGalaxy'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -34,6 +35,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <option value="shader">Shader</option>
     <option value="shaderPatterns">ShaderPatterns</option>
     <option value="ragingSea">RagingSea</option>
+    <option value="animatedGalaxy">AnimatedGalaxy</option>
   </select>
 `
 
@@ -102,6 +104,10 @@ select.onchange = async function (evt) {
       window.core.destroyStage()
       window.core.createStage(new RagingSeaStage())
       break
+    case 'animatedGalaxy':
+      window.core.destroyStage()
+      window.core.createStage(new AnimatedGalaxyStage())
+      break
     default:
       window.core.destroyStage()
       window.core.createStage(new ShaderStage())
@@ -110,5 +116,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new RagingSeaStage())
-select.value = 'ragingSea'
+window.core.createStage(new AnimatedGalaxyStage())
+select.value = 'animatedGalaxy'
