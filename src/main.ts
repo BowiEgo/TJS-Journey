@@ -16,6 +16,7 @@ import ShaderStage from './stages/shader'
 import ShaderPatternsStage from './stages/shaderPatterns'
 import RagingSeaStage from './stages/ragingSea'
 import AnimatedGalaxyStage from './stages/animatedGalaxy'
+import ModifiedMaterialsStage from './stages/modifiedMaterials'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -108,6 +109,10 @@ select.onchange = async function (evt) {
       window.core.destroyStage()
       window.core.createStage(new AnimatedGalaxyStage())
       break
+    case 'modifiedMaterial':
+      window.core.destroyStage()
+      window.core.createStage(new ModifiedMaterialsStage())
+      break
     default:
       window.core.destroyStage()
       window.core.createStage(new ShaderStage())
@@ -116,5 +121,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new AnimatedGalaxyStage())
-select.value = 'animatedGalaxy'
+window.core.createStage(new ModifiedMaterialsStage())
+select.value = 'modifiedMaterial'
