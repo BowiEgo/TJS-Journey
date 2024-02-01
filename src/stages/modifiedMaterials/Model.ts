@@ -13,7 +13,6 @@ import { GLTF } from 'three/examples/jsm/Addons.js'
 import { disposeMeshes } from '../../core/Utils'
 import Debug from '../../core/Debug'
 import GUI from 'lil-gui'
-import RealisticRenderStage from '.'
 import { Textures } from '../types'
 import Time from '../../core/Time'
 
@@ -23,7 +22,6 @@ type CustomUniforms = {
 
 export default class Model {
   core: Core
-  stage: RealisticRenderStage
   scene: Scene
   time: Time
   debug: Debug
@@ -41,7 +39,6 @@ export default class Model {
 
   constructor() {
     this.core = createCore()
-    this.stage = this.core.stage as RealisticRenderStage
     this.scene = this.core.scene
     this.time = this.core.time
     this.debug = this.core.debug

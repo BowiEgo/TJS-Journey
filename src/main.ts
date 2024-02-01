@@ -17,6 +17,7 @@ import ShaderPatternsStage from './stages/shaderPatterns'
 import RagingSeaStage from './stages/ragingSea'
 import AnimatedGalaxyStage from './stages/animatedGalaxy'
 import ModifiedMaterialsStage from './stages/modifiedMaterials'
+import PostProcessingStage from './stages/postProcessing'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -37,89 +38,95 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <option value="shaderPatterns">ShaderPatterns</option>
     <option value="ragingSea">RagingSea</option>
     <option value="animatedGalaxy">AnimatedGalaxy</option>
+    <option value="modifiedMaterial">ModifiedMaterial</option>
+    <option value="postProcessingStage">PostProcessingStage</option>
   </select>
 `
 
 const select = document.querySelector('.select') as HTMLSelectElement
 
 select.onchange = async function (evt) {
-  const target = evt.target as any
-  switch (target.value) {
-    case 'basic':
-      window.core.destroyStage()
-      window.core.createStage(new BasicStage())
-      break
-    case 'boucingBall':
-      window.core.destroyStage()
-      window.core.createStage(new BouncingBallStage())
-      break
-    case 'hauntedHouse':
-      window.core.destroyStage()
-      window.core.createStage(new HauntedHouseStage())
-      break
-    case 'particle':
-      window.core.destroyStage()
-      window.core.createStage(new ParticleStage())
-      break
-    case 'galaxy':
-      window.core.destroyStage()
-      window.core.createStage(new GalaxyStage())
-      break
-    case 'portfoli':
-      window.core.destroyStage()
-      window.core.createStage(new PortfolioStage())
-      break
-    case 'phyisc':
-      window.core.destroyStage()
-      window.core.createStage(new PhysicStage())
-      break
-    case 'models':
-      window.core.destroyStage()
-      window.core.createStage(new ModelsStage())
-      break
-    case 'raycaster':
-      window.core.destroyStage()
-      window.core.createStage(new RaycasterStage())
-      break
-    case 'blenderModels':
-      window.core.destroyStage()
-      window.core.createStage(new BlenderModelsStage())
-      break
-    case 'realisticRender':
-      window.core.destroyStage()
-      window.core.createStage(new RealisticRenderStage())
-      break
-    case 'fox':
-      window.core.destroyStage()
-      window.core.createStage(new FoxStage())
-      break
-    case 'shader':
-      window.core.destroyStage()
-      window.core.createStage(new ShaderStage())
-      break
-    case 'shaderPatterns':
-      window.core.destroyStage()
-      window.core.createStage(new ShaderPatternsStage())
-      break
-    case 'ragingSea':
-      window.core.destroyStage()
-      window.core.createStage(new RagingSeaStage())
-      break
-    case 'animatedGalaxy':
-      window.core.destroyStage()
-      window.core.createStage(new AnimatedGalaxyStage())
-      break
-    case 'modifiedMaterial':
-      window.core.destroyStage()
-      window.core.createStage(new ModifiedMaterialsStage())
-      break
-    default:
-      window.core.destroyStage()
-      window.core.createStage(new ShaderStage())
-      break
-  }
+    const target = evt.target as any
+    switch (target.value) {
+        case 'basic':
+            window.core.destroyStage()
+            window.core.createStage(new BasicStage())
+            break
+        case 'boucingBall':
+            window.core.destroyStage()
+            window.core.createStage(new BouncingBallStage())
+            break
+        case 'hauntedHouse':
+            window.core.destroyStage()
+            window.core.createStage(new HauntedHouseStage())
+            break
+        case 'particle':
+            window.core.destroyStage()
+            window.core.createStage(new ParticleStage())
+            break
+        case 'galaxy':
+            window.core.destroyStage()
+            window.core.createStage(new GalaxyStage())
+            break
+        case 'portfoli':
+            window.core.destroyStage()
+            window.core.createStage(new PortfolioStage())
+            break
+        case 'phyisc':
+            window.core.destroyStage()
+            window.core.createStage(new PhysicStage())
+            break
+        case 'models':
+            window.core.destroyStage()
+            window.core.createStage(new ModelsStage())
+            break
+        case 'raycaster':
+            window.core.destroyStage()
+            window.core.createStage(new RaycasterStage())
+            break
+        case 'blenderModels':
+            window.core.destroyStage()
+            window.core.createStage(new BlenderModelsStage())
+            break
+        case 'realisticRender':
+            window.core.destroyStage()
+            window.core.createStage(new RealisticRenderStage())
+            break
+        case 'fox':
+            window.core.destroyStage()
+            window.core.createStage(new FoxStage())
+            break
+        case 'shader':
+            window.core.destroyStage()
+            window.core.createStage(new ShaderStage())
+            break
+        case 'shaderPatterns':
+            window.core.destroyStage()
+            window.core.createStage(new ShaderPatternsStage())
+            break
+        case 'ragingSea':
+            window.core.destroyStage()
+            window.core.createStage(new RagingSeaStage())
+            break
+        case 'animatedGalaxy':
+            window.core.destroyStage()
+            window.core.createStage(new AnimatedGalaxyStage())
+            break
+        case 'modifiedMaterial':
+            window.core.destroyStage()
+            window.core.createStage(new ModifiedMaterialsStage())
+            break
+        case 'postProcessingStage':
+            window.core.destroyStage()
+            window.core.createStage(new PostProcessingStage())
+            break
+        default:
+            window.core.destroyStage()
+            window.core.createStage(new ShaderStage())
+            break
+    }
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new ModifiedMaterialsStage())
-select.value = 'modifiedMaterial'
+window.core.createStage(new PostProcessingStage())
+select.value = 'postProcessingStage'

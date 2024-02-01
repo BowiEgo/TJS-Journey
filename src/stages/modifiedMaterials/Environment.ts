@@ -25,6 +25,7 @@ export default class Environment {
   debugFolder: GUI | undefined
   resources: Resources
   sunLight: DirectionalLight
+  sunLightHelper: CameraHelper | null = null
   environmentMap: EnvironmentMap
 
   constructor() {
@@ -54,6 +55,7 @@ export default class Environment {
 
     const directionLightCameraHelper = new CameraHelper(directionalLight.shadow.camera)
     directionLightCameraHelper.visible = true
+    this.sunLightHelper = directionLightCameraHelper
     this.scene.add(directionLightCameraHelper)
 
     // Debug
@@ -128,8 +130,10 @@ export default class Environment {
   }
 
   destroy() {
+    this.sunLightHelper?.dispose()
     this.sunLight.dispose()
     this.scene.remove(this.sunLight)
+    this.sunLightHelper && this.scene.remove(this.sunLightHelper)
     this.scene.environment = null
     this.scene.background = null
   }
