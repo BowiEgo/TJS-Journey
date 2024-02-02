@@ -10,7 +10,7 @@ import { disposeMeshes } from './Utils'
 import Cursor from './Cursor'
 import Scroll from './Scroll'
 import Effect from './Effect'
-import Intro from './intro'
+import Intro from './Intro'
 
 export type Core = {
     canvas: HTMLCanvasElement

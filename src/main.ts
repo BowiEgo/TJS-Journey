@@ -21,7 +21,7 @@ import PostProcessingStage from './stages/postProcessing'
 import PerformanceTipsStage from './stages/performanceTips'
 
 document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
-  <select title="stage" name="SelectStage" class="select">
+<select title="stage" name="SelectStage" class="select">
     <option value="basic" selected>Basic</option>
     <option value="boucingBall">BoucingBall</option>
     <option value="hauntedHouse">HauntedHouse</option>
@@ -41,7 +41,7 @@ document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
     <option value="modifiedMaterial">ModifiedMaterial</option>
     <option value="postProcessing">PostProcessing</option>
     <option value="performanceTips">PerformanceTips</option>
-  </select>
+</select>
 `
 
 const select = document.querySelector('.select') as HTMLSelectElement

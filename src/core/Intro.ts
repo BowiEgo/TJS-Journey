@@ -1,8 +1,8 @@
 import { Mesh, PlaneGeometry, Scene, ShaderMaterial } from 'three'
-import { Core, createCore } from '..'
-import { disposeMeshes } from '../Utils'
-import Resources from '../Resources'
-import EventEmitter from '../EventEmitter'
+import { Core, createCore } from '.'
+import { disposeMeshes } from './Utils'
+import Resources from './Resources'
+import EventEmitter from './EventEmitter'
 import gsap from 'gsap'
 
 export default class Intro extends EventEmitter {
@@ -68,6 +68,12 @@ export default class Intro extends EventEmitter {
 
         this.scene.add(overlay)
         return overlay
+    }
+
+    init() {
+        if (this.loadingBarElement) {
+            this.loadingBarElement.style.display = `block`
+        }
     }
 
     update(progressRatio: number) {

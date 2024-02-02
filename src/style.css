@@ -79,6 +79,7 @@ h1 {
 }
 
 .loading-bar {
+    display: none;
     position: absolute;
     top: 50%;
     width: 100%;

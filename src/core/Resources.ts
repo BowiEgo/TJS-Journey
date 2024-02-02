@@ -37,7 +37,9 @@ export default class Resources extends EventEmitter {
 
     setLoaders() {
         let loaders = {} as Loaders
-        loadingManager.onStart = () => {}
+        loadingManager.onStart = () => {
+            this.core.intro.init()
+        }
 
         loadingManager.onLoad = () => {
             this.core.intro.start()
