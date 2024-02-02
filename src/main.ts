@@ -18,6 +18,7 @@ import RagingSeaStage from './stages/ragingSea'
 import AnimatedGalaxyStage from './stages/animatedGalaxy'
 import ModifiedMaterialsStage from './stages/modifiedMaterials'
 import PostProcessingStage from './stages/postProcessing'
+import PerformanceTipsStage from './stages/performanceTips'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <canvas class="webgl"></canvas>
@@ -39,7 +40,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <option value="ragingSea">RagingSea</option>
     <option value="animatedGalaxy">AnimatedGalaxy</option>
     <option value="modifiedMaterial">ModifiedMaterial</option>
-    <option value="postProcessingStage">PostProcessingStage</option>
+    <option value="postProcessing">PostProcessing</option>
+    <option value="performanceTips">PerformanceTips</option>
   </select>
 `
 
@@ -120,6 +122,10 @@ select.onchange = async function (evt) {
             window.core.destroyStage()
             window.core.createStage(new PostProcessingStage())
             break
+        case 'performanceTips':
+            window.core.destroyStage()
+            window.core.createStage(new PerformanceTipsStage())
+            break
         default:
             window.core.destroyStage()
             window.core.createStage(new ShaderStage())
@@ -128,5 +134,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new PostProcessingStage())
-select.value = 'postProcessingStage'
+window.core.createStage(new PerformanceTipsStage())
+select.value = 'performanceTips'
