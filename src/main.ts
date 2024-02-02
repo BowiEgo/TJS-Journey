@@ -20,8 +20,7 @@ import ModifiedMaterialsStage from './stages/modifiedMaterials'
 import PostProcessingStage from './stages/postProcessing'
 import PerformanceTipsStage from './stages/performanceTips'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <canvas class="webgl"></canvas>
+document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
   <select title="stage" name="SelectStage" class="select">
     <option value="basic" selected>Basic</option>
     <option value="boucingBall">BoucingBall</option>
@@ -134,5 +133,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new PerformanceTipsStage())
-select.value = 'performanceTips'
+window.core.createStage(new RealisticRenderStage())
+select.value = 'realisticRender'

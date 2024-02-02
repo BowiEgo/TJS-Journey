@@ -10,6 +10,7 @@ import { disposeMeshes } from './Utils'
 import Cursor from './Cursor'
 import Scroll from './Scroll'
 import Effect from './Effect'
+import Intro from './intro'
 
 export type Core = {
     canvas: HTMLCanvasElement
@@ -17,6 +18,7 @@ export type Core = {
     sizes: Sizes
     time: Time
     scene: Scene
+    intro: Intro
     camera: Camera
     cursor: Cursor
     scroll: Scroll
@@ -56,6 +58,7 @@ export function createCore(canvas?: HTMLCanvasElement | null): Core {
     core.renderer = new Renderer()
     core.effect = new Effect()
     core.resources = new Resources()
+    core.intro = new Intro()
 
     core.createStage = (stage: Stage) => {
         core.stage = stage
@@ -85,6 +88,7 @@ export function createCore(canvas?: HTMLCanvasElement | null): Core {
 
         disposeMeshes(core.scene)
 
+        core.intro.destroy()
         core.cursor.destroy()
         core.scroll.destroy()
         core.camera.destroy()
