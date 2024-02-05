@@ -19,6 +19,7 @@ import AnimatedGalaxyStage from './stages/animatedGalaxy'
 import ModifiedMaterialsStage from './stages/modifiedMaterials'
 import PostProcessingStage from './stages/postProcessing'
 import PerformanceTipsStage from './stages/performanceTips'
+import MixingHTMLStage from './stages/mixingHTML'
 
 document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
 <select title="stage" name="SelectStage" class="select">
@@ -41,6 +42,7 @@ document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
     <option value="modifiedMaterial">ModifiedMaterial</option>
     <option value="postProcessing">PostProcessing</option>
     <option value="performanceTips">PerformanceTips</option>
+    <option value="mixingHTML">MixingHTML</option>
 </select>
 `
 
@@ -117,13 +119,17 @@ select.onchange = async function (evt) {
             window.core.destroyStage()
             window.core.createStage(new ModifiedMaterialsStage())
             break
-        case 'postProcessingStage':
+        case 'postProcessing':
             window.core.destroyStage()
             window.core.createStage(new PostProcessingStage())
             break
         case 'performanceTips':
             window.core.destroyStage()
             window.core.createStage(new PerformanceTipsStage())
+            break
+        case 'mixingHTML':
+            window.core.destroyStage()
+            window.core.createStage(new MixingHTMLStage())
             break
         default:
             window.core.destroyStage()
@@ -133,5 +139,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new RealisticRenderStage())
-select.value = 'realisticRender'
+window.core.createStage(new MixingHTMLStage())
+select.value = 'mixingHTML'

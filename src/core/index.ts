@@ -58,7 +58,7 @@ export function createCore(canvas?: HTMLCanvasElement | null): Core {
     core.renderer = new Renderer()
     core.effect = new Effect()
     core.resources = new Resources()
-    core.intro = new Intro()
+    // core.intro = new Intro()
 
     core.createStage = (stage: Stage) => {
         core.stage = stage
