@@ -38,15 +38,15 @@ export default class Resources extends EventEmitter {
     setLoaders() {
         let loaders = {} as Loaders
         loadingManager.onStart = () => {
-            this.core.intro.init()
+            this.core.intro?.init()
         }
 
         loadingManager.onLoad = () => {
-            this.core.intro.start()
+            this.core.intro?.start()
         }
 
         loadingManager.onProgress = (_itemUrl, itemsLoaded, itemsTotal) => {
-            this.core.intro.update(itemsLoaded / itemsTotal)
+            this.core.intro?.update(itemsLoaded / itemsTotal)
         }
 
         loadingManager.onError = (err: string) => {

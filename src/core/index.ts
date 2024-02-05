@@ -18,7 +18,7 @@ export type Core = {
     sizes: Sizes
     time: Time
     scene: Scene
-    intro: Intro
+    intro: Intro | null
     camera: Camera
     cursor: Cursor
     scroll: Scroll
@@ -88,7 +88,7 @@ export function createCore(canvas?: HTMLCanvasElement | null): Core {
 
         disposeMeshes(core.scene)
 
-        core.intro.destroy()
+        core.intro?.destroy()
         core.cursor.destroy()
         core.scroll.destroy()
         core.camera.destroy()

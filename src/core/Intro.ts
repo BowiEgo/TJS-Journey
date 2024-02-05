@@ -90,10 +90,18 @@ export default class Intro extends EventEmitter {
             }
             this.loadingBarElement?.classList.add('ended')
         })
+
+        gsap.delayedCall(3.5, () => {
+            this.destroy()
+        })
     }
 
     destroy() {
         disposeMeshes(this.overlay)
         this.scene.remove(this.overlay)
+        if (this.loadingBarElement) {
+            this.loadingBarElement.style.display = `none`
+        }
+        this.core.intro = null
     }
 }
