@@ -20,6 +20,7 @@ import ModifiedMaterialsStage from './stages/modifiedMaterials'
 import PostProcessingStage from './stages/postProcessing'
 import PerformanceTipsStage from './stages/performanceTips'
 import MixingHTMLStage from './stages/mixingHTML'
+import portalStage from './stages/portal'
 
 document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
 <select title="stage" name="SelectStage" class="select">
@@ -43,6 +44,7 @@ document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
     <option value="postProcessing">PostProcessing</option>
     <option value="performanceTips">PerformanceTips</option>
     <option value="mixingHTML">MixingHTML</option>
+    <option value="portal">Portal</option>
 </select>
 `
 
@@ -131,6 +133,10 @@ select.onchange = async function (evt) {
             window.core.destroyStage()
             window.core.createStage(new MixingHTMLStage())
             break
+        case 'portal':
+            window.core.destroyStage()
+            window.core.createStage(new portalStage())
+            break
         default:
             window.core.destroyStage()
             window.core.createStage(new ShaderStage())
@@ -139,5 +145,5 @@ select.onchange = async function (evt) {
 }
 
 window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new MixingHTMLStage())
-select.value = 'mixingHTML'
+window.core.createStage(new portalStage())
+select.value = 'portal'
