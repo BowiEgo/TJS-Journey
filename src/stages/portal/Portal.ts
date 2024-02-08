@@ -27,7 +27,10 @@ export default class Portal {
     time: Time
     debug: Debug
     debugFolder: GUI | undefined
-    debugObject: any
+    debugObject: any = {
+        portalColorStart: '#ebecff',
+        portalColorEnd: '#ffffff',
+    }
     textures: Textures
     material: ShaderMaterial
     mesh: Mesh | Group
@@ -40,10 +43,6 @@ export default class Portal {
         this.debug = this.core.debug
         if (this.debug.active) {
             this.debugFolder = this.debug.ui?.addFolder('Portal')
-            this.debugObject = {
-                portalColorStart: '#ebecff',
-                portalColorEnd: '#ffffff',
-            }
         }
 
         this.textures = this.setTextures()
