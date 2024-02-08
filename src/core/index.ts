@@ -5,12 +5,12 @@ import Camera from './Camera'
 import Renderer from './Renderer'
 import Resources from './Resources'
 import Debug from './Debug'
-import Stage from '../stages'
 import { disposeMeshes } from './Utils'
 import Cursor from './Cursor'
 import Scroll from './Scroll'
 import Effect from './Effect'
 import Intro from './Intro'
+import Stage from '../stages/Stage'
 
 export type Core = {
     canvas: HTMLCanvasElement

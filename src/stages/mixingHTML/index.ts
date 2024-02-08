@@ -1,4 +1,4 @@
-import Stage from '..'
+import Stage from '../Stage'
 import Renderer from '../../core/Renderer'
 import Camera from '../../core/Camera'
 import Environment from './Environment'

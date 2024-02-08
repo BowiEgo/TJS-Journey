@@ -1,58 +1,32 @@
-import './style.css'
+import { useEffect, useRef } from 'react'
+import './App.css'
+import {
+    AnimatedGalaxyStage,
+    BasicStage,
+    BlenderModelsStage,
+    BouncingBallStage,
+    FoxStage,
+    GalaxyStage,
+    HauntedHouseStage,
+    MixingHTMLStage,
+    ModelsStage,
+    ModifiedMaterialsStage,
+    ParticleStage,
+    PerformanceTipsStage,
+    PhysicStage,
+    PortfolioStage,
+    PostProcessingStage,
+    RagingSeaStage,
+    RaycasterStage,
+    RealisticRenderStage,
+    ShaderPatternsStage,
+    ShaderStage,
+    portalStage,
+} from './stages'
 import { createCore } from './core'
-import FoxStage from './stages/fox'
-import BouncingBallStage from './stages/bouncingBall'
-import BasicStage from './stages/basic'
-import HauntedHouseStage from './stages/hauntedHouse'
-import ParticleStage from './stages/particle'
-import GalaxyStage from './stages/galaxy'
-import PortfolioStage from './stages/portfolio'
-import PhysicStage from './stages/physic'
-import ModelsStage from './stages/models'
-import RaycasterStage from './stages/raycaster'
-import BlenderModelsStage from './stages/blenderModels'
-import RealisticRenderStage from './stages/realisticRender'
-import ShaderStage from './stages/shader'
-import ShaderPatternsStage from './stages/shaderPatterns'
-import RagingSeaStage from './stages/ragingSea'
-import AnimatedGalaxyStage from './stages/animatedGalaxy'
-import ModifiedMaterialsStage from './stages/modifiedMaterials'
-import PostProcessingStage from './stages/postProcessing'
-import PerformanceTipsStage from './stages/performanceTips'
-import MixingHTMLStage from './stages/mixingHTML'
-import portalStage from './stages/portal'
 
-document.querySelector<HTMLDivElement>('.form')!.innerHTML = `
-<select title="stage" name="SelectStage" class="select">
-    <option value="basic" selected>Basic</option>
-    <option value="boucingBall">BoucingBall</option>
-    <option value="hauntedHouse">HauntedHouse</option>
-    <option value="particle">Particle</option>
-    <option value="galaxy">Galaxy</option>
-    <option value="portfoli">Portfolio</option>
-    <option value="phyisc">Phyisc</option>
-    <option value="models">Models</option>
-    <option value="raycaster">Raycaster</option>
-    <option value="blenderModels">BlenderModels</option>
-    <option value="realisticRender">RealisticRender</option>
-    <option value="fox">Fox</option>
-    <option value="shader">Shader</option>
-    <option value="shaderPatterns">ShaderPatterns</option>
-    <option value="ragingSea">RagingSea</option>
-    <option value="animatedGalaxy">AnimatedGalaxy</option>
-    <option value="modifiedMaterial">ModifiedMaterial</option>
-    <option value="postProcessing">PostProcessing</option>
-    <option value="performanceTips">PerformanceTips</option>
-    <option value="mixingHTML">MixingHTML</option>
-    <option value="portal">Portal</option>
-</select>
-`
-
-const select = document.querySelector('.select') as HTMLSelectElement
-
-select.onchange = async function (evt) {
-    const target = evt.target as any
-    switch (target.value) {
+async function handleSelectChange(val: string) {
+    switch (val) {
         case 'basic':
             window.core.destroyStage()
             window.core.createStage(new BasicStage())
@@ -144,6 +118,56 @@ select.onchange = async function (evt) {
     }
 }
 
-window.core = createCore(document.querySelector('canvas.webgl') as HTMLCanvasElement | null)
-window.core.createStage(new portalStage())
-select.value = 'portal'
+function App() {
+    const canvasDOM = useRef(null)
+
+    useEffect(() => {
+        window.core = createCore(canvasDOM.current)
+        window.core.createStage(new portalStage())
+    })
+
+    return (
+        <>
+            <canvas className="webgl" ref={canvasDOM}></canvas>
+            <div className="loading-bar"></div>
+            <div className="form"></div>
+            <div className="point-container">
+                <div className="point point-0"></div>
+                <div className="point point-1"></div>
+                <div className="point point-2"></div>
+            </div>
+            <select
+                title="stage"
+                name="SelectStage"
+                className="select"
+                defaultValue="portal"
+                onChange={(e) => handleSelectChange(e.target.value)}
+            >
+                <option value="basic">Basic</option>
+                <option value="boucingBall">BoucingBall</option>
+                <option value="hauntedHouse">HauntedHouse</option>
+                <option value="particle">Particle</option>
+                <option value="galaxy">Galaxy</option>
+                <option value="portfoli">Portfolio</option>
+                <option value="phyisc">Phyisc</option>
+                <option value="models">Models</option>
+                <option value="raycaster">Raycaster</option>
+                <option value="blenderModels">BlenderModels</option>
+                <option value="realisticRender">RealisticRender</option>
+                <option value="fox">Fox</option>
+                <option value="shader">Shader</option>
+                <option value="shaderPatterns">ShaderPatterns</option>
+                <option value="ragingSea">RagingSea</option>
+                <option value="animatedGalaxy">AnimatedGalaxy</option>
+                <option value="modifiedMaterial">ModifiedMaterial</option>
+                <option value="postProcessing">PostProcessing</option>
+                <option value="performanceTips">PerformanceTips</option>
+                <option value="mixingHTML">MixingHTML</option>
+                <option value="portal">Portal</option>
+            </select>
+            ,
+        </>
+    )
+}
+
+export default App

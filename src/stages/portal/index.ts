@@ -1,5 +1,5 @@
 import Environment from './Environment'
-import Stage from '..'
+import Stage from '../Stage'
 import Portal from './Portal'
 import sources from './sources'
 import Debug from '../../core/Debug'

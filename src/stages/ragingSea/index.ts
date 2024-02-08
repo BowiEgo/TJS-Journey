@@ -1,4 +1,4 @@
-import Stage from '..'
+import Stage from '../Stage'
 import Plane from './Plane'
 
 export default class RagingSeaStage extends Stage {

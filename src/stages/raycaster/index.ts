@@ -1,5 +1,5 @@
 import { Intersection, Raycaster, Vector2 } from 'three'
-import Stage from '..'
+import Stage from '../Stage'
 import Cursor from '../../core/Cursor'
 import Environment from './Environment'
 import Objects from './Objects'

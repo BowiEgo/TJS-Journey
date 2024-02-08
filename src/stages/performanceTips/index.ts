@@ -1,4 +1,4 @@
-import Stage from '..'
+import Stage from '../Stage'
 import Ball from './Ball'
 import Cube from './Cube'
 import Environment from './Environment'

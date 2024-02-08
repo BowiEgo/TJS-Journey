@@ -1,29 +1,29 @@
-import Stage from '..'
+import Stage from '../Stage'
 import Galaxy from './Galaxy'
 
 export default class AnimatedGalaxyStage extends Stage {
-  galaxy: Galaxy | null = null
+    galaxy: Galaxy | null = null
 
-  constructor() {
-    super()
+    constructor() {
+        super()
 
-    this.on('setup', () => {
-      // Camera
-      this.core?.camera.instance.position.set(6, 3, 6)
-      this.core?.camera.instance.rotation.set(0, 0, 0)
-      // Setup
-      this.galaxy = new Galaxy()
-    })
+        this.on('setup', () => {
+            // Camera
+            this.core?.camera.instance.position.set(6, 3, 6)
+            this.core?.camera.instance.rotation.set(0, 0, 0)
+            // Setup
+            this.galaxy = new Galaxy()
+        })
 
-    this.on('update', () => {
-      this.galaxy?.update()
-    })
+        this.on('update', () => {
+            this.galaxy?.update()
+        })
 
-    this.on('destroy', () => {
-      this.galaxy?.destroy()
-      // this.environment?.destroy()
-    })
+        this.on('destroy', () => {
+            this.galaxy?.destroy()
+            // this.environment?.destroy()
+        })
 
-    this.resources.trigger('ready')
-  }
+        this.resources.trigger('ready')
+    }
 }
