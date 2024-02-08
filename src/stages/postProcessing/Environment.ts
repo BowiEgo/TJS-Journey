@@ -94,7 +94,7 @@ export default class Environment {
     }
 
     setEnvironmentMap() {
-        let environmentMap = {} as EnvironmentMap
+        const environmentMap = {} as EnvironmentMap
         environmentMap.intensity = 2.4
         environmentMap.texture = this.resources.items.environmentMapTexture as CubeTexture
         environmentMap.texture.colorSpace = SRGBColorSpace

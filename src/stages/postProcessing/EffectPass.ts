@@ -2,6 +2,7 @@ import {
     DotScreenPass,
     GammaCorrectionShader,
     GlitchPass,
+    Pass,
     RGBShiftShader,
     RenderPass,
     ShaderPass,
@@ -15,6 +16,17 @@ import GUI from 'lil-gui'
 import Time from '../../core/Time'
 import Resources from '../../core/Resources'
 
+type Effects = {
+    renderPass: Pass | null
+    dotScreenPass: Pass | null
+    glitchPass: Pass | null
+    rgbShiftPass: Pass | null
+    gammaCorrectPass: Pass | null
+    unrealBloomPass: Pass | null
+    tintPass: Pass | null
+    displacementPass: ShaderPass | null
+}
+
 export default class EffectPass {
     core: Core
     scene: Scene
@@ -23,7 +35,7 @@ export default class EffectPass {
     debug: Debug
     debugFolder: GUI | undefined
     effect: Effect
-    effects: any = {}
+    effects: Effects
 
     constructor() {
         this.core = createCore()
@@ -210,13 +222,16 @@ export default class EffectPass {
     }
 
     update() {
-        this.effects.displacementPass.material.uniforms.uTime.value = this.time.elapsed
+        if (this.effects.displacementPass) {
+            this.effects.displacementPass.material.uniforms.uTime.value = this.time.elapsed
+        }
     }
 
     destroy() {
-        for (let i in this.effects) {
-            this.effect.instance.removePass(this.effects[i])
-            this.effects[i].dispose()
-        }
+        Object.keys(this.effects).forEach((key) => {
+            const effect = this.effects[key as keyof Effects] as Pass
+            effect && this.effect.instance.removePass(effect)
+            effect && effect.dispose()
+        })
     }
 }

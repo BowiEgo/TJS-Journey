@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite --host",
         "build": "tsc && vite build",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
         "preview": "vite preview",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
     },
@@ -19,7 +20,7 @@
         "@types/cannon": "^0.1.12",
         "@types/react": "^18.2.55",
         "@types/react-dom": "^18.2.19",
-        "@types/three": "^0.160.0",
+        "@types/three": "^0.161.2",
         "@typescript-eslint/eslint-plugin": "^6.21.0",
         "@typescript-eslint/parser": "^6.21.0",
         "@vitejs/plugin-react": "^4.2.1",

@@ -1,4 +1,4 @@
-import { Intersection, Raycaster, Vector2 } from 'three'
+import { Intersection, Mesh, MeshBasicMaterial, Raycaster, Vector2 } from 'three'
 import Stage from '../Stage'
 import Cursor from '../../core/Cursor'
 import Environment from './Environment'
@@ -57,11 +57,14 @@ export default class RaycasterStage extends Stage {
             const intersets = this.raycaster.intersectObjects(this.objects.sectionMeshes)
 
             for (const object of this.objects.sectionMeshes) {
-                ;(object.material as any).color.set('#ff0000')
+                const material = object.material as MeshBasicMaterial
+                material.color.set('#ff0000')
             }
 
             for (const interset of intersets) {
-                ;(interset.object as any).material.color.set('#0000ff')
+                const intersectObject = interset.object as Mesh
+                const material = intersectObject.material as MeshBasicMaterial
+                material.color.set('#0000ff')
             }
 
             if (intersets.length) {

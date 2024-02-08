@@ -1,96 +1,96 @@
-import { DRACOLoader, GLTF, GLTFLoader } from 'three/examples/jsm/Addons.js'
-import EventEmitter from './EventEmitter'
-import { CubeTexture, CubeTextureLoader, LoadingManager, Texture, TextureLoader } from 'three'
-import { Source } from '../stages/types'
-import { Core, createCore } from '.'
+import { DRACOLoader, GLTF, GLTFLoader } from 'three/examples/jsm/Addons.js';
+import EventEmitter from './EventEmitter';
+import { CubeTexture, CubeTextureLoader, LoadingManager, Texture, TextureLoader } from 'three';
+import { Source } from '../stages/types';
+import { Core, createCore } from '.';
 
 type Loaders = {
-    gltfLoader: GLTFLoader
-    textureLoader: TextureLoader
-    cubeTextureLoader: CubeTextureLoader
-}
+    gltfLoader: GLTFLoader;
+    textureLoader: TextureLoader;
+    cubeTextureLoader: CubeTextureLoader;
+};
 
-type File = GLTF | Texture | CubeTexture
+type File = GLTF | Texture | CubeTexture;
 
-const loadingManager = new LoadingManager()
+const loadingManager = new LoadingManager();
 
-const dracoLoader = new DRACOLoader()
-dracoLoader.setDecoderPath('/assets/draco/gltf/')
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('/assets/draco/gltf/');
 
 export default class Resources extends EventEmitter {
-    core: Core
-    items: { [key: string]: File }
-    toLoad: number
-    loaded: number
-    loaders: Loaders
+    core: Core;
+    items: { [key: string]: File };
+    toLoad: number;
+    loaded: number;
+    loaders: Loaders;
 
     constructor() {
-        super()
+        super();
 
         // Setup
-        this.core = createCore()
-        this.items = {}
-        this.toLoad = 0
-        this.loaded = 0
-        this.loaders = this.setLoaders()
+        this.core = createCore();
+        this.items = {};
+        this.toLoad = 0;
+        this.loaded = 0;
+        this.loaders = this.setLoaders();
     }
 
     setLoaders() {
-        let loaders = {} as Loaders
+        const loaders = {} as Loaders;
         loadingManager.onStart = () => {
-            this.core.intro?.init()
-        }
+            this.core.intro?.init();
+        };
 
         loadingManager.onLoad = () => {
-            this.core.intro?.start()
-        }
+            this.core.intro?.start();
+        };
 
         loadingManager.onProgress = (_itemUrl, itemsLoaded, itemsTotal) => {
-            this.core.intro?.update(itemsLoaded / itemsTotal)
-        }
+            this.core.intro?.update(itemsLoaded / itemsTotal);
+        };
 
         loadingManager.onError = (err: string) => {
-            console.error('onError', err)
-        }
+            console.error('onError', err);
+        };
 
-        loaders.gltfLoader = new GLTFLoader(loadingManager)
-        loaders.gltfLoader.setDRACOLoader(dracoLoader)
-        loaders.textureLoader = new TextureLoader(loadingManager)
-        loaders.cubeTextureLoader = new CubeTextureLoader(loadingManager)
-        this.loaders = loaders
-        return loaders
+        loaders.gltfLoader = new GLTFLoader(loadingManager);
+        loaders.gltfLoader.setDRACOLoader(dracoLoader);
+        loaders.textureLoader = new TextureLoader(loadingManager);
+        loaders.cubeTextureLoader = new CubeTextureLoader(loadingManager);
+        this.loaders = loaders;
+        return loaders;
     }
 
     load(sources: Source[]) {
-        this.items = {}
-        this.toLoad = sources.length
-        this.loaded = 0
+        this.items = {};
+        this.toLoad = sources.length;
+        this.loaded = 0;
 
         // Load each source
         for (const source of sources) {
             if (source.type === 'gltfModel') {
                 this.loaders.gltfLoader.load(source.path as string, (file) => {
-                    this.sourceLoaded(source, file)
-                })
+                    this.sourceLoaded(source, file);
+                });
             } else if (source.type === 'texture') {
                 this.loaders.textureLoader.load(source.path as string, (file) => {
-                    this.sourceLoaded(source, file)
-                })
+                    this.sourceLoaded(source, file);
+                });
             } else if (source.type === 'cubeTexture') {
                 this.loaders.cubeTextureLoader.load(source.path as string[], (file) => {
-                    this.sourceLoaded(source, file)
-                })
+                    this.sourceLoaded(source, file);
+                });
             }
         }
     }
 
     sourceLoaded(source: Source, file: File) {
-        this.items[source.name] = file
+        this.items[source.name] = file;
 
-        this.loaded++
+        this.loaded++;
 
         if (this.loaded === this.toLoad) {
-            this.trigger('ready')
+            this.trigger('ready');
         }
     }
 }

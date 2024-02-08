@@ -38,15 +38,15 @@ export default class Objects {
         this.debug = this.core.debug
 
         // Debug
-        if (this.debug.active) {
-        }
+        // if (this.debug.active) {
+        // }
 
         this.geometry = this.setGeometries()
         this.meshes = this.setMeshes()
     }
 
     setGeometries() {
-        let geometry = new SphereGeometry(0.5, 16, 16)
+        const geometry = new SphereGeometry(0.5, 16, 16)
 
         this.geometry = geometry
         return geometry
