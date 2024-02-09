@@ -1,9 +1,21 @@
-import { useFrame } from '@react-three/fiber';
+import { ReactThreeFiber, extend, useFrame, useThree } from '@react-three/fiber';
 import { useRef } from 'react';
 import * as Three from 'three';
+import { OrbitControls } from 'three/examples/jsm/Addons.js';
 import CustomObject from '../CustomObject';
 
+extend({ OrbitControls });
+declare global {
+    namespace JSX {
+        interface IntrinsicElements {
+            orbitControls: ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>;
+        }
+    }
+}
+
 export default function Experience() {
+    const { camera, gl } = useThree();
+
     const cubeRef = useRef<Three.Mesh>(null!);
     const groupRef = useRef<Three.Group>(null!);
 
@@ -19,6 +31,8 @@ export default function Experience() {
 
     return (
         <>
+            <orbitControls args={[camera, gl.domElement]} />
+
             <directionalLight position={[1, 2, 3]} intensity={1.5} />
             <ambientLight intensity={0.5} />
 
