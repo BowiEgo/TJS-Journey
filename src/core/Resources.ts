@@ -1,13 +1,18 @@
 import { DRACOLoader, GLTF, GLTFLoader } from 'three/examples/jsm/Addons.js';
 import EventEmitter from './EventEmitter';
 import { CubeTexture, CubeTextureLoader, LoadingManager, Texture, TextureLoader } from 'three';
-import { Source } from '../stages/types';
 import { Core, createCore } from '.';
 
 type Loaders = {
     gltfLoader: GLTFLoader;
     textureLoader: TextureLoader;
     cubeTextureLoader: CubeTextureLoader;
+};
+
+type Source = {
+    name: string;
+    type: string;
+    path: string | string[];
 };
 
 type File = GLTF | Texture | CubeTexture;

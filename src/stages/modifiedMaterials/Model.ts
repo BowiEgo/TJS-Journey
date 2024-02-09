@@ -14,8 +14,8 @@ import { GLTF } from 'three/examples/jsm/Addons.js';
 import { disposeMeshes } from '../../core/Utils';
 import Debug from '../../core/Debug';
 import GUI from 'lil-gui';
-import { Textures } from '../types';
 import Time from '../../core/Time';
+import { Textures } from '../type';
 
 type CustomUniforms = {
     uTime: { value: number };

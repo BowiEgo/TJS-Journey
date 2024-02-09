@@ -5,18 +5,18 @@ import {
     Points,
     ShaderMaterial,
     AdditiveBlending,
-} from 'three'
-import { Core, createCore } from '../../core'
-import Resources from '../../core/Resources'
-import Time from '../../core/Time'
-import { disposeMeshes } from '../../core/Utils'
-import { Textures } from '../types'
-import firefliesVertexShader from '../../shaders/fireflies/vertex.glsl'
-import firefliesFragmentShader from '../../shaders/fireflies/fragment.glsl'
-import Renderer from '../../core/Renderer'
-import Sizes from '../../core/Sizes'
-import Debug from '../../core/Debug'
-import GUI from 'lil-gui'
+} from 'three';
+import { Core, createCore } from '../../core';
+import Resources from '../../core/Resources';
+import Time from '../../core/Time';
+import { disposeMeshes } from '../../core/Utils';
+import { Textures } from '../type';
+import firefliesVertexShader from '../../shaders/fireflies/vertex.glsl';
+import firefliesFragmentShader from '../../shaders/fireflies/fragment.glsl';
+import Renderer from '../../core/Renderer';
+import Sizes from '../../core/Sizes';
+import Debug from '../../core/Debug';
+import GUI from 'lil-gui';
 
 const PAREMETERS = {
     count: 30,
@@ -28,63 +28,63 @@ const PAREMETERS = {
     randomnessPower: 3,
     insideColor: '#ff6030',
     outsideColor: '#1b3984',
-}
+};
 
 export default class Fireflies {
-    core: Core | null
-    renderer: Renderer
-    sizes: Sizes
-    scene: Scene
-    resources: Resources
-    time: Time
-    debug: Debug
-    debugFolder: GUI | undefined
-    geometry: BufferGeometry
-    textures: Textures
-    material: ShaderMaterial
-    points: Points
+    core: Core | null;
+    renderer: Renderer;
+    sizes: Sizes;
+    scene: Scene;
+    resources: Resources;
+    time: Time;
+    debug: Debug;
+    debugFolder: GUI | undefined;
+    geometry: BufferGeometry;
+    textures: Textures;
+    material: ShaderMaterial;
+    points: Points;
 
     constructor() {
-        this.core = createCore()
-        this.renderer = this.core.renderer
-        this.sizes = this.core.sizes
-        this.scene = this.core.scene
-        this.resources = this.core.resources
-        this.time = this.core.time
-        this.debug = this.core.debug
+        this.core = createCore();
+        this.renderer = this.core.renderer;
+        this.sizes = this.core.sizes;
+        this.scene = this.core.scene;
+        this.resources = this.core.resources;
+        this.time = this.core.time;
+        this.debug = this.core.debug;
         if (this.debug.active) {
-            this.debugFolder = this.debug.ui?.addFolder('Fireflies')
+            this.debugFolder = this.debug.ui?.addFolder('Fireflies');
         }
 
-        this.geometry = this.setGeometry()
-        this.textures = this.setTexture()
-        this.material = this.setMaterial()
-        this.points = this.setPoints()
+        this.geometry = this.setGeometry();
+        this.textures = this.setTexture();
+        this.material = this.setMaterial();
+        this.points = this.setPoints();
     }
 
     setGeometry() {
-        const geometry = new BufferGeometry()
-        const positionArray = new Float32Array(PAREMETERS.count * 3)
-        const scaleArray = new Float32Array(PAREMETERS.count)
+        const geometry = new BufferGeometry();
+        const positionArray = new Float32Array(PAREMETERS.count * 3);
+        const scaleArray = new Float32Array(PAREMETERS.count);
 
         for (let i = 0; i < PAREMETERS.count; i++) {
-            positionArray[i * 3 + 0] = (Math.random() - 0.5) * 4
-            positionArray[i * 3 + 1] = Math.random() * 1.5
-            positionArray[i * 3 + 2] = (Math.random() - 0.5) * 4
+            positionArray[i * 3 + 0] = (Math.random() - 0.5) * 4;
+            positionArray[i * 3 + 1] = Math.random() * 1.5;
+            positionArray[i * 3 + 2] = (Math.random() - 0.5) * 4;
 
-            scaleArray[i] = Math.random()
+            scaleArray[i] = Math.random();
         }
 
-        geometry.setAttribute('position', new BufferAttribute(positionArray, 3))
-        geometry.setAttribute('aScale', new BufferAttribute(scaleArray, 1))
+        geometry.setAttribute('position', new BufferAttribute(positionArray, 3));
+        geometry.setAttribute('aScale', new BufferAttribute(scaleArray, 1));
 
-        return geometry
+        return geometry;
     }
 
     setTexture() {
-        const textures = {} as Textures
+        const textures = {} as Textures;
 
-        return textures
+        return textures;
     }
 
     setMaterial() {
@@ -99,11 +99,11 @@ export default class Fireflies {
             transparent: true,
             blending: AdditiveBlending,
             depthWrite: false,
-        })
+        });
 
         this.sizes.on('resize', () => {
-            material.uniforms.uPixelRatio.value = this.renderer.instance.getPixelRatio()
-        })
+            material.uniforms.uPixelRatio.value = this.renderer.instance.getPixelRatio();
+        });
 
         // Debug
         this.debugFolder
@@ -111,24 +111,24 @@ export default class Fireflies {
             .min(0)
             .max(500)
             .step(1)
-            .name('firefliesSize')
+            .name('firefliesSize');
 
-        return material
+        return material;
     }
 
     setPoints() {
-        const points = new Points(this.geometry, this.material)
+        const points = new Points(this.geometry, this.material);
 
-        this.scene.add(points)
-        return points
+        this.scene.add(points);
+        return points;
     }
 
     update() {
-        this.material.uniforms.uTime.value = this.time.elapsed
+        this.material.uniforms.uTime.value = this.time.elapsed;
     }
 
     destroy() {
-        disposeMeshes(this.points)
-        this.scene.remove(this.points)
+        disposeMeshes(this.points);
+        this.scene.remove(this.points);
     }
 }

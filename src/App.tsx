@@ -1,11 +1,12 @@
 import './App.css';
 import { useEffect, useRef } from 'react';
 import { createCore } from './core';
-import Select from './Select';
+import { Selector } from './components/StageSelector/type';
+import StageSelector from './components/StageSelector';
 
 function App() {
     const canvasDOM = useRef(null);
-    const selectRef = useRef<Select>(null);
+    const selectRef = useRef<Selector>(null);
 
     useEffect(() => {
         window.core = createCore(canvasDOM.current);
@@ -22,7 +23,7 @@ function App() {
                 <div className="point point-1"></div>
                 <div className="point point-2"></div>
             </div>
-            <Select ref={selectRef} />
+            <StageSelector ref={selectRef} />
         </>
     );
 }

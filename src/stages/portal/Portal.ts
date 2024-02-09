@@ -15,7 +15,7 @@ import Resources from '../../core/Resources';
 import Time from '../../core/Time';
 import { disposeMeshes } from '../../core/Utils';
 import { GLTF } from 'three/examples/jsm/Addons.js';
-import { Textures } from '../types';
+import { Textures } from '../type';
 import portalVertexShader from '../../shaders/portal/vertex.glsl';
 import portalFragmentShader from '../../shaders/portal/fragment.glsl';
 import Debug from '../../core/Debug';
