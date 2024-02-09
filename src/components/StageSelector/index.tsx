@@ -2,6 +2,7 @@ import { Ref, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import Stages, { stageNames } from '../../stages';
 import { ChangeFunc, Props, Selector } from './type';
 import { StageName } from '../../stages/type';
+import './style.css';
 
 const handleSelectChange: ChangeFunc = (val) => {
     if (!stageNames.includes(val)) {
@@ -22,12 +23,14 @@ const StageSelector = forwardRef(function (props: Props, ref: Ref<Selector>) {
     const [current, setCurrent] = useState('basic');
     const selectRef = useRef(null);
 
+    const change: ChangeFunc = (val) => {
+        setCurrent(val);
+        handleSelectChange(val);
+    };
+
     useImperativeHandle(ref, () => {
         return {
-            change: (val) => {
-                setCurrent(val);
-                handleSelectChange(val);
-            },
+            change,
         };
     });
 
@@ -35,10 +38,10 @@ const StageSelector = forwardRef(function (props: Props, ref: Ref<Selector>) {
         <select
             {...props}
             title="stage"
-            name="SelectStage"
-            className="select"
+            name="StageSelector"
+            className="stage-selector"
             value={current}
-            onChange={(e) => handleSelectChange(e.target.value as StageName)}
+            onChange={(e) => change(e.target.value as StageName)}
             ref={selectRef}
         >
             {stageNames.map((stageName) => (

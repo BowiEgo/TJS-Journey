@@ -1,0 +1,9 @@
+.stage-selector {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 30px;
+    outline: none;
+    z-index: 9999;
+}

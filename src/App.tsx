@@ -1,31 +1,24 @@
 import './App.css';
-import { useEffect, useRef } from 'react';
-import { createCore } from './core';
-import { Selector } from './components/StageSelector/type';
-import StageSelector from './components/StageSelector';
+import { Canvas } from '@react-three/fiber';
+import * as Three from 'three';
+import Experience from './components/Three/Experience';
+// import NativeThreeJS from './pages/nativeThreejs';
 
-function App() {
-    const canvasDOM = useRef(null);
-    const selectRef = useRef<Selector>(null);
-
-    useEffect(() => {
-        window.core = createCore(canvasDOM.current);
-        selectRef.current?.change('portal');
-    });
-
+export default function App() {
     return (
         <>
-            <canvas className="webgl" ref={canvasDOM}></canvas>
-            <div className="loading-bar"></div>
-            <div className="form"></div>
-            <div className="point-container">
-                <div className="point point-0"></div>
-                <div className="point point-1"></div>
-                <div className="point point-2"></div>
-            </div>
-            <StageSelector ref={selectRef} />
+            <Canvas
+                gl={{
+                    antialias: true,
+                    toneMapping: Three.ACESFilmicToneMapping,
+                    outputColorSpace: Three.SRGBColorSpace,
+                }}
+                camera={{ fov: 45, near: 0.1, far: 200, position: [3, 2, 6] }}
+            >
+                <Experience />
+            </Canvas>
+
+            {/* <NativeThreeJS /> */}
         </>
     );
 }
-
-export default App;
