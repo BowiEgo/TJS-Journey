@@ -69,8 +69,8 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
 
     const { colorA, colorB, colorC } = useControls('light', {
         colorA: '#00f5ff',
-        colorB: '#000000',
-        colorC: '#ff0000',
+        colorB: '#ffa9a9',
+        colorC: '#d1d1d1',
     });
 
     return (
