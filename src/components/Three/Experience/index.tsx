@@ -12,6 +12,8 @@ import {
     TransformControls,
 } from '@react-three/drei';
 import './style.css';
+import { button, useControls } from 'leva';
+import { Perf } from 'r3f-perf';
 
 export default function Experience() {
     const sphereRef = useRef<Three.Mesh>(null!);
@@ -27,8 +29,42 @@ export default function Experience() {
         // groupRef.current.rotation.y += delta;
     });
 
+    const { perfVisible } = useControls({
+        perfVisible: true,
+    });
+
+    const { position, color, visible } = useControls('sphere', {
+        position: {
+            value: { x: -2, y: 0 },
+            step: 0.01,
+            joystick: 'invertY',
+        },
+        color: 'orange',
+        visible: true,
+        myInterval: {
+            min: 0,
+            max: 10,
+            value: [4, 5],
+        },
+        clickMe: button(() => {
+            console.log('ok');
+        }),
+        choice: { options: ['a', 'b', 'c'] },
+    });
+
+    const { scale } = useControls('cube', {
+        scale: {
+            value: 1.5,
+            step: 0.01,
+            min: 0,
+            max: 5,
+        },
+    });
+
     return (
         <>
+            {perfVisible ? <Perf position="top-left" /> : null}
+
             <OrbitControls makeDefault />
 
             <directionalLight position={[1, 2, 3]} intensity={1.5} />
@@ -43,9 +79,9 @@ export default function Experience() {
                     scale={100}
                     fixed={true}
                 >
-                    <mesh ref={sphereRef} position-x={-2}>
+                    <mesh ref={sphereRef} position={[position.x, position.y, 0]} visible={visible}>
                         <sphereGeometry />
-                        <meshStandardMaterial color="orange" />
+                        <meshStandardMaterial color={color} />
                         <Html
                             position={[1, 1, 0]}
                             wrapperClass="label"
@@ -58,7 +94,7 @@ export default function Experience() {
                     </mesh>
                 </PivotControls>
 
-                <mesh ref={cubeRef} position-x={2} scale={1.5}>
+                <mesh ref={cubeRef} position-x={2} scale={scale}>
                     <boxGeometry />
                     <meshStandardMaterial color="mediumpurple" />
                 </mesh>
