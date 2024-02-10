@@ -40,6 +40,7 @@
         "@react-three/fiber": "^8.15.16",
         "cannon-es": "^0.15.1",
         "gsap": "^3.5.1",
+        "lamina": "^1.1.23",
         "leva": "^0.9.35",
         "lil-gui": "^0.19.1",
         "r3f-perf": "^7.1.2",

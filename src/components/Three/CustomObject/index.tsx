@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react';
-import * as Three from 'three';
+import * as THREE from 'three';
 
 export default function CustomObject() {
-    const geometryRef = useRef<Three.BufferGeometry>(null);
+    const geometryRef = useRef<THREE.BufferGeometry>(null);
 
     const verticesCount = 10 * 3;
 
@@ -30,7 +30,7 @@ export default function CustomObject() {
                     array={positions}
                 />
             </bufferGeometry>
-            <meshStandardMaterial color="red" side={Three.DoubleSide} />
+            <meshStandardMaterial color="red" side={THREE.DoubleSide} />
         </mesh>
     );
 }

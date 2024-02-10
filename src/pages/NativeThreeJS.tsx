@@ -2,14 +2,19 @@ import { useEffect, useRef } from 'react';
 import { createCore } from '../core';
 import { Selector } from '../components/StageSelector/type';
 import StageSelector from '../components/StageSelector';
+import { PageName, SwitchPage } from '../App';
 
-export default function NativeThreeJS() {
+interface Props {
+    switchPage: SwitchPage;
+}
+
+export default function NativeThreeJS({ switchPage }: Props) {
     const canvasDOM = useRef(null);
     const selectRef = useRef<Selector>(null);
 
     useEffect(() => {
         window.core = createCore(canvasDOM.current);
-        selectRef.current?.change('portal');
+        selectRef.current?.change('basic');
 
         // Dispose
         return () => {
@@ -20,6 +25,12 @@ export default function NativeThreeJS() {
 
     return (
         <>
+            <button
+                style={{ position: 'fixed', top: 0, left: '40%', zIndex: 9999 }}
+                onClick={() => switchPage(PageName.R3F)}
+            >
+                SwitchToR3F
+            </button>
             <canvas className="webgl" ref={canvasDOM}></canvas>
             <div className="loading-bar"></div>
             <div className="form"></div>

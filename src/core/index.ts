@@ -98,6 +98,8 @@ export function createCore(canvas?: HTMLCanvasElement | null): Core {
         if (core.debug.active) {
             core.debug.ui?.destroy();
         }
+
+        instance = null;
     };
 
     // Resize event
