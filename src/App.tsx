@@ -2,9 +2,9 @@ import './App.css';
 import { Canvas } from '@react-three/fiber';
 import { StrictMode, useState } from 'react';
 import * as THREE from 'three';
-import Experience from './components/Three/Experience';
 import { Leva } from 'leva';
 import NativeThreeJS from './pages/NativeThreeJS';
+import R3F from './components/T3F';
 
 export enum PageName {
     R3F,
@@ -34,7 +34,7 @@ export default function App() {
                         camera={{ fov: 30, near: 0.1, far: 200, position: [-5.0, 0, -4.0] }}
                         shadows
                     >
-                        <Experience switchPage={switchPage} />
+                        <R3F switchPage={switchPage} />
                     </Canvas>
                 </StrictMode>
             ) : (

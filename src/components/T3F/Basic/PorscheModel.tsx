@@ -12,6 +12,7 @@ interface Props {
 
 export default function PorscheModel(props: Props) {
     const { scene, nodes, materials } = useGLTF('assets/models/911/911-transformed.glb');
+
     useLayoutEffect(() => {
         Object.values(nodes).forEach(
             (node) => (node as any).isMesh && (node.receiveShadow = node.castShadow = true),
