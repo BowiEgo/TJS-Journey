@@ -26,6 +26,7 @@ export default function App() {
                 <StrictMode>
                     <Leva />
                     <Canvas
+                        flat
                         gl={{
                             antialias: true,
                             toneMapping: THREE.ACESFilmicToneMapping,
