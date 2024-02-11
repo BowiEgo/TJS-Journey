@@ -23,6 +23,7 @@ import { button, useControls } from 'leva';
 import { Perf } from 'r3f-perf';
 import { PageName, SwitchPage } from '../../../App';
 import Porsche from './Porsche';
+import Fox from './Fox';
 
 interface Props {
     switchPage: SwitchPage;
@@ -257,6 +258,7 @@ export default function Experience({ switchPage }: Props) {
             </Stage> */}
 
             <Porsche switchPage={switchPage} />
+            <Fox />
         </>
     );
 }

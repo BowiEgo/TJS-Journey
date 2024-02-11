@@ -2,11 +2,12 @@ import { useGLTF } from '@react-three/drei';
 import { applyProps } from '@react-three/fiber';
 import { Instance } from '@react-three/fiber/dist/declarations/src/core/renderer';
 import { useLayoutEffect } from 'react';
+import * as THREE from 'three';
 
 interface Props {
     scale: number;
-    position: [number, number, number];
-    rotation: [number, number, number];
+    position: THREE.Vector3Tuple;
+    rotation: THREE.Vector3Tuple;
 }
 
 export default function PorscheModel(props: Props) {

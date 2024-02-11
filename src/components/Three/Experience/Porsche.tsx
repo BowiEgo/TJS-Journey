@@ -11,9 +11,10 @@ import * as THREE from 'three';
 import { button, useControls } from 'leva';
 import { PageName, SwitchPage } from '../../../App';
 import PorscheModel from './PorscheModel';
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Color, Depth, LayerMaterial } from 'lamina';
+import Placeholder from './Placeholder';
 
 interface Props {
     switchPage: SwitchPage;
@@ -47,7 +48,13 @@ export default function Porsche({ switchPage }: Props) {
                 <Lightformers />
             </Environment>
             {/* <CameraRig /> */}
-            <PorscheModel scale={1.6} position={[-0.5, -0.18, 0]} rotation={[0, Math.PI / 5, 0]} />
+            <Suspense fallback={<Placeholder position-y={0.5} scale={[2, 3, 2]} />}>
+                <PorscheModel
+                    scale={1.6}
+                    position={[-0.5, -0.18, 0]}
+                    rotation={[0, Math.PI / 5, 0]}
+                />
+            </Suspense>
         </>
     );
 }
