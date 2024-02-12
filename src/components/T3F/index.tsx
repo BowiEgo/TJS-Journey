@@ -1,6 +1,8 @@
 import BasicExperience from './Basic/Experience';
 import TextExperience from './3DText/Experience';
 import PortalExperience from './Portal/Experience';
+import MouseEvtExperience from './MouseEvent/Experience';
+import PostProcessingExperience from './PostProcessing/Experience';
 import { useControls } from 'leva';
 import { ExtractByString } from '../../stages/type';
 
@@ -15,13 +17,13 @@ interface Props {
     switchPage: SwitchPage;
 }
 
-const expNames = ['basic', 'text', 'portal'] as const;
+const expNames = ['basic', 'text', 'portal', 'mouseEvent', 'postProcessing'] as const;
 
 type ExpName = ExtractByString<(typeof expNames)[number]>;
 
 export default function R3F({ switchPage }: Props) {
     const { experience } = useControls({
-        experience: { value: 'portal', options: expNames },
+        experience: { value: 'postProcessing', options: expNames },
     });
 
     const renderExperience = (name: ExpName) => {
@@ -32,6 +34,10 @@ export default function R3F({ switchPage }: Props) {
                 return <TextExperience switchPage={switchPage} />;
             case 'portal':
                 return <PortalExperience switchPage={switchPage} />;
+            case 'mouseEvent':
+                return <MouseEvtExperience switchPage={switchPage} />;
+            case 'postProcessing':
+                return <PostProcessingExperience switchPage={switchPage} />;
             default:
                 return null;
         }

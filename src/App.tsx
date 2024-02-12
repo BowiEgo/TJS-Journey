@@ -24,7 +24,7 @@ export default function App() {
         <>
             {currentPage === PageName.R3F ? (
                 <StrictMode>
-                    <Leva />
+                    <Leva collapsed />
                     <Canvas
                         flat
                         gl={{
@@ -32,7 +32,7 @@ export default function App() {
                             toneMapping: THREE.ACESFilmicToneMapping,
                             outputColorSpace: THREE.SRGBColorSpace,
                         }}
-                        camera={{ fov: 30, near: 0.1, far: 200, position: [-5.0, 0, -4.0] }}
+                        camera={{ fov: 30, near: 0.1, far: 200, position: [6, 6, 6] }}
                         shadows
                     >
                         <R3F switchPage={switchPage} />
