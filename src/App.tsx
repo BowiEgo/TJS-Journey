@@ -32,7 +32,7 @@ export default function App() {
                             toneMapping: THREE.ACESFilmicToneMapping,
                             outputColorSpace: THREE.SRGBColorSpace,
                         }}
-                        camera={{ fov: 30, near: 0.1, far: 200, position: [8, 3, 8] }}
+                        camera={{ fov: 30, near: 0.1, far: 200, position: [5, 3, 5] }}
                         shadows
                     >
                         <R3F switchPage={switchPage} />
