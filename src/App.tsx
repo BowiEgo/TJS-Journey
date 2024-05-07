@@ -17,7 +17,7 @@ export enum PageName {
 export type SwitchPage = (pageName: PageName) => void;
 
 export default function App() {
-    const [currentPage, setCurrentPage] = useState(PageName.R3F);
+    const [currentPage, setCurrentPage] = useState(PageName.nativeThreeJS);
 
     const switchPage: SwitchPage = (pageName) => {
         setCurrentPage(pageName);
